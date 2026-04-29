@@ -1165,6 +1165,8 @@
 
       const load = async () => {
         try {
+          // Uvijek brišemo localStorage i učitavamo iz Firebase
+          Object.values(KEYS).forEach(k => localStorage.removeItem(k));
           const [pazar, raspored, radnici, rashodi, done] = await Promise.all([
             COL.doc('pazar').get(), COL.doc('raspored').get(),
             COL.doc('radnici').get(), COL.doc('rashodi').get(), COL.doc('done').get(),
