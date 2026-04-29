@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="hr">
 <head>
   <meta charset="UTF-8">
@@ -1179,6 +1179,7 @@
         } catch(e) { console.warn('Firebase nedostupan, koristim lokalne podatke', e); }
         readyRef.current = true;
         setReady(true);
+        setSyncKey(k => k+1);
       };
       load();
 
