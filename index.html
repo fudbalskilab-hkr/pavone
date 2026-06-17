@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="hr">
 <head>
   <meta charset="UTF-8">
@@ -1039,7 +1039,6 @@ function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArra
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
 function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
-import { jsxDEV as _jsxDEV, Fragment as _Fragment } from "react/jsx-dev-runtime";
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i.return) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
@@ -1381,7 +1380,7 @@ function App() {
       });
     };
   }, []);
-  if (!ready) return /*#__PURE__*/_jsxDEV("div", {
+  if (!ready) return /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'flex',
       alignItems: 'center',
@@ -1390,46 +1389,33 @@ function App() {
       color: '#aaa',
       fontSize: '14px',
       fontFamily: 'Georgia,serif'
-    },
-    children: "U\u010Ditavanje..."
-  }, void 0, false);
-  return /*#__PURE__*/_jsxDEV(SyncCtx.Provider, {
-    value: syncKey,
-    children: /*#__PURE__*/_jsxDEV("div", {
-      children: [/*#__PURE__*/_jsxDEV("header", {
-        className: "header",
-        children: [/*#__PURE__*/_jsxDEV("div", {
-          className: "logo",
-          children: [/*#__PURE__*/_jsxDEV("div", {
-            className: "logo-circle"
-          }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-            children: [/*#__PURE__*/_jsxDEV("div", {
-              className: "logo-name",
-              children: "Pavone"
-            }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-              className: "logo-sub",
-              children: "trattoria"
-            }, void 0, false)]
-          }, void 0, true)]
-        }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-          className: "nav-tabs",
-          children: [/*#__PURE__*/_jsxDEV("button", {
-            className: "nav-tab ".concat(mod === 'pazar' ? 'active' : ''),
-            onClick: function onClick() {
-              return setMod('pazar');
-            },
-            children: "Pazar"
-          }, void 0, false), /*#__PURE__*/_jsxDEV("button", {
-            className: "nav-tab ".concat(mod === 'raspored' ? 'active' : ''),
-            onClick: function onClick() {
-              return setMod('raspored');
-            },
-            children: "Raspored"
-          }, void 0, false)]
-        }, void 0, true)]
-      }, void 0, true), mod === 'pazar' ? /*#__PURE__*/_jsxDEV(PazarModule, {}, void 0, false) : /*#__PURE__*/_jsxDEV(RasporedModule, {}, void 0, false)]
-    }, void 0, true)
-  }, void 0, false);
+    }
+  }, "U\u010Ditavanje...");
+  return /*#__PURE__*/React.createElement(SyncCtx.Provider, {
+    value: syncKey
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("header", {
+    className: "header"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "logo"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "logo-circle"
+  }), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "logo-name"
+  }, "Pavone"), /*#__PURE__*/React.createElement("div", {
+    className: "logo-sub"
+  }, "trattoria"))), /*#__PURE__*/React.createElement("div", {
+    className: "nav-tabs"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "nav-tab ".concat(mod === 'pazar' ? 'active' : ''),
+    onClick: function onClick() {
+      return setMod('pazar');
+    }
+  }, "Pazar"), /*#__PURE__*/React.createElement("button", {
+    className: "nav-tab ".concat(mod === 'raspored' ? 'active' : ''),
+    onClick: function onClick() {
+      return setMod('raspored');
+    }
+  }, "Raspored"))), mod === 'pazar' ? /*#__PURE__*/React.createElement(PazarModule, null) : /*#__PURE__*/React.createElement(RasporedModule, null)));
 }
 
 // ── PAZAR STATS ───────────────────────────────────────────────
@@ -1548,224 +1534,183 @@ function PazarStats(_ref) {
       d = _ref5[1];
     return d.promet;
   })).concat([1]));
-  return /*#__PURE__*/_jsxDEV("div", {
-    className: "main",
-    children: [/*#__PURE__*/_jsxDEV("button", {
-      className: "back-btn",
-      onClick: onBack,
-      children: "\u2190 Nazad"
-    }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-      className: "topbar",
+  return /*#__PURE__*/React.createElement("div", {
+    className: "main"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "back-btn",
+    onClick: onBack
+  }, "\u2190 Nazad"), /*#__PURE__*/React.createElement("div", {
+    className: "topbar",
+    style: {
+      marginBottom: '8px'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "page-title"
+  }, "Statistika")), /*#__PURE__*/React.createElement("div", {
+    className: "stats-controls"
+  }, [['month', 'Ovaj mesec'], ['3m', '3 meseca'], ['year', 'Ova godina'], ['all', 'Sve']].map(function (_ref6) {
+    var _ref7 = _slicedToArray(_ref6, 2),
+      p = _ref7[0],
+      l = _ref7[1];
+    return /*#__PURE__*/React.createElement("button", {
+      key: p,
+      className: "period-btn".concat(period === p ? ' active' : ''),
+      onClick: function onClick() {
+        return setPeriod(p);
+      }
+    }, l);
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "ps-summary"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "ps-sum-card"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "ps-sum-lbl"
+  }, "Promet"), /*#__PURE__*/React.createElement("div", {
+    className: "ps-sum-val"
+  }, fmt(totals.promet))), /*#__PURE__*/React.createElement("div", {
+    className: "ps-sum-card red"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "ps-sum-lbl"
+  }, "Rashodi"), /*#__PURE__*/React.createElement("div", {
+    className: "ps-sum-val"
+  }, fmt(totals.rs))), /*#__PURE__*/React.createElement("div", {
+    className: "ps-sum-card green"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "ps-sum-lbl"
+  }, "Neto"), /*#__PURE__*/React.createElement("div", {
+    className: "ps-sum-val"
+  }, fmt(totals.neto)))), /*#__PURE__*/React.createElement("div", {
+    className: "ps-cols"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "ps-section"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "ps-section-title"
+  }, "Rashodi po grupi"), GRUPE.map(function (g) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: g,
+      className: "ps-bar-row"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "ps-bar-label"
+    }, g), /*#__PURE__*/React.createElement("div", {
+      className: "ps-bar-track"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "ps-bar-fill",
       style: {
-        marginBottom: '8px'
+        width: "".concat(rashodiByGroup[g] / maxGrp * 100, "%"),
+        background: GRUPA_CLR[g]
+      }
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "ps-bar-val"
+    }, fmt(rashodiByGroup[g])));
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "ps-section"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "ps-section-title"
+  }, "Prihodi po tipu"), [['Gotovina', totals.g, '#c4b5fd'], ['Kartica', totals.k, '#99f6e4'], ['Račun', totals.r, '#fdba74'], ['Personal', totals.pe, '#fde68a'], ['DŽ', totals.dz, '#86efac']].map(function (_ref8) {
+    var _ref9 = _slicedToArray(_ref8, 3),
+      l = _ref9[0],
+      v = _ref9[1],
+      c = _ref9[2];
+    return /*#__PURE__*/React.createElement("div", {
+      key: l,
+      className: "ps-bar-row"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "ps-bar-label"
+    }, l), /*#__PURE__*/React.createElement("div", {
+      className: "ps-bar-track"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "ps-bar-fill",
+      style: {
+        width: "".concat(v / Math.max(totals.promet, 1) * 100, "%"),
+        background: c
+      }
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "ps-bar-val"
+    }, fmt(v)));
+  }))), rashodiByItem.length > 0 && /*#__PURE__*/React.createElement("div", {
+    className: "ps-section"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "ps-section-title"
+  }, "Rashodi po stavci"), /*#__PURE__*/React.createElement("div", {
+    className: "stats-list"
+  }, rashodiByItem.map(function (_ref0, i) {
+    var _ref1 = _slicedToArray(_ref0, 2),
+      naziv = _ref1[0],
+      iznos = _ref1[1];
+    return /*#__PURE__*/React.createElement("div", {
+      key: naziv,
+      className: "stat-row"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "stat-rank"
+    }, i + 1), /*#__PURE__*/React.createElement("span", {
+      className: "stat-name",
+      style: {
+        width: '110px'
+      }
+    }, naziv), /*#__PURE__*/React.createElement("div", {
+      className: "stat-bar"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "stat-seg",
+      style: {
+        width: "".concat(iznos / maxItem * 100, "%"),
+        background: '#c4b5fd'
+      }
+    })), /*#__PURE__*/React.createElement("span", {
+      className: "stat-total",
+      style: {
+        width: '90px',
+        textAlign: 'right',
+        fontSize: '12px'
+      }
+    }, fmt(iznos)));
+  }))), monthly.length > 1 && /*#__PURE__*/React.createElement("div", {
+    className: "ps-section"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "ps-section-title"
+  }, "Mese\u010Dni trend"), /*#__PURE__*/React.createElement("div", {
+    className: "ps-trend"
+  }, monthly.map(function (_ref10) {
+    var _ref11 = _slicedToArray(_ref10, 2),
+      mk = _ref11[0],
+      d = _ref11[1];
+    var mo = parseInt(mk.split('-')[1]) - 1;
+    return /*#__PURE__*/React.createElement("div", {
+      key: mk,
+      className: "ps-trend-col"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "ps-trend-bars"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "ps-trend-bar promet",
+      style: {
+        height: "".concat(Math.max(d.promet / maxMon * 80, 2), "px")
       },
-      children: /*#__PURE__*/_jsxDEV("div", {
-        className: "page-title",
-        children: "Statistika"
-      }, void 0, false)
-    }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-      className: "stats-controls",
-      children: [['month', 'Ovaj mesec'], ['3m', '3 meseca'], ['year', 'Ova godina'], ['all', 'Sve']].map(function (_ref6) {
-        var _ref7 = _slicedToArray(_ref6, 2),
-          p = _ref7[0],
-          l = _ref7[1];
-        return /*#__PURE__*/_jsxDEV("button", {
-          className: "period-btn".concat(period === p ? ' active' : ''),
-          onClick: function onClick() {
-            return setPeriod(p);
-          },
-          children: l
-        }, p, false);
-      })
-    }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-      className: "ps-summary",
-      children: [/*#__PURE__*/_jsxDEV("div", {
-        className: "ps-sum-card",
-        children: [/*#__PURE__*/_jsxDEV("div", {
-          className: "ps-sum-lbl",
-          children: "Promet"
-        }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-          className: "ps-sum-val",
-          children: fmt(totals.promet)
-        }, void 0, false)]
-      }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-        className: "ps-sum-card red",
-        children: [/*#__PURE__*/_jsxDEV("div", {
-          className: "ps-sum-lbl",
-          children: "Rashodi"
-        }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-          className: "ps-sum-val",
-          children: fmt(totals.rs)
-        }, void 0, false)]
-      }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-        className: "ps-sum-card green",
-        children: [/*#__PURE__*/_jsxDEV("div", {
-          className: "ps-sum-lbl",
-          children: "Neto"
-        }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-          className: "ps-sum-val",
-          children: fmt(totals.neto)
-        }, void 0, false)]
-      }, void 0, true)]
-    }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-      className: "ps-cols",
-      children: [/*#__PURE__*/_jsxDEV("div", {
-        className: "ps-section",
-        children: [/*#__PURE__*/_jsxDEV("div", {
-          className: "ps-section-title",
-          children: "Rashodi po grupi"
-        }, void 0, false), GRUPE.map(function (g) {
-          return /*#__PURE__*/_jsxDEV("div", {
-            className: "ps-bar-row",
-            children: [/*#__PURE__*/_jsxDEV("div", {
-              className: "ps-bar-label",
-              children: g
-            }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-              className: "ps-bar-track",
-              children: /*#__PURE__*/_jsxDEV("div", {
-                className: "ps-bar-fill",
-                style: {
-                  width: "".concat(rashodiByGroup[g] / maxGrp * 100, "%"),
-                  background: GRUPA_CLR[g]
-                }
-              }, void 0, false)
-            }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-              className: "ps-bar-val",
-              children: fmt(rashodiByGroup[g])
-            }, void 0, false)]
-          }, g, true);
-        })]
-      }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-        className: "ps-section",
-        children: [/*#__PURE__*/_jsxDEV("div", {
-          className: "ps-section-title",
-          children: "Prihodi po tipu"
-        }, void 0, false), [['Gotovina', totals.g, '#c4b5fd'], ['Kartica', totals.k, '#99f6e4'], ['Račun', totals.r, '#fdba74'], ['Personal', totals.pe, '#fde68a'], ['DŽ', totals.dz, '#86efac']].map(function (_ref8) {
-          var _ref9 = _slicedToArray(_ref8, 3),
-            l = _ref9[0],
-            v = _ref9[1],
-            c = _ref9[2];
-          return /*#__PURE__*/_jsxDEV("div", {
-            className: "ps-bar-row",
-            children: [/*#__PURE__*/_jsxDEV("div", {
-              className: "ps-bar-label",
-              children: l
-            }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-              className: "ps-bar-track",
-              children: /*#__PURE__*/_jsxDEV("div", {
-                className: "ps-bar-fill",
-                style: {
-                  width: "".concat(v / Math.max(totals.promet, 1) * 100, "%"),
-                  background: c
-                }
-              }, void 0, false)
-            }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-              className: "ps-bar-val",
-              children: fmt(v)
-            }, void 0, false)]
-          }, l, true);
-        })]
-      }, void 0, true)]
-    }, void 0, true), rashodiByItem.length > 0 && /*#__PURE__*/_jsxDEV("div", {
-      className: "ps-section",
-      children: [/*#__PURE__*/_jsxDEV("div", {
-        className: "ps-section-title",
-        children: "Rashodi po stavci"
-      }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-        className: "stats-list",
-        children: rashodiByItem.map(function (_ref0, i) {
-          var _ref1 = _slicedToArray(_ref0, 2),
-            naziv = _ref1[0],
-            iznos = _ref1[1];
-          return /*#__PURE__*/_jsxDEV("div", {
-            className: "stat-row",
-            children: [/*#__PURE__*/_jsxDEV("span", {
-              className: "stat-rank",
-              children: i + 1
-            }, void 0, false), /*#__PURE__*/_jsxDEV("span", {
-              className: "stat-name",
-              style: {
-                width: '110px'
-              },
-              children: naziv
-            }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-              className: "stat-bar",
-              children: /*#__PURE__*/_jsxDEV("div", {
-                className: "stat-seg",
-                style: {
-                  width: "".concat(iznos / maxItem * 100, "%"),
-                  background: '#c4b5fd'
-                }
-              }, void 0, false)
-            }, void 0, false), /*#__PURE__*/_jsxDEV("span", {
-              className: "stat-total",
-              style: {
-                width: '90px',
-                textAlign: 'right',
-                fontSize: '12px'
-              },
-              children: fmt(iznos)
-            }, void 0, false)]
-          }, naziv, true);
-        })
-      }, void 0, false)]
-    }, void 0, true), monthly.length > 1 && /*#__PURE__*/_jsxDEV("div", {
-      className: "ps-section",
-      children: [/*#__PURE__*/_jsxDEV("div", {
-        className: "ps-section-title",
-        children: "Mese\u010Dni trend"
-      }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-        className: "ps-trend",
-        children: monthly.map(function (_ref10) {
-          var _ref11 = _slicedToArray(_ref10, 2),
-            mk = _ref11[0],
-            d = _ref11[1];
-          var mo = parseInt(mk.split('-')[1]) - 1;
-          return /*#__PURE__*/_jsxDEV("div", {
-            className: "ps-trend-col",
-            children: [/*#__PURE__*/_jsxDEV("div", {
-              className: "ps-trend-bars",
-              children: [/*#__PURE__*/_jsxDEV("div", {
-                className: "ps-trend-bar promet",
-                style: {
-                  height: "".concat(Math.max(d.promet / maxMon * 80, 2), "px")
-                },
-                title: "Promet: ".concat(fmt(d.promet))
-              }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-                className: "ps-trend-bar rashodi",
-                style: {
-                  height: "".concat(Math.max(d.rashodi / maxMon * 80, 2), "px")
-                },
-                title: "Rashodi: ".concat(fmt(d.rashodi))
-              }, void 0, false)]
-            }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-              className: "ps-trend-lbl",
-              children: MONTHS[mo].substring(0, 3)
-            }, void 0, false)]
-          }, mk, true);
-        })
-      }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-        className: "ps-trend-legend",
-        children: [/*#__PURE__*/_jsxDEV("span", {
-          className: "leg-item",
-          children: [/*#__PURE__*/_jsxDEV("span", {
-            className: "leg-dot",
-            style: {
-              background: '#a78bfa'
-            }
-          }, void 0, false), "Promet"]
-        }, void 0, true), /*#__PURE__*/_jsxDEV("span", {
-          className: "leg-item",
-          children: [/*#__PURE__*/_jsxDEV("span", {
-            className: "leg-dot",
-            style: {
-              background: '#f87171'
-            }
-          }, void 0, false), "Rashodi"]
-        }, void 0, true)]
-      }, void 0, true)]
-    }, void 0, true)]
-  }, void 0, true);
+      title: "Promet: ".concat(fmt(d.promet))
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "ps-trend-bar rashodi",
+      style: {
+        height: "".concat(Math.max(d.rashodi / maxMon * 80, 2), "px")
+      },
+      title: "Rashodi: ".concat(fmt(d.rashodi))
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "ps-trend-lbl"
+    }, MONTHS[mo].substring(0, 3)));
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "ps-trend-legend"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "leg-item"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "leg-dot",
+    style: {
+      background: '#a78bfa'
+    }
+  }), "Promet"), /*#__PURE__*/React.createElement("span", {
+    className: "leg-item"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "leg-dot",
+    style: {
+      background: '#f87171'
+    }
+  }), "Rashodi"))));
 }
 
 // ── PAZAR MODULE ──────────────────────────────────────────────
@@ -1787,12 +1732,12 @@ function PazarModule() {
     setEditId(null);
     setView('pregled');
   };
-  if (view === 'stats') return /*#__PURE__*/_jsxDEV(PazarStats, {
+  if (view === 'stats') return /*#__PURE__*/React.createElement(PazarStats, {
     onBack: function onBack() {
       return setView('pregled');
     }
-  }, void 0, false);
-  return view === 'pregled' ? /*#__PURE__*/_jsxDEV(PazarPregled, {
+  });
+  return view === 'pregled' ? /*#__PURE__*/React.createElement(PazarPregled, {
     onAdd: function onAdd() {
       return open();
     },
@@ -1802,10 +1747,10 @@ function PazarModule() {
     onStats: function onStats() {
       return setView('stats');
     }
-  }, void 0, false) : /*#__PURE__*/_jsxDEV(PazarForma, {
+  }) : /*#__PURE__*/React.createElement(PazarForma, {
     editId: editId,
     onBack: back
-  }, void 0, false);
+  });
 }
 
 // ── SWIPE-TO-DELETE KARTICA (mobile) ─────────────────────────
@@ -1875,64 +1820,46 @@ function SwipePazarCard(_ref12) {
     e.stopPropagation();
     if (confirm('Obrisati ovaj pazar?')) onDelete(p.id);
   };
-  return /*#__PURE__*/_jsxDEV("div", {
-    className: "swipe-row",
-    children: [/*#__PURE__*/_jsxDEV("div", {
-      className: "pazar-card",
-      style: {
-        transform: "translateX(".concat(tx, "px)"),
-        transition: dragging ? 'none' : 'transform 0.22s ease'
-      },
-      onTouchStart: onTouchStart,
-      onTouchMove: onTouchMove,
-      onTouchEnd: onTouchEnd,
-      onClick: handleClick,
-      children: [/*#__PURE__*/_jsxDEV("div", {
-        className: "pc-top",
-        children: [/*#__PURE__*/_jsxDEV("span", {
-          className: "pc-date",
-          children: fmtDate(p.datum)
-        }, void 0, false), /*#__PURE__*/_jsxDEV("span", {
-          className: "pc-promet",
-          children: fmt(p.pr)
-        }, void 0, false)]
-      }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-        className: "pc-chips",
-        children: [Number(p.gotovina || 0) > 0 && /*#__PURE__*/_jsxDEV("span", {
-          className: "pc-chip m",
-          children: ["Got. ", fmt(p.gotovina)]
-        }, void 0, true), Number(p.kartica || 0) > 0 && /*#__PURE__*/_jsxDEV("span", {
-          className: "pc-chip t",
-          children: ["Kart. ", fmt(p.kartica)]
-        }, void 0, true), Number(p.racun || 0) > 0 && /*#__PURE__*/_jsxDEV("span", {
-          className: "pc-chip n",
-          children: ["Ra\u010D. ", fmt(p.racun)]
-        }, void 0, true), p.rs > 0 && /*#__PURE__*/_jsxDEV("span", {
-          className: "pc-chip r",
-          children: ["Rash. ", fmt(p.rs)]
-        }, void 0, true)]
-      }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-        className: "pc-uplatiti",
-        children: ["Uplatiti: ", /*#__PURE__*/_jsxDEV("strong", {
-          children: fmt(p.pr - p.rs)
-        }, void 0, false), /*#__PURE__*/_jsxDEV("span", {
-          className: "pc-edit-hint",
-          children: "uredi \u203A"
-        }, void 0, false)]
-      }, void 0, true)]
-    }, void 0, true), (open || tx < 0) && /*#__PURE__*/_jsxDEV("button", {
-      className: "swipe-delete-btn",
-      onClick: handleDelete,
-      children: [/*#__PURE__*/_jsxDEV("span", {
-        style: {
-          fontSize: '18px'
-        },
-        children: "\uD83D\uDDD1"
-      }, void 0, false), /*#__PURE__*/_jsxDEV("span", {
-        children: "Bri\u0161i"
-      }, void 0, false)]
-    }, void 0, true)]
-  }, void 0, true);
+  return /*#__PURE__*/React.createElement("div", {
+    className: "swipe-row"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "pazar-card",
+    style: {
+      transform: "translateX(".concat(tx, "px)"),
+      transition: dragging ? 'none' : 'transform 0.22s ease'
+    },
+    onTouchStart: onTouchStart,
+    onTouchMove: onTouchMove,
+    onTouchEnd: onTouchEnd,
+    onClick: handleClick
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "pc-top"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "pc-date"
+  }, fmtDate(p.datum)), /*#__PURE__*/React.createElement("span", {
+    className: "pc-promet"
+  }, fmt(p.pr))), /*#__PURE__*/React.createElement("div", {
+    className: "pc-chips"
+  }, Number(p.gotovina || 0) > 0 && /*#__PURE__*/React.createElement("span", {
+    className: "pc-chip m"
+  }, "Got. ", fmt(p.gotovina)), Number(p.kartica || 0) > 0 && /*#__PURE__*/React.createElement("span", {
+    className: "pc-chip t"
+  }, "Kart. ", fmt(p.kartica)), Number(p.racun || 0) > 0 && /*#__PURE__*/React.createElement("span", {
+    className: "pc-chip n"
+  }, "Ra\u010D. ", fmt(p.racun)), p.rs > 0 && /*#__PURE__*/React.createElement("span", {
+    className: "pc-chip r"
+  }, "Rash. ", fmt(p.rs))), /*#__PURE__*/React.createElement("div", {
+    className: "pc-uplatiti"
+  }, "Uplatiti: ", /*#__PURE__*/React.createElement("strong", null, fmt(p.pr - p.rs)), /*#__PURE__*/React.createElement("span", {
+    className: "pc-edit-hint"
+  }, "uredi \u203A"))), (open || tx < 0) && /*#__PURE__*/React.createElement("button", {
+    className: "swipe-delete-btn",
+    onClick: handleDelete
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: '18px'
+    }
+  }, "\uD83D\uDDD1"), /*#__PURE__*/React.createElement("span", null, "Bri\u0161i")));
 }
 
 // ── PAZAR PREGLED ─────────────────────────────────────────────
@@ -2028,255 +1955,180 @@ function PazarPregled(_ref13) {
       return b[0].localeCompare(a[0]);
     });
   }, [filtered]);
-  return /*#__PURE__*/_jsxDEV("div", {
-    className: "main main-pregled",
-    children: [/*#__PURE__*/_jsxDEV("div", {
-      className: "topbar",
-      children: [/*#__PURE__*/_jsxDEV("div", {
-        className: "page-title",
-        children: "Pazar"
-      }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-        style: {
-          display: 'flex',
-          gap: '8px'
-        },
-        children: [/*#__PURE__*/_jsxDEV("button", {
-          className: "stats-toggle",
-          onClick: onStats,
-          children: "Statistika"
-        }, void 0, false), /*#__PURE__*/_jsxDEV("button", {
-          className: "add-btn-primary hide-mobile",
-          onClick: onAdd,
-          children: "+ Dodaj pazar"
-        }, void 0, false)]
-      }, void 0, true)]
-    }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-      className: "filter-bar",
-      children: [/*#__PURE__*/_jsxDEV("div", {
-        className: "pill-group",
-        children: [['ovaj-mj', 'Ovaj mesec'], ['godina', 'Ova godina'], ['izbor', 'Po izboru']].map(function (_ref14) {
-          var _ref15 = _slicedToArray(_ref14, 2),
-            v = _ref15[0],
-            l = _ref15[1];
-          return /*#__PURE__*/_jsxDEV("button", {
-            className: "pill ".concat(period === v ? 'am' : ''),
-            onClick: function onClick() {
-              return setPeriod(v);
-            },
-            children: l
-          }, v, false);
-        })
-      }, void 0, false), period === 'izbor' && /*#__PURE__*/_jsxDEV("div", {
-        className: "dr",
-        children: [/*#__PURE__*/_jsxDEV("input", {
-          type: "date",
-          className: "f-input",
-          value: df,
-          onChange: function onChange(e) {
-            return setDf(e.target.value);
-          }
-        }, void 0, false), /*#__PURE__*/_jsxDEV("span", {
-          style: {
-            color: '#ccc',
-            fontSize: '12px'
-          },
-          children: "\u2014"
-        }, void 0, false), /*#__PURE__*/_jsxDEV("input", {
-          type: "date",
-          className: "f-input",
-          value: dt,
-          onChange: function onChange(e) {
-            return setDt(e.target.value);
-          }
-        }, void 0, false)]
-      }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-        className: "filter-sep"
-      }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-        className: "pill-group",
-        children: [['sve', 'Sve'], ['gotovina', 'Gotovina'], ['kartica', 'Kartica'], ['racun', 'Račun']].map(function (_ref16) {
-          var _ref17 = _slicedToArray(_ref16, 2),
-            v = _ref17[0],
-            l = _ref17[1];
-          return /*#__PURE__*/_jsxDEV("button", {
-            className: "pill ".concat(vrsta === v ? 'at' : ''),
-            onClick: function onClick() {
-              return setVrsta(v);
-            },
-            children: l
-          }, v, false);
-        })
-      }, void 0, false)]
-    }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-      className: "summary-cards",
-      children: [/*#__PURE__*/_jsxDEV("div", {
-        className: "s-card sc",
-        children: [/*#__PURE__*/_jsxDEV("div", {
-          className: "lbl",
-          children: "Ukupni promet"
-        }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-          className: "val",
-          children: fmt(totals.uk)
-        }, void 0, false)]
-      }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-        className: "s-card sm",
-        children: [/*#__PURE__*/_jsxDEV("div", {
-          className: "lbl",
-          children: "Gotovina"
-        }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-          className: "val",
-          children: fmt(totals.g)
-        }, void 0, false)]
-      }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-        className: "s-card st",
-        children: [/*#__PURE__*/_jsxDEV("div", {
-          className: "lbl",
-          children: "Kartica"
-        }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-          className: "val",
-          children: fmt(totals.k)
-        }, void 0, false)]
-      }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-        className: "s-card sg",
-        children: [/*#__PURE__*/_jsxDEV("div", {
-          className: "lbl",
-          children: "Rashodi"
-        }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-          className: "val",
-          children: fmt(totals.rs)
-        }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-          className: "sub",
-          children: ["uplatiti: ", fmt(totals.uk - totals.rs)]
-        }, void 0, true)]
-      }, void 0, true)]
-    }, void 0, true), /*#__PURE__*/_jsxDEV("button", {
-      className: "fab-add",
-      onClick: onAdd,
-      children: "+"
-    }, void 0, false), grouped.length === 0 && /*#__PURE__*/_jsxDEV("div", {
-      style: {
-        textAlign: 'center',
-        padding: '48px',
-        color: '#bbb'
-      },
-      children: "Nema unosa za odabrani period."
-    }, void 0, false), grouped.map(function (_ref18) {
-      var _ref19 = _slicedToArray(_ref18, 2),
-        mk = _ref19[0],
-        entries = _ref19[1];
-      var _mk$split = mk.split('-'),
-        _mk$split2 = _slicedToArray(_mk$split, 2),
-        yr = _mk$split2[0],
-        mo = _mk$split2[1];
-      var enriched = entries.map(function (p) {
-        var pr = Number(p.gotovina || 0) + Number(p.kartica || 0) + Number(p.racun || 0) + Number(p.personal || 0) * 20 + Number(p.dz || 0) * 5;
-        var rs = (p.rashodi || []).reduce(function (s, r) {
-          return s + Number(r.iznos || 0);
-        }, 0);
-        return _objectSpread(_objectSpread({}, p), {}, {
-          pr: pr,
-          rs: rs
-        });
+  return /*#__PURE__*/React.createElement("div", {
+    className: "main main-pregled"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "topbar"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "page-title"
+  }, "Pazar"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: '8px'
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "stats-toggle",
+    onClick: onStats
+  }, "Statistika"), /*#__PURE__*/React.createElement("button", {
+    className: "add-btn-primary hide-mobile",
+    onClick: onAdd
+  }, "+ Dodaj pazar"))), /*#__PURE__*/React.createElement("div", {
+    className: "filter-bar"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "pill-group"
+  }, [['ovaj-mj', 'Ovaj mesec'], ['godina', 'Ova godina'], ['izbor', 'Po izboru']].map(function (_ref14) {
+    var _ref15 = _slicedToArray(_ref14, 2),
+      v = _ref15[0],
+      l = _ref15[1];
+    return /*#__PURE__*/React.createElement("button", {
+      key: v,
+      className: "pill ".concat(period === v ? 'am' : ''),
+      onClick: function onClick() {
+        return setPeriod(v);
+      }
+    }, l);
+  })), period === 'izbor' && /*#__PURE__*/React.createElement("div", {
+    className: "dr"
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "date",
+    className: "f-input",
+    value: df,
+    onChange: function onChange(e) {
+      return setDf(e.target.value);
+    }
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: '#ccc',
+      fontSize: '12px'
+    }
+  }, "\u2014"), /*#__PURE__*/React.createElement("input", {
+    type: "date",
+    className: "f-input",
+    value: dt,
+    onChange: function onChange(e) {
+      return setDt(e.target.value);
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "filter-sep"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "pill-group"
+  }, [['sve', 'Sve'], ['gotovina', 'Gotovina'], ['kartica', 'Kartica'], ['racun', 'Račun']].map(function (_ref16) {
+    var _ref17 = _slicedToArray(_ref16, 2),
+      v = _ref17[0],
+      l = _ref17[1];
+    return /*#__PURE__*/React.createElement("button", {
+      key: v,
+      className: "pill ".concat(vrsta === v ? 'at' : ''),
+      onClick: function onClick() {
+        return setVrsta(v);
+      }
+    }, l);
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "summary-cards"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "s-card sc"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "lbl"
+  }, "Ukupni promet"), /*#__PURE__*/React.createElement("div", {
+    className: "val"
+  }, fmt(totals.uk))), /*#__PURE__*/React.createElement("div", {
+    className: "s-card sm"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "lbl"
+  }, "Gotovina"), /*#__PURE__*/React.createElement("div", {
+    className: "val"
+  }, fmt(totals.g))), /*#__PURE__*/React.createElement("div", {
+    className: "s-card st"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "lbl"
+  }, "Kartica"), /*#__PURE__*/React.createElement("div", {
+    className: "val"
+  }, fmt(totals.k))), /*#__PURE__*/React.createElement("div", {
+    className: "s-card sg"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "lbl"
+  }, "Rashodi"), /*#__PURE__*/React.createElement("div", {
+    className: "val"
+  }, fmt(totals.rs)), /*#__PURE__*/React.createElement("div", {
+    className: "sub"
+  }, "uplatiti: ", fmt(totals.uk - totals.rs)))), /*#__PURE__*/React.createElement("button", {
+    className: "fab-add",
+    onClick: onAdd
+  }, "+"), grouped.length === 0 && /*#__PURE__*/React.createElement("div", {
+    style: {
+      textAlign: 'center',
+      padding: '48px',
+      color: '#bbb'
+    }
+  }, "Nema unosa za odabrani period."), grouped.map(function (_ref18) {
+    var _ref19 = _slicedToArray(_ref18, 2),
+      mk = _ref19[0],
+      entries = _ref19[1];
+    var _mk$split = mk.split('-'),
+      _mk$split2 = _slicedToArray(_mk$split, 2),
+      yr = _mk$split2[0],
+      mo = _mk$split2[1];
+    var enriched = entries.map(function (p) {
+      var pr = Number(p.gotovina || 0) + Number(p.kartica || 0) + Number(p.racun || 0) + Number(p.personal || 0) * 20 + Number(p.dz || 0) * 5;
+      var rs = (p.rashodi || []).reduce(function (s, r) {
+        return s + Number(r.iznos || 0);
+      }, 0);
+      return _objectSpread(_objectSpread({}, p), {}, {
+        pr: pr,
+        rs: rs
       });
-      var mP = enriched.reduce(function (s, p) {
-        return s + p.pr;
-      }, 0);
-      var mR = enriched.reduce(function (s, p) {
-        return s + p.rs;
-      }, 0);
-      return /*#__PURE__*/_jsxDEV("div", {
-        className: "month-group",
-        children: [/*#__PURE__*/_jsxDEV("div", {
-          className: "month-header",
-          children: [/*#__PURE__*/_jsxDEV("span", {
-            className: "month-name",
-            children: [MONTHS[parseInt(mo) - 1], " ", yr]
-          }, void 0, true), /*#__PURE__*/_jsxDEV("span", {
-            className: "month-meta",
-            children: [entries.length, " unosa \xB7 Promet: ", fmt(mP), " \xB7 Rashodi: ", fmt(mR)]
-          }, void 0, true)]
-        }, void 0, true), /*#__PURE__*/_jsxDEV("table", {
-          className: "pt desktop-only",
-          children: [/*#__PURE__*/_jsxDEV("thead", {
-            children: /*#__PURE__*/_jsxDEV("tr", {
-              children: [/*#__PURE__*/_jsxDEV("th", {
-                children: "Datum"
-              }, void 0, false), /*#__PURE__*/_jsxDEV("th", {
-                children: "Gotovina"
-              }, void 0, false), /*#__PURE__*/_jsxDEV("th", {
-                children: "Kartica"
-              }, void 0, false), /*#__PURE__*/_jsxDEV("th", {
-                children: "Ra\u010Dun"
-              }, void 0, false), /*#__PURE__*/_jsxDEV("th", {
-                children: "Promet"
-              }, void 0, false), /*#__PURE__*/_jsxDEV("th", {
-                children: "Rashodi"
-              }, void 0, false), /*#__PURE__*/_jsxDEV("th", {
-                children: "Uplatiti"
-              }, void 0, false)]
-            }, void 0, true)
-          }, void 0, false), /*#__PURE__*/_jsxDEV("tbody", {
-            children: enriched.map(function (p) {
-              return /*#__PURE__*/_jsxDEV("tr", {
-                onClick: function onClick() {
-                  return onEdit(p.id);
-                },
-                children: [/*#__PURE__*/_jsxDEV("td", {
-                  children: fmtDate(p.datum)
-                }, void 0, false), /*#__PURE__*/_jsxDEV("td", {
-                  children: Number(p.gotovina || 0) > 0 ? /*#__PURE__*/_jsxDEV("span", {
-                    className: "tag m",
-                    children: fmt(p.gotovina)
-                  }, void 0, false) : /*#__PURE__*/_jsxDEV("span", {
-                    className: "muted",
-                    children: "\u2014"
-                  }, void 0, false)
-                }, void 0, false), /*#__PURE__*/_jsxDEV("td", {
-                  children: Number(p.kartica || 0) > 0 ? /*#__PURE__*/_jsxDEV("span", {
-                    className: "tag t",
-                    children: fmt(p.kartica)
-                  }, void 0, false) : /*#__PURE__*/_jsxDEV("span", {
-                    className: "muted",
-                    children: "\u2014"
-                  }, void 0, false)
-                }, void 0, false), /*#__PURE__*/_jsxDEV("td", {
-                  children: Number(p.racun || 0) > 0 ? /*#__PURE__*/_jsxDEV("span", {
-                    children: fmt(p.racun)
-                  }, void 0, false) : /*#__PURE__*/_jsxDEV("span", {
-                    className: "muted",
-                    children: "\u2014"
-                  }, void 0, false)
-                }, void 0, false), /*#__PURE__*/_jsxDEV("td", {
-                  children: /*#__PURE__*/_jsxDEV("span", {
-                    className: "bld",
-                    children: fmt(p.pr)
-                  }, void 0, false)
-                }, void 0, false), /*#__PURE__*/_jsxDEV("td", {
-                  children: p.rs > 0 ? fmt(p.rs) : /*#__PURE__*/_jsxDEV("span", {
-                    className: "muted",
-                    children: "\u2014"
-                  }, void 0, false)
-                }, void 0, false), /*#__PURE__*/_jsxDEV("td", {
-                  children: /*#__PURE__*/_jsxDEV("span", {
-                    className: "grn",
-                    children: fmt(p.pr - p.rs)
-                  }, void 0, false)
-                }, void 0, false)]
-              }, p.id, true);
-            })
-          }, void 0, false)]
-        }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-          className: "mobile-only",
-          children: enriched.map(function (p) {
-            return /*#__PURE__*/_jsxDEV(SwipePazarCard, {
-              p: p,
-              onEdit: onEdit,
-              onDelete: handleDelete
-            }, p.id, false);
-          })
-        }, void 0, false)]
-      }, mk, true);
-    })]
-  }, void 0, true);
+    });
+    var mP = enriched.reduce(function (s, p) {
+      return s + p.pr;
+    }, 0);
+    var mR = enriched.reduce(function (s, p) {
+      return s + p.rs;
+    }, 0);
+    return /*#__PURE__*/React.createElement("div", {
+      key: mk,
+      className: "month-group"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "month-header"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "month-name"
+    }, MONTHS[parseInt(mo) - 1], " ", yr), /*#__PURE__*/React.createElement("span", {
+      className: "month-meta"
+    }, entries.length, " unosa \xB7 Promet: ", fmt(mP), " \xB7 Rashodi: ", fmt(mR))), /*#__PURE__*/React.createElement("table", {
+      className: "pt desktop-only"
+    }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Datum"), /*#__PURE__*/React.createElement("th", null, "Gotovina"), /*#__PURE__*/React.createElement("th", null, "Kartica"), /*#__PURE__*/React.createElement("th", null, "Ra\u010Dun"), /*#__PURE__*/React.createElement("th", null, "Promet"), /*#__PURE__*/React.createElement("th", null, "Rashodi"), /*#__PURE__*/React.createElement("th", null, "Uplatiti"))), /*#__PURE__*/React.createElement("tbody", null, enriched.map(function (p) {
+      return /*#__PURE__*/React.createElement("tr", {
+        key: p.id,
+        onClick: function onClick() {
+          return onEdit(p.id);
+        }
+      }, /*#__PURE__*/React.createElement("td", null, fmtDate(p.datum)), /*#__PURE__*/React.createElement("td", null, Number(p.gotovina || 0) > 0 ? /*#__PURE__*/React.createElement("span", {
+        className: "tag m"
+      }, fmt(p.gotovina)) : /*#__PURE__*/React.createElement("span", {
+        className: "muted"
+      }, "\u2014")), /*#__PURE__*/React.createElement("td", null, Number(p.kartica || 0) > 0 ? /*#__PURE__*/React.createElement("span", {
+        className: "tag t"
+      }, fmt(p.kartica)) : /*#__PURE__*/React.createElement("span", {
+        className: "muted"
+      }, "\u2014")), /*#__PURE__*/React.createElement("td", null, Number(p.racun || 0) > 0 ? /*#__PURE__*/React.createElement("span", null, fmt(p.racun)) : /*#__PURE__*/React.createElement("span", {
+        className: "muted"
+      }, "\u2014")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("span", {
+        className: "bld"
+      }, fmt(p.pr))), /*#__PURE__*/React.createElement("td", null, p.rs > 0 ? fmt(p.rs) : /*#__PURE__*/React.createElement("span", {
+        className: "muted"
+      }, "\u2014")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("span", {
+        className: "grn"
+      }, fmt(p.pr - p.rs))));
+    }))), /*#__PURE__*/React.createElement("div", {
+      className: "mobile-only"
+    }, enriched.map(function (p) {
+      return /*#__PURE__*/React.createElement(SwipePazarCard, {
+        key: p.id,
+        p: p,
+        onEdit: onEdit,
+        onDelete: handleDelete
+      });
+    })));
+  }));
 }
 
 // ── PAZAR FORMA ───────────────────────────────────────────────
@@ -2429,226 +2281,188 @@ function PazarForma(_ref20) {
       })
     };
   });
-  return /*#__PURE__*/_jsxDEV("div", {
-    className: "main",
-    children: [/*#__PURE__*/_jsxDEV("button", {
-      className: "back-btn",
-      onClick: onBack,
-      children: "\u2190 Nazad"
-    }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-      className: "topbar",
-      style: {
-        marginBottom: '20px'
-      },
-      children: [/*#__PURE__*/_jsxDEV("div", {
-        className: "page-title",
-        children: editId ? 'Uredi pazar' : 'Novi pazar'
-      }, void 0, false), editId && /*#__PURE__*/_jsxDEV("button", {
-        className: "del-btn",
-        onClick: del,
-        children: "Obri\u0161i"
-      }, void 0, false)]
-    }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-      className: "forma-wrap",
-      children: [/*#__PURE__*/_jsxDEV("div", {
-        children: [/*#__PURE__*/_jsxDEV("div", {
-          className: "forma-group",
-          children: [/*#__PURE__*/_jsxDEV("div", {
-            className: "sec-label",
-            style: {
-              marginBottom: '8px'
-            },
-            children: "Datum"
-          }, void 0, false), /*#__PURE__*/_jsxDEV("input", {
-            type: "date",
-            className: "f-input",
-            value: datum,
-            onChange: function onChange(e) {
-              return setDatum(e.target.value);
-            }
-          }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-            className: "date-shortcuts",
-            children: [['danas', toDay()], ['juče', toYday()], ['prekjuče', toDay2()]].map(function (_ref21) {
-              var _ref22 = _slicedToArray(_ref21, 2),
-                l = _ref22[0],
-                v = _ref22[1];
-              return /*#__PURE__*/_jsxDEV("button", {
-                className: "sc-btn ".concat(sc === l ? 'active' : ''),
-                onClick: function onClick() {
-                  return setDatum(v);
-                },
-                children: l
-              }, l, false);
-            })
-          }, void 0, false)]
-        }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-          className: "forma-group",
-          children: [/*#__PURE__*/_jsxDEV("div", {
-            className: "sec-label",
-            style: {
-              marginBottom: '8px'
-            },
-            children: "Prihodi"
-          }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-            className: "income-grid",
-            children: [['Gotovina', gotovina, setGotovina], ['Kartica', kartica, setKartica], ['Račun', racun, setRacun], ['Personal', personal, setPersonal], ['DŽ', dz, setDz]].map(function (_ref23) {
-              var _ref24 = _slicedToArray(_ref23, 3),
-                l = _ref24[0],
-                v = _ref24[1],
-                s = _ref24[2];
-              return /*#__PURE__*/_jsxDEV("div", {
-                children: [/*#__PURE__*/_jsxDEV("div", {
-                  className: "f-sub-label",
-                  children: l
-                }, void 0, false), /*#__PURE__*/_jsxDEV("input", {
-                  type: "number",
-                  className: "f-input",
-                  placeholder: "0.00",
-                  value: v,
-                  onChange: function onChange(e) {
-                    return s(e.target.value);
-                  }
-                }, void 0, false)]
-              }, l, true);
-            })
-          }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-            className: "promet-bar",
-            children: [/*#__PURE__*/_jsxDEV("span", {
-              className: "lbl",
-              children: "Promet ukupno"
-            }, void 0, false), /*#__PURE__*/_jsxDEV("span", {
-              className: "val",
-              children: fmt(promet)
-            }, void 0, false)]
-          }, void 0, true)]
-        }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-          className: "forma-group",
-          children: [/*#__PURE__*/_jsxDEV("div", {
-            className: "sec-label",
-            style: {
-              marginBottom: '8px'
-            },
-            children: "Aktivni rashodi"
-          }, void 0, false), activeR.length === 0 && /*#__PURE__*/_jsxDEV("div", {
-            className: "empty-hint",
-            children: "Klikni rashod u sidebaru da ga doda\u0161."
-          }, void 0, false), activeR.map(function (r, i) {
-            return /*#__PURE__*/_jsxDEV("div", {
-              className: "ar-row",
-              children: [/*#__PURE__*/_jsxDEV("span", {
-                className: "ar-group",
-                children: r.grupa
-              }, void 0, false), /*#__PURE__*/_jsxDEV("span", {
-                className: "ar-naziv",
-                children: r.naziv
-              }, void 0, false), /*#__PURE__*/_jsxDEV("input", {
-                type: "number",
-                className: "ar-input",
-                placeholder: "0.00",
-                value: r.iznos,
-                onChange: function onChange(e) {
-                  return updR(i, e.target.value);
-                }
-              }, void 0, false), /*#__PURE__*/_jsxDEV("button", {
-                className: "ar-rm",
-                onClick: function onClick() {
-                  return rmR(i);
-                },
-                children: "\u2715"
-              }, void 0, false)]
-            }, i, true);
-          })]
-        }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-          className: "uplatiti-bar",
-          children: [/*#__PURE__*/_jsxDEV("span", {
-            className: "lbl",
-            children: "Uplatiti"
-          }, void 0, false), /*#__PURE__*/_jsxDEV("span", {
-            className: "val",
-            children: fmt(uplatiti)
-          }, void 0, false)]
-        }, void 0, true), /*#__PURE__*/_jsxDEV("button", {
-          className: "save-btn",
-          onClick: save,
-          children: "Spremi pazar"
-        }, void 0, false)]
-      }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-        className: "sidebar-r",
-        children: [/*#__PURE__*/_jsxDEV("div", {
-          className: "sidebar-r-header",
-          children: "Rashodi \u2014 klikni da doda\u0161"
-        }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-          className: "sidebar-r-body",
-          children: [grouped.map(function (_ref25) {
-            var g = _ref25.g,
-              items = _ref25.items;
-            return /*#__PURE__*/_jsxDEV("div", {
-              children: [/*#__PURE__*/_jsxDEV("div", {
-                className: "rg-title",
-                children: g
-              }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-                className: "r-chips",
-                children: items.map(function (r) {
-                  return /*#__PURE__*/_jsxDEV("div", {
-                    className: "r-chip-wrap",
-                    children: [/*#__PURE__*/_jsxDEV("button", {
-                      className: "r-chip ".concat(activeNames.includes(r.naziv) ? 'dis' : ''),
-                      onClick: function onClick() {
-                        return addR(r);
-                      },
-                      children: [r.naziv, /*#__PURE__*/_jsxDEV("span", {
-                        className: "r-chip-plus",
-                        children: "+"
-                      }, void 0, false)]
-                    }, void 0, true), /*#__PURE__*/_jsxDEV("button", {
-                      className: "r-pin-btn".concat(r.fiksni ? ' active' : ''),
-                      title: r.fiksni ? 'Ukloni iz fiksnih' : 'Označi kao fiksni',
-                      onClick: function onClick(e) {
-                        e.stopPropagation();
-                        toggleFiksni(r.id);
-                      },
-                      children: "\uD83D\uDCCC"
-                    }, void 0, false)]
-                  }, r.id, true);
-                })
-              }, void 0, false)]
-            }, g, true);
-          }), /*#__PURE__*/_jsxDEV("div", {
-            className: "new-r-row",
-            children: [/*#__PURE__*/_jsxDEV("input", {
-              className: "f-input",
-              placeholder: "+ novi rashod",
-              value: newNaziv,
-              onChange: function onChange(e) {
-                return setNewNaziv(e.target.value);
-              },
-              onKeyDown: function onKeyDown(e) {
-                return e.key === 'Enter' && addNewR();
-              },
-              style: {
-                flex: 1
-              }
-            }, void 0, false), /*#__PURE__*/_jsxDEV("select", {
-              className: "f-input",
-              value: newGrupa,
-              onChange: function onChange(e) {
-                return setNewGrupa(e.target.value);
-              },
-              style: {
-                width: '90px'
-              },
-              children: GRUPE.map(function (g) {
-                return /*#__PURE__*/_jsxDEV("option", {
-                  value: g,
-                  children: g
-                }, g, false);
-              })
-            }, void 0, false)]
-          }, void 0, true)]
-        }, void 0, true)]
-      }, void 0, true)]
-    }, void 0, true)]
-  }, void 0, true);
+  return /*#__PURE__*/React.createElement("div", {
+    className: "main"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "back-btn",
+    onClick: onBack
+  }, "\u2190 Nazad"), /*#__PURE__*/React.createElement("div", {
+    className: "topbar",
+    style: {
+      marginBottom: '20px'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "page-title"
+  }, editId ? 'Uredi pazar' : 'Novi pazar'), editId && /*#__PURE__*/React.createElement("button", {
+    className: "del-btn",
+    onClick: del
+  }, "Obri\u0161i")), /*#__PURE__*/React.createElement("div", {
+    className: "forma-wrap"
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "forma-group"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "sec-label",
+    style: {
+      marginBottom: '8px'
+    }
+  }, "Datum"), /*#__PURE__*/React.createElement("input", {
+    type: "date",
+    className: "f-input",
+    value: datum,
+    onChange: function onChange(e) {
+      return setDatum(e.target.value);
+    }
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "date-shortcuts"
+  }, [['danas', toDay()], ['juče', toYday()], ['prekjuče', toDay2()]].map(function (_ref21) {
+    var _ref22 = _slicedToArray(_ref21, 2),
+      l = _ref22[0],
+      v = _ref22[1];
+    return /*#__PURE__*/React.createElement("button", {
+      key: l,
+      className: "sc-btn ".concat(sc === l ? 'active' : ''),
+      onClick: function onClick() {
+        return setDatum(v);
+      }
+    }, l);
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "forma-group"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "sec-label",
+    style: {
+      marginBottom: '8px'
+    }
+  }, "Prihodi"), /*#__PURE__*/React.createElement("div", {
+    className: "income-grid"
+  }, [['Gotovina', gotovina, setGotovina], ['Kartica', kartica, setKartica], ['Račun', racun, setRacun], ['Personal', personal, setPersonal], ['DŽ', dz, setDz]].map(function (_ref23) {
+    var _ref24 = _slicedToArray(_ref23, 3),
+      l = _ref24[0],
+      v = _ref24[1],
+      s = _ref24[2];
+    return /*#__PURE__*/React.createElement("div", {
+      key: l
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "f-sub-label"
+    }, l), /*#__PURE__*/React.createElement("input", {
+      type: "number",
+      className: "f-input",
+      placeholder: "0.00",
+      value: v,
+      onChange: function onChange(e) {
+        return s(e.target.value);
+      }
+    }));
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "promet-bar"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "lbl"
+  }, "Promet ukupno"), /*#__PURE__*/React.createElement("span", {
+    className: "val"
+  }, fmt(promet)))), /*#__PURE__*/React.createElement("div", {
+    className: "forma-group"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "sec-label",
+    style: {
+      marginBottom: '8px'
+    }
+  }, "Aktivni rashodi"), activeR.length === 0 && /*#__PURE__*/React.createElement("div", {
+    className: "empty-hint"
+  }, "Klikni rashod u sidebaru da ga doda\u0161."), activeR.map(function (r, i) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: i,
+      className: "ar-row"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "ar-group"
+    }, r.grupa), /*#__PURE__*/React.createElement("span", {
+      className: "ar-naziv"
+    }, r.naziv), /*#__PURE__*/React.createElement("input", {
+      type: "number",
+      className: "ar-input",
+      placeholder: "0.00",
+      value: r.iznos,
+      onChange: function onChange(e) {
+        return updR(i, e.target.value);
+      }
+    }), /*#__PURE__*/React.createElement("button", {
+      className: "ar-rm",
+      onClick: function onClick() {
+        return rmR(i);
+      }
+    }, "\u2715"));
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "uplatiti-bar"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "lbl"
+  }, "Uplatiti"), /*#__PURE__*/React.createElement("span", {
+    className: "val"
+  }, fmt(uplatiti))), /*#__PURE__*/React.createElement("button", {
+    className: "save-btn",
+    onClick: save
+  }, "Spremi pazar")), /*#__PURE__*/React.createElement("div", {
+    className: "sidebar-r"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "sidebar-r-header"
+  }, "Rashodi \u2014 klikni da doda\u0161"), /*#__PURE__*/React.createElement("div", {
+    className: "sidebar-r-body"
+  }, grouped.map(function (_ref25) {
+    var g = _ref25.g,
+      items = _ref25.items;
+    return /*#__PURE__*/React.createElement("div", {
+      key: g
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "rg-title"
+    }, g), /*#__PURE__*/React.createElement("div", {
+      className: "r-chips"
+    }, items.map(function (r) {
+      return /*#__PURE__*/React.createElement("div", {
+        key: r.id,
+        className: "r-chip-wrap"
+      }, /*#__PURE__*/React.createElement("button", {
+        className: "r-chip ".concat(activeNames.includes(r.naziv) ? 'dis' : ''),
+        onClick: function onClick() {
+          return addR(r);
+        }
+      }, r.naziv, /*#__PURE__*/React.createElement("span", {
+        className: "r-chip-plus"
+      }, "+")), /*#__PURE__*/React.createElement("button", {
+        className: "r-pin-btn".concat(r.fiksni ? ' active' : ''),
+        title: r.fiksni ? 'Ukloni iz fiksnih' : 'Označi kao fiksni',
+        onClick: function onClick(e) {
+          e.stopPropagation();
+          toggleFiksni(r.id);
+        }
+      }, "\uD83D\uDCCC"));
+    })));
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "new-r-row"
+  }, /*#__PURE__*/React.createElement("input", {
+    className: "f-input",
+    placeholder: "+ novi rashod",
+    value: newNaziv,
+    onChange: function onChange(e) {
+      return setNewNaziv(e.target.value);
+    },
+    onKeyDown: function onKeyDown(e) {
+      return e.key === 'Enter' && addNewR();
+    },
+    style: {
+      flex: 1
+    }
+  }), /*#__PURE__*/React.createElement("select", {
+    className: "f-input",
+    value: newGrupa,
+    onChange: function onChange(e) {
+      return setNewGrupa(e.target.value);
+    },
+    style: {
+      width: '90px'
+    }
+  }, GRUPE.map(function (g) {
+    return /*#__PURE__*/React.createElement("option", {
+      key: g,
+      value: g
+    }, g);
+  })))))));
 }
 
 // ── CELL EDITOR ───────────────────────────────────────────────
@@ -2726,75 +2540,63 @@ function CellEditor(_ref26) {
       }
     }
   };
-  return /*#__PURE__*/_jsxDEV(_Fragment, {
-    children: [/*#__PURE__*/_jsxDEV("div", {
-      className: "ce-overlay",
-      onClick: onClose
-    }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-      className: "ce-box",
-      style: {
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%,-50%)'
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    className: "ce-overlay",
+    onClick: onClose
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "ce-box",
+    style: {
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%,-50%)'
+    },
+    onClick: function onClick(e) {
+      return e.stopPropagation();
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "ce-title"
+  }, /*#__PURE__*/React.createElement("span", null, "Radnici ", /*#__PURE__*/React.createElement("span", {
+    className: "ce-field-label"
+  }, FIELD_LABEL[field])), /*#__PURE__*/React.createElement("button", {
+    className: "ce-close-btn",
+    onClick: onClose
+  }, "\xD7")), selected.length > 0 && /*#__PURE__*/React.createElement("div", {
+    className: "ce-selected"
+  }, selected.map(function (r) {
+    return /*#__PURE__*/React.createElement("span", {
+      key: r,
+      className: "ce-pill"
+    }, r, /*#__PURE__*/React.createElement("button", {
+      className: "ce-pill-rm",
+      onClick: function onClick() {
+        return remove(r);
+      }
+    }, "\xD7"));
+  })), /*#__PURE__*/React.createElement("input", {
+    ref: inputRef,
+    className: "ce-input",
+    placeholder: "Upi\u0161i ime...",
+    value: query,
+    onChange: function onChange(e) {
+      return setQuery(e.target.value);
+    },
+    onKeyDown: handleKey
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "ce-suggestions"
+  }, query.length > 0 && suggestions.length === 0 && /*#__PURE__*/React.createElement("div", {
+    className: "ce-no-match"
+  }, "Nema podudaranja"), suggestions.map(function (r, i) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: r,
+      className: "ce-suggestion".concat(i === activeIdx ? ' active' : ''),
+      onClick: function onClick() {
+        return add(r);
       },
-      onClick: function onClick(e) {
-        return e.stopPropagation();
-      },
-      children: [/*#__PURE__*/_jsxDEV("div", {
-        className: "ce-title",
-        children: [/*#__PURE__*/_jsxDEV("span", {
-          children: ["Radnici ", /*#__PURE__*/_jsxDEV("span", {
-            className: "ce-field-label",
-            children: FIELD_LABEL[field]
-          }, void 0, false)]
-        }, void 0, true), /*#__PURE__*/_jsxDEV("button", {
-          className: "ce-close-btn",
-          onClick: onClose,
-          children: "\xD7"
-        }, void 0, false)]
-      }, void 0, true), selected.length > 0 && /*#__PURE__*/_jsxDEV("div", {
-        className: "ce-selected",
-        children: selected.map(function (r) {
-          return /*#__PURE__*/_jsxDEV("span", {
-            className: "ce-pill",
-            children: [r, /*#__PURE__*/_jsxDEV("button", {
-              className: "ce-pill-rm",
-              onClick: function onClick() {
-                return remove(r);
-              },
-              children: "\xD7"
-            }, void 0, false)]
-          }, r, true);
-        })
-      }, void 0, false), /*#__PURE__*/_jsxDEV("input", {
-        ref: inputRef,
-        className: "ce-input",
-        placeholder: "Upi\u0161i ime...",
-        value: query,
-        onChange: function onChange(e) {
-          return setQuery(e.target.value);
-        },
-        onKeyDown: handleKey
-      }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-        className: "ce-suggestions",
-        children: [query.length > 0 && suggestions.length === 0 && /*#__PURE__*/_jsxDEV("div", {
-          className: "ce-no-match",
-          children: "Nema podudaranja"
-        }, void 0, false), suggestions.map(function (r, i) {
-          return /*#__PURE__*/_jsxDEV("div", {
-            className: "ce-suggestion".concat(i === activeIdx ? ' active' : ''),
-            onClick: function onClick() {
-              return add(r);
-            },
-            onMouseEnter: function onMouseEnter() {
-              return setActiveIdx(i);
-            },
-            children: r
-          }, r, false);
-        })]
-      }, void 0, true)]
-    }, void 0, true)]
-  }, void 0, true);
+      onMouseEnter: function onMouseEnter() {
+        return setActiveIdx(i);
+      }
+    }, r);
+  }))));
 }
 
 // ── STATS VIEW ────────────────────────────────────────────────
@@ -2871,104 +2673,88 @@ function StatsView(_ref27) {
   })).concat([1]));
   var mon = getMondayOfWeek(wk);
   var periodLbl = period === 'week' ? fmtWeekLabel(wk) : period === 'month' ? "".concat(MONTHS[mon.getMonth()].toLowerCase(), " ").concat(mon.getFullYear()) : 'sve vreme';
-  return /*#__PURE__*/_jsxDEV("div", {
-    className: "stats-wrap",
-    children: [/*#__PURE__*/_jsxDEV("div", {
-      className: "stats-controls",
-      children: [[['week', 'Nedelja'], ['month', 'Mesec'], ['all', 'Sve']].map(function (_ref28) {
-        var _ref29 = _slicedToArray(_ref28, 2),
-          p = _ref29[0],
-          l = _ref29[1];
-        return /*#__PURE__*/_jsxDEV("button", {
-          className: "period-btn".concat(period === p ? ' active' : ''),
-          onClick: function onClick() {
-            return setPeriod(p);
-          },
-          children: l
-        }, p, false);
-      }), /*#__PURE__*/_jsxDEV("span", {
-        className: "stats-period-lbl",
-        children: periodLbl
-      }, void 0, false)]
-    }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-      className: "stats-list",
-      children: sorted.map(function (r, i) {
-        var s = stats[r] || {
-          s1: 0,
-          s2: 0,
-          ms: 0,
-          total: 0
-        };
-        var pct = function pct(n) {
-          return "".concat(Math.round(n / maxTotal * 100), "%");
-        };
-        return /*#__PURE__*/_jsxDEV("div", {
-          className: "stat-row",
-          children: [/*#__PURE__*/_jsxDEV("span", {
-            className: "stat-rank",
-            children: i + 1
-          }, void 0, false), /*#__PURE__*/_jsxDEV("span", {
-            className: "stat-name",
-            children: r
-          }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-            className: "stat-bar",
-            children: [/*#__PURE__*/_jsxDEV("div", {
-              className: "stat-seg seg-s1",
-              style: {
-                width: pct(s.s1)
-              }
-            }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-              className: "stat-seg seg-s2",
-              style: {
-                width: pct(s.s2)
-              }
-            }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-              className: "stat-seg seg-ms",
-              style: {
-                width: pct(s.ms)
-              }
-            }, void 0, false)]
-          }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-            className: "stat-breakdown",
-            children: [/*#__PURE__*/_jsxDEV("span", {
-              className: "sb s1",
-              title: "I smena",
-              children: s.s1
-            }, void 0, false), /*#__PURE__*/_jsxDEV("span", {
-              className: "sb s2",
-              title: "II smena",
-              children: s.s2
-            }, void 0, false), /*#__PURE__*/_jsxDEV("span", {
-              className: "sb ms",
-              title: "Me\u0111usmena",
-              children: s.ms
-            }, void 0, false)]
-          }, void 0, true), /*#__PURE__*/_jsxDEV("span", {
-            className: "stat-total",
-            children: s.total
-          }, void 0, false)]
-        }, r, true);
-      })
-    }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-      className: "stats-legend",
-      children: [/*#__PURE__*/_jsxDEV("span", {
-        className: "leg-item",
-        children: [/*#__PURE__*/_jsxDEV("span", {
-          className: "leg-dot s1"
-        }, void 0, false), "I smena"]
-      }, void 0, true), /*#__PURE__*/_jsxDEV("span", {
-        className: "leg-item",
-        children: [/*#__PURE__*/_jsxDEV("span", {
-          className: "leg-dot s2"
-        }, void 0, false), "II smena"]
-      }, void 0, true), /*#__PURE__*/_jsxDEV("span", {
-        className: "leg-item",
-        children: [/*#__PURE__*/_jsxDEV("span", {
-          className: "leg-dot ms"
-        }, void 0, false), "Me\u0111usmena"]
-      }, void 0, true)]
-    }, void 0, true)]
-  }, void 0, true);
+  return /*#__PURE__*/React.createElement("div", {
+    className: "stats-wrap"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "stats-controls"
+  }, [['week', 'Nedelja'], ['month', 'Mesec'], ['all', 'Sve']].map(function (_ref28) {
+    var _ref29 = _slicedToArray(_ref28, 2),
+      p = _ref29[0],
+      l = _ref29[1];
+    return /*#__PURE__*/React.createElement("button", {
+      key: p,
+      className: "period-btn".concat(period === p ? ' active' : ''),
+      onClick: function onClick() {
+        return setPeriod(p);
+      }
+    }, l);
+  }), /*#__PURE__*/React.createElement("span", {
+    className: "stats-period-lbl"
+  }, periodLbl)), /*#__PURE__*/React.createElement("div", {
+    className: "stats-list"
+  }, sorted.map(function (r, i) {
+    var s = stats[r] || {
+      s1: 0,
+      s2: 0,
+      ms: 0,
+      total: 0
+    };
+    var pct = function pct(n) {
+      return "".concat(Math.round(n / maxTotal * 100), "%");
+    };
+    return /*#__PURE__*/React.createElement("div", {
+      key: r,
+      className: "stat-row"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "stat-rank"
+    }, i + 1), /*#__PURE__*/React.createElement("span", {
+      className: "stat-name"
+    }, r), /*#__PURE__*/React.createElement("div", {
+      className: "stat-bar"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "stat-seg seg-s1",
+      style: {
+        width: pct(s.s1)
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "stat-seg seg-s2",
+      style: {
+        width: pct(s.s2)
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "stat-seg seg-ms",
+      style: {
+        width: pct(s.ms)
+      }
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "stat-breakdown"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "sb s1",
+      title: "I smena"
+    }, s.s1), /*#__PURE__*/React.createElement("span", {
+      className: "sb s2",
+      title: "II smena"
+    }, s.s2), /*#__PURE__*/React.createElement("span", {
+      className: "sb ms",
+      title: "Me\u0111usmena"
+    }, s.ms)), /*#__PURE__*/React.createElement("span", {
+      className: "stat-total"
+    }, s.total));
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "stats-legend"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "leg-item"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "leg-dot s1"
+  }), "I smena"), /*#__PURE__*/React.createElement("span", {
+    className: "leg-item"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "leg-dot s2"
+  }), "II smena"), /*#__PURE__*/React.createElement("span", {
+    className: "leg-item"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "leg-dot ms"
+  }), "Me\u0111usmena")));
 }
 var CELL_NAV = ['s1_sank', 's1_sala', 's2_sank', 's2_sala', 'ms', 'off'];
 
@@ -3221,479 +3007,392 @@ function RasporedModule() {
       }, 2000);
     });
   };
-  return /*#__PURE__*/_jsxDEV("div", {
-    className: "main",
-    children: [/*#__PURE__*/_jsxDEV("div", {
-      style: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: '12px',
-        marginBottom: '16px'
-      },
-      children: [/*#__PURE__*/_jsxDEV("div", {
-        className: "page-title",
-        children: "Raspored"
-      }, void 0, false), /*#__PURE__*/_jsxDEV("button", {
-        className: "stats-toggle".concat(showStats ? ' active' : ''),
+  return /*#__PURE__*/React.createElement("div", {
+    className: "main"
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '12px',
+      marginBottom: '16px'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "page-title"
+  }, "Raspored"), /*#__PURE__*/React.createElement("button", {
+    className: "stats-toggle".concat(showStats ? ' active' : ''),
+    onClick: function onClick() {
+      return setShowStats(function (s) {
+        return !s;
+      });
+    }
+  }, showStats ? 'Raspored' : 'Statistika')), /*#__PURE__*/React.createElement("div", {
+    className: "radnici-row"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "sec-label",
+    style: {
+      marginRight: '4px'
+    }
+  }, "Radnici"), radnici.map(function (r) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: r,
+      className: "radnik-chip"
+    }, r, /*#__PURE__*/React.createElement("button", {
+      className: "radnik-rm",
+      onClick: function onClick() {
+        return rmRadnik(r);
+      }
+    }, "\xD7"));
+  }), /*#__PURE__*/React.createElement("input", {
+    className: "radnik-input",
+    placeholder: "+ dodaj radnika",
+    value: newR,
+    onChange: function onChange(e) {
+      return setNewR(e.target.value);
+    },
+    onKeyDown: function onKeyDown(e) {
+      return e.key === 'Enter' && addRadnik();
+    }
+  }), newR.trim() && /*#__PURE__*/React.createElement("button", {
+    className: "radnik-add-btn",
+    onClick: addRadnik
+  }, "+")), /*#__PURE__*/React.createElement("div", {
+    className: "week-nav"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "w-arrow",
+    onClick: function onClick() {
+      return setWk(adjWeek(wk, -1));
+    }
+  }, "\u2039"), /*#__PURE__*/React.createElement("span", {
+    className: "w-label"
+  }, fmtWeekLabel(wk)), /*#__PURE__*/React.createElement("button", {
+    className: "w-arrow",
+    onClick: function onClick() {
+      return setWk(adjWeek(wk, 1));
+    }
+  }, "\u203A"), /*#__PURE__*/React.createElement("button", {
+    className: "paste-btn".concat(pasteFlash ? ' ok' : ''),
+    onClick: copyPrevWeek,
+    disabled: !hasPrevData,
+    title: hasPrevData ? "Kopiraj raspored iz ".concat(fmtWeekLabel(prevWk)) : 'Prošla nedelja nema raspored'
+  }, pasteFlash ? 'Kopirano ✓' : '↑ Kopiraj prošlu')), showStats ? /*#__PURE__*/React.createElement(StatsView, {
+    raspored: raspored,
+    radnici: radnici,
+    wk: wk
+  }) : /*#__PURE__*/React.createElement("div", {
+    className: "raspored-layout"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "sched-wrap"
+  }, /*#__PURE__*/React.createElement("table", {
+    className: "sched-table desktop-only"
+  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", {
+    rowSpan: 2,
+    className: "th-n"
+  }, "Dan"), /*#__PURE__*/React.createElement("th", {
+    colSpan: 2,
+    className: "th-s1"
+  }, "I. smena"), /*#__PURE__*/React.createElement("th", {
+    colSpan: 2,
+    className: "th-s2"
+  }, "II. smena"), /*#__PURE__*/React.createElement("th", {
+    rowSpan: 2,
+    className: "th-ms"
+  }, "Me\u0111usmena"), /*#__PURE__*/React.createElement("th", {
+    rowSpan: 2,
+    className: "th-n"
+  }, "Off"), /*#__PURE__*/React.createElement("th", {
+    rowSpan: 2,
+    className: "th-n"
+  }, "Napomena")), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", {
+    className: "th-s1"
+  }, "\u0160ank"), /*#__PURE__*/React.createElement("th", {
+    className: "th-s1"
+  }, "Sala"), /*#__PURE__*/React.createElement("th", {
+    className: "th-s2"
+  }, "\u0160ank"), /*#__PURE__*/React.createElement("th", {
+    className: "th-s2"
+  }, "Sala"))), /*#__PURE__*/React.createElement("tbody", null, days.map(function (ds, i) {
+    var d = getDay(ds),
+      date = new Date(ds),
+      isToday = ds === todayStr;
+    return /*#__PURE__*/React.createElement("tr", {
+      key: ds,
+      className: isToday ? 'today-row' : ''
+    }, /*#__PURE__*/React.createElement("td", {
+      className: "day-cell"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "day-name"
+    }, DANI[i]), /*#__PURE__*/React.createElement("div", {
+      className: "day-date"
+    }, date.getDate(), ".", date.getMonth() + 1, "."), getDayDupes(ds).length > 0 && /*#__PURE__*/React.createElement("div", {
+      className: "day-dupe-warn",
+      title: "Duplikat: ".concat(getDayDupes(ds).join(', '))
+    }, "! ", getDayDupes(ds).join(', '))), FIELDS.map(function (f) {
+      return /*#__PURE__*/React.createElement("td", {
+        key: f.key,
+        className: "cell-click".concat(d[f.key].length > 0 ? ' filled-' + f.smena : ''),
         onClick: function onClick() {
-          return setShowStats(function (s) {
-            return !s;
+          return setEditing({
+            ds: ds,
+            field: f.key
           });
-        },
-        children: showStats ? 'Raspored' : 'Statistika'
-      }, void 0, false)]
-    }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-      className: "radnici-row",
-      children: [/*#__PURE__*/_jsxDEV("span", {
-        className: "sec-label",
-        style: {
-          marginRight: '4px'
-        },
-        children: "Radnici"
-      }, void 0, false), radnici.map(function (r) {
-        return /*#__PURE__*/_jsxDEV("div", {
-          className: "radnik-chip",
-          children: [r, /*#__PURE__*/_jsxDEV("button", {
-            className: "radnik-rm",
-            onClick: function onClick() {
-              return rmRadnik(r);
-            },
-            children: "\xD7"
-          }, void 0, false)]
-        }, r, true);
-      }), /*#__PURE__*/_jsxDEV("input", {
-        className: "radnik-input",
-        placeholder: "+ dodaj radnika",
-        value: newR,
-        onChange: function onChange(e) {
-          return setNewR(e.target.value);
-        },
-        onKeyDown: function onKeyDown(e) {
-          return e.key === 'Enter' && addRadnik();
         }
-      }, void 0, false), newR.trim() && /*#__PURE__*/_jsxDEV("button", {
-        className: "radnik-add-btn",
-        onClick: addRadnik,
-        children: "+"
-      }, void 0, false)]
-    }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-      className: "week-nav",
-      children: [/*#__PURE__*/_jsxDEV("button", {
-        className: "w-arrow",
+      }, d[f.key].length > 0 ? /*#__PURE__*/React.createElement("div", {
+        className: "w-pills"
+      }, d[f.key].map(function (w, j) {
+        return /*#__PURE__*/React.createElement("span", {
+          key: j,
+          className: "w-pill ".concat(f.smena)
+        }, w);
+      })) : /*#__PURE__*/React.createElement("span", {
+        className: "muted-cell"
+      }, "\u2014"));
+    }), /*#__PURE__*/React.createElement("td", {
+      className: "cell-click".concat((d.ms || []).length > 0 ? ' filled-ms' : ''),
+      onClick: function onClick() {
+        return setEditing({
+          ds: ds,
+          field: 'ms'
+        });
+      }
+    }, (d.ms || []).length > 0 ? /*#__PURE__*/React.createElement("div", {
+      className: "w-pills"
+    }, (d.ms || []).map(function (w, j) {
+      return /*#__PURE__*/React.createElement("span", {
+        key: j,
+        className: "w-pill ms"
+      }, w);
+    })) : /*#__PURE__*/React.createElement("span", {
+      className: "muted-cell"
+    }, "\u2014")), /*#__PURE__*/React.createElement("td", {
+      className: "cell-click".concat(d.off.length > 0 ? ' filled-off' : ''),
+      onClick: function onClick() {
+        return setEditing({
+          ds: ds,
+          field: 'off'
+        });
+      }
+    }, d.off.length > 0 ? /*#__PURE__*/React.createElement("div", {
+      className: "w-pills"
+    }, d.off.map(function (w, j) {
+      return /*#__PURE__*/React.createElement("span", {
+        key: j,
+        className: "w-pill off"
+      }, w);
+    })) : /*#__PURE__*/React.createElement("span", {
+      className: "muted-cell"
+    }, "\u2014")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+      className: "note-input",
+      placeholder: "\u2014",
+      value: d.napomena,
+      "data-day": ds,
+      onChange: function onChange(e) {
+        return updNote(ds, e.target.value);
+      },
+      onClick: function onClick(e) {
+        return e.stopPropagation();
+      },
+      onKeyDown: function onKeyDown(e) {
+        return napomenaKey(e, ds);
+      }
+    })));
+  })), /*#__PURE__*/React.createElement("tfoot", null, /*#__PURE__*/React.createElement("tr", {
+    className: "tfoot-clear"
+  }, /*#__PURE__*/React.createElement("td", null), [{
+    field: 's1_sank',
+    label: 'I. šank'
+  }, {
+    field: 's1_sala',
+    label: 'I. sala'
+  }, {
+    field: 's2_sank',
+    label: 'II. šank'
+  }, {
+    field: 's2_sala',
+    label: 'II. sala'
+  }, {
+    field: 'ms',
+    label: 'Međusmena'
+  }, {
+    field: 'off',
+    label: 'Off'
+  }].map(function (_ref30) {
+    var field = _ref30.field,
+      label = _ref30.label;
+    var hasData = days.some(function (ds) {
+      return (getDay(ds)[field] || []).length > 0;
+    });
+    return /*#__PURE__*/React.createElement("td", {
+      key: field
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "col-clear",
+      disabled: !hasData,
+      onClick: function onClick() {
+        return clearCol(field);
+      },
+      title: "Obri\u0161i celu kolonu \u2014 ".concat(label)
+    }, "\xD7 o\u010Disti"));
+  }), /*#__PURE__*/React.createElement("td", null)))), /*#__PURE__*/React.createElement("div", {
+    className: "mobile-only"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "day-strip"
+  }, days.map(function (ds, i) {
+    var date = new Date(ds);
+    return /*#__PURE__*/React.createElement("button", {
+      key: ds,
+      className: "day-strip-btn".concat(selIdx === i ? ' active' : '').concat(ds === todayStr ? ' dt-today' : ''),
+      onClick: function onClick() {
+        return setSelIdx(i);
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "dsb-name"
+    }, DANI[i]), /*#__PURE__*/React.createElement("span", {
+      className: "dsb-date"
+    }, date.getDate(), ".", date.getMonth() + 1, "."));
+  })), function () {
+    var ds = days[selIdx],
+      d = getDay(ds),
+      dupes = getDayDupes(ds);
+    var DcRow = function DcRow(_ref31) {
+      var field = _ref31.field,
+        label = _ref31.label,
+        cls = _ref31.cls;
+      var workers = d[field] || [];
+      return /*#__PURE__*/React.createElement("div", {
+        className: "dc-row",
         onClick: function onClick() {
-          return setWk(adjWeek(wk, -1));
-        },
-        children: "\u2039"
-      }, void 0, false), /*#__PURE__*/_jsxDEV("span", {
-        className: "w-label",
-        children: fmtWeekLabel(wk)
-      }, void 0, false), /*#__PURE__*/_jsxDEV("button", {
-        className: "w-arrow",
-        onClick: function onClick() {
-          return setWk(adjWeek(wk, 1));
-        },
-        children: "\u203A"
-      }, void 0, false), /*#__PURE__*/_jsxDEV("button", {
-        className: "paste-btn".concat(pasteFlash ? ' ok' : ''),
-        onClick: copyPrevWeek,
-        disabled: !hasPrevData,
-        title: hasPrevData ? "Kopiraj raspored iz ".concat(fmtWeekLabel(prevWk)) : 'Prošla nedelja nema raspored',
-        children: pasteFlash ? 'Kopirano ✓' : '↑ Kopiraj prošlu'
-      }, void 0, false)]
-    }, void 0, true), showStats ? /*#__PURE__*/_jsxDEV(StatsView, {
-      raspored: raspored,
-      radnici: radnici,
-      wk: wk
-    }, void 0, false) : /*#__PURE__*/_jsxDEV("div", {
-      className: "raspored-layout",
-      children: [/*#__PURE__*/_jsxDEV("div", {
-        className: "sched-wrap",
-        children: [/*#__PURE__*/_jsxDEV("table", {
-          className: "sched-table desktop-only",
-          children: [/*#__PURE__*/_jsxDEV("thead", {
-            children: [/*#__PURE__*/_jsxDEV("tr", {
-              children: [/*#__PURE__*/_jsxDEV("th", {
-                rowSpan: 2,
-                className: "th-n",
-                children: "Dan"
-              }, void 0, false), /*#__PURE__*/_jsxDEV("th", {
-                colSpan: 2,
-                className: "th-s1",
-                children: "I. smena"
-              }, void 0, false), /*#__PURE__*/_jsxDEV("th", {
-                colSpan: 2,
-                className: "th-s2",
-                children: "II. smena"
-              }, void 0, false), /*#__PURE__*/_jsxDEV("th", {
-                rowSpan: 2,
-                className: "th-ms",
-                children: "Me\u0111usmena"
-              }, void 0, false), /*#__PURE__*/_jsxDEV("th", {
-                rowSpan: 2,
-                className: "th-n",
-                children: "Off"
-              }, void 0, false), /*#__PURE__*/_jsxDEV("th", {
-                rowSpan: 2,
-                className: "th-n",
-                children: "Napomena"
-              }, void 0, false)]
-            }, void 0, true), /*#__PURE__*/_jsxDEV("tr", {
-              children: [/*#__PURE__*/_jsxDEV("th", {
-                className: "th-s1",
-                children: "\u0160ank"
-              }, void 0, false), /*#__PURE__*/_jsxDEV("th", {
-                className: "th-s1",
-                children: "Sala"
-              }, void 0, false), /*#__PURE__*/_jsxDEV("th", {
-                className: "th-s2",
-                children: "\u0160ank"
-              }, void 0, false), /*#__PURE__*/_jsxDEV("th", {
-                className: "th-s2",
-                children: "Sala"
-              }, void 0, false)]
-            }, void 0, true)]
-          }, void 0, true), /*#__PURE__*/_jsxDEV("tbody", {
-            children: days.map(function (ds, i) {
-              var d = getDay(ds),
-                date = new Date(ds),
-                isToday = ds === todayStr;
-              return /*#__PURE__*/_jsxDEV("tr", {
-                className: isToday ? 'today-row' : '',
-                children: [/*#__PURE__*/_jsxDEV("td", {
-                  className: "day-cell",
-                  children: [/*#__PURE__*/_jsxDEV("div", {
-                    className: "day-name",
-                    children: DANI[i]
-                  }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-                    className: "day-date",
-                    children: [date.getDate(), ".", date.getMonth() + 1, "."]
-                  }, void 0, true), getDayDupes(ds).length > 0 && /*#__PURE__*/_jsxDEV("div", {
-                    className: "day-dupe-warn",
-                    title: "Duplikat: ".concat(getDayDupes(ds).join(', ')),
-                    children: ["! ", getDayDupes(ds).join(', ')]
-                  }, void 0, true)]
-                }, void 0, true), FIELDS.map(function (f) {
-                  return /*#__PURE__*/_jsxDEV("td", {
-                    className: "cell-click".concat(d[f.key].length > 0 ? ' filled-' + f.smena : ''),
-                    onClick: function onClick() {
-                      return setEditing({
-                        ds: ds,
-                        field: f.key
-                      });
-                    },
-                    children: d[f.key].length > 0 ? /*#__PURE__*/_jsxDEV("div", {
-                      className: "w-pills",
-                      children: d[f.key].map(function (w, j) {
-                        return /*#__PURE__*/_jsxDEV("span", {
-                          className: "w-pill ".concat(f.smena),
-                          children: w
-                        }, j, false);
-                      })
-                    }, void 0, false) : /*#__PURE__*/_jsxDEV("span", {
-                      className: "muted-cell",
-                      children: "\u2014"
-                    }, void 0, false)
-                  }, f.key, false);
-                }), /*#__PURE__*/_jsxDEV("td", {
-                  className: "cell-click".concat((d.ms || []).length > 0 ? ' filled-ms' : ''),
-                  onClick: function onClick() {
-                    return setEditing({
-                      ds: ds,
-                      field: 'ms'
-                    });
-                  },
-                  children: (d.ms || []).length > 0 ? /*#__PURE__*/_jsxDEV("div", {
-                    className: "w-pills",
-                    children: (d.ms || []).map(function (w, j) {
-                      return /*#__PURE__*/_jsxDEV("span", {
-                        className: "w-pill ms",
-                        children: w
-                      }, j, false);
-                    })
-                  }, void 0, false) : /*#__PURE__*/_jsxDEV("span", {
-                    className: "muted-cell",
-                    children: "\u2014"
-                  }, void 0, false)
-                }, void 0, false), /*#__PURE__*/_jsxDEV("td", {
-                  className: "cell-click".concat(d.off.length > 0 ? ' filled-off' : ''),
-                  onClick: function onClick() {
-                    return setEditing({
-                      ds: ds,
-                      field: 'off'
-                    });
-                  },
-                  children: d.off.length > 0 ? /*#__PURE__*/_jsxDEV("div", {
-                    className: "w-pills",
-                    children: d.off.map(function (w, j) {
-                      return /*#__PURE__*/_jsxDEV("span", {
-                        className: "w-pill off",
-                        children: w
-                      }, j, false);
-                    })
-                  }, void 0, false) : /*#__PURE__*/_jsxDEV("span", {
-                    className: "muted-cell",
-                    children: "\u2014"
-                  }, void 0, false)
-                }, void 0, false), /*#__PURE__*/_jsxDEV("td", {
-                  children: /*#__PURE__*/_jsxDEV("input", {
-                    className: "note-input",
-                    placeholder: "\u2014",
-                    value: d.napomena,
-                    "data-day": ds,
-                    onChange: function onChange(e) {
-                      return updNote(ds, e.target.value);
-                    },
-                    onClick: function onClick(e) {
-                      return e.stopPropagation();
-                    },
-                    onKeyDown: function onKeyDown(e) {
-                      return napomenaKey(e, ds);
-                    }
-                  }, void 0, false)
-                }, void 0, false)]
-              }, ds, true);
-            })
-          }, void 0, false), /*#__PURE__*/_jsxDEV("tfoot", {
-            children: /*#__PURE__*/_jsxDEV("tr", {
-              className: "tfoot-clear",
-              children: [/*#__PURE__*/_jsxDEV("td", {}, void 0, false), [{
-                field: 's1_sank',
-                label: 'I. šank'
-              }, {
-                field: 's1_sala',
-                label: 'I. sala'
-              }, {
-                field: 's2_sank',
-                label: 'II. šank'
-              }, {
-                field: 's2_sala',
-                label: 'II. sala'
-              }, {
-                field: 'ms',
-                label: 'Međusmena'
-              }, {
-                field: 'off',
-                label: 'Off'
-              }].map(function (_ref30) {
-                var field = _ref30.field,
-                  label = _ref30.label;
-                var hasData = days.some(function (ds) {
-                  return (getDay(ds)[field] || []).length > 0;
-                });
-                return /*#__PURE__*/_jsxDEV("td", {
-                  children: /*#__PURE__*/_jsxDEV("button", {
-                    className: "col-clear",
-                    disabled: !hasData,
-                    onClick: function onClick() {
-                      return clearCol(field);
-                    },
-                    title: "Obri\u0161i celu kolonu \u2014 ".concat(label),
-                    children: "\xD7 o\u010Disti"
-                  }, void 0, false)
-                }, field, false);
-              }), /*#__PURE__*/_jsxDEV("td", {}, void 0, false)]
-            }, void 0, true)
-          }, void 0, false)]
-        }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-          className: "mobile-only",
-          children: [/*#__PURE__*/_jsxDEV("div", {
-            className: "day-strip",
-            children: days.map(function (ds, i) {
-              var date = new Date(ds);
-              return /*#__PURE__*/_jsxDEV("button", {
-                className: "day-strip-btn".concat(selIdx === i ? ' active' : '').concat(ds === todayStr ? ' dt-today' : ''),
-                onClick: function onClick() {
-                  return setSelIdx(i);
-                },
-                children: [/*#__PURE__*/_jsxDEV("span", {
-                  className: "dsb-name",
-                  children: DANI[i]
-                }, void 0, false), /*#__PURE__*/_jsxDEV("span", {
-                  className: "dsb-date",
-                  children: [date.getDate(), ".", date.getMonth() + 1, "."]
-                }, void 0, true)]
-              }, ds, true);
-            })
-          }, void 0, false), function () {
-            var ds = days[selIdx],
-              d = getDay(ds),
-              dupes = getDayDupes(ds);
-            var DcRow = function DcRow(_ref31) {
-              var field = _ref31.field,
-                label = _ref31.label,
-                cls = _ref31.cls;
-              var workers = d[field] || [];
-              return /*#__PURE__*/_jsxDEV("div", {
-                className: "dc-row",
-                onClick: function onClick() {
-                  return setEditing({
-                    ds: ds,
-                    field: field
-                  });
-                },
-                children: [/*#__PURE__*/_jsxDEV("span", {
-                  className: "dc-lbl",
-                  children: label
-                }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-                  className: "dc-workers",
-                  children: [workers.length > 0 ? workers.map(function (w, j) {
-                    return /*#__PURE__*/_jsxDEV("span", {
-                      className: "w-pill ".concat(cls),
-                      children: w
-                    }, j, false);
-                  }) : /*#__PURE__*/_jsxDEV("span", {
-                    className: "muted-cell",
-                    children: "\u2014"
-                  }, void 0, false), /*#__PURE__*/_jsxDEV("span", {
-                    className: "dc-add",
-                    children: "+"
-                  }, void 0, false)]
-                }, void 0, true)]
-              }, void 0, true);
-            };
-            return /*#__PURE__*/_jsxDEV("div", {
-              className: "day-detail",
-              children: [dupes.length > 0 && /*#__PURE__*/_jsxDEV("div", {
-                className: "day-dupe-warn",
-                style: {
-                  marginBottom: '8px'
-                },
-                children: ["! Duplikat: ", dupes.join(', ')]
-              }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-                className: "dc-section-lbl",
-                children: "I. smena"
-              }, void 0, false), /*#__PURE__*/_jsxDEV(DcRow, {
-                field: "s1_sank",
-                label: "\u0160ank",
-                cls: "s1"
-              }, void 0, false), /*#__PURE__*/_jsxDEV(DcRow, {
-                field: "s1_sala",
-                label: "Sala",
-                cls: "s1"
-              }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-                className: "dc-section-lbl",
-                children: "II. smena"
-              }, void 0, false), /*#__PURE__*/_jsxDEV(DcRow, {
-                field: "s2_sank",
-                label: "\u0160ank",
-                cls: "s2"
-              }, void 0, false), /*#__PURE__*/_jsxDEV(DcRow, {
-                field: "s2_sala",
-                label: "Sala",
-                cls: "s2"
-              }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-                className: "dc-section-lbl",
-                children: "Ostalo"
-              }, void 0, false), /*#__PURE__*/_jsxDEV(DcRow, {
-                field: "ms",
-                label: "Me\u0111usmena",
-                cls: "ms"
-              }, void 0, false), /*#__PURE__*/_jsxDEV(DcRow, {
-                field: "off",
-                label: "Off",
-                cls: "off"
-              }, void 0, false), /*#__PURE__*/_jsxDEV("input", {
-                className: "dc-note",
-                placeholder: "Napomena...",
-                value: d.napomena,
-                "data-day": ds,
-                onChange: function onChange(e) {
-                  return updNote(ds, e.target.value);
-                },
-                onClick: function onClick(e) {
-                  return e.stopPropagation();
-                }
-              }, void 0, false)]
-            }, void 0, true);
-          }(), /*#__PURE__*/_jsxDEV("div", {
-            className: "mobile-smene",
-            children: [/*#__PURE__*/_jsxDEV("div", {
-              className: "mobile-smene-hdr",
-              children: "Smene \u2014 ova nedelja"
-            }, void 0, false), _toConsumableArray(radnici).sort(function (a, b) {
-              return (shiftCounts[b] || 0) - (shiftCounts[a] || 0);
-            }).map(function (r) {
-              return /*#__PURE__*/_jsxDEV("div", {
-                className: "mobile-smene-row".concat(done.includes(r) ? ' done' : ''),
-                onClick: function onClick() {
-                  return toggleDone(r);
-                },
-                children: [/*#__PURE__*/_jsxDEV("span", {
-                  children: [r, done.includes(r) && ' 🦚']
-                }, void 0, true), /*#__PURE__*/_jsxDEV("span", {
-                  className: "mobile-smene-n",
-                  children: shiftCounts[r] || 0
-                }, void 0, false)]
-              }, r, true);
-            }), /*#__PURE__*/_jsxDEV("div", {
-              className: "mobile-smene-total",
-              children: [/*#__PURE__*/_jsxDEV("span", {
-                children: "Ukupno"
-              }, void 0, false), /*#__PURE__*/_jsxDEV("span", {
-                children: totalShifts
-              }, void 0, false)]
-            }, void 0, true)]
-          }, void 0, true)]
-        }, void 0, true), editing && /*#__PURE__*/_jsxDEV(CellEditor, {
-          radnici: radnici,
-          selected: getDay(editing.ds)[editing.field] || [],
-          onUpdate: function onUpdate(workers) {
-            return updCell(editing.ds, editing.field, workers);
-          },
-          onClose: function onClose() {
-            return setEditing(null);
-          },
-          onNext: function onNext() {
-            return openNext(editing.ds, editing.field);
-          },
-          onDown: function onDown() {
-            return openDown(editing.ds, editing.field);
-          },
-          field: editing.field
-        }, void 0, false), /*#__PURE__*/_jsxDEV("button", {
-          className: "copy-btn ".concat(copied ? 'ok' : ''),
-          onClick: copyText,
-          children: copied ? 'Kopirano ✓' : 'Pošalji grupi'
-        }, void 0, false)]
-      }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-        className: "smjene-card",
-        children: [/*#__PURE__*/_jsxDEV("div", {
-          className: "smjene-hdr",
-          children: "Smene \u2014 ova nedelja"
-        }, void 0, false), _toConsumableArray(radnici).sort(function (a, b) {
-          return (shiftCounts[b] || 0) - (shiftCounts[a] || 0);
-        }).map(function (r) {
-          return /*#__PURE__*/_jsxDEV("div", {
-            className: "smena-row".concat(done.includes(r) ? ' done' : ''),
-            onClick: function onClick() {
-              return toggleDone(r);
-            },
-            children: [/*#__PURE__*/_jsxDEV("span", {
-              className: "smena-name",
-              children: [r, done.includes(r) && /*#__PURE__*/_jsxDEV("span", {
-                className: "smena-paun",
-                children: "\uD83E\uDD9A"
-              }, void 0, false)]
-            }, void 0, true), /*#__PURE__*/_jsxDEV("span", {
-              className: "smena-n",
-              children: shiftCounts[r] || 0
-            }, void 0, false)]
-          }, r, true);
-        }), /*#__PURE__*/_jsxDEV("div", {
-          className: "smjene-total",
-          children: [/*#__PURE__*/_jsxDEV("span", {
-            children: "Ukupno"
-          }, void 0, false), /*#__PURE__*/_jsxDEV("span", {
-            children: totalShifts
-          }, void 0, false)]
-        }, void 0, true)]
-      }, void 0, true)]
-    }, void 0, true)]
-  }, void 0, true);
+          return setEditing({
+            ds: ds,
+            field: field
+          });
+        }
+      }, /*#__PURE__*/React.createElement("span", {
+        className: "dc-lbl"
+      }, label), /*#__PURE__*/React.createElement("div", {
+        className: "dc-workers"
+      }, workers.length > 0 ? workers.map(function (w, j) {
+        return /*#__PURE__*/React.createElement("span", {
+          key: j,
+          className: "w-pill ".concat(cls)
+        }, w);
+      }) : /*#__PURE__*/React.createElement("span", {
+        className: "muted-cell"
+      }, "\u2014"), /*#__PURE__*/React.createElement("span", {
+        className: "dc-add"
+      }, "+")));
+    };
+    return /*#__PURE__*/React.createElement("div", {
+      className: "day-detail"
+    }, dupes.length > 0 && /*#__PURE__*/React.createElement("div", {
+      className: "day-dupe-warn",
+      style: {
+        marginBottom: '8px'
+      }
+    }, "! Duplikat: ", dupes.join(', ')), /*#__PURE__*/React.createElement("div", {
+      className: "dc-section-lbl"
+    }, "I. smena"), /*#__PURE__*/React.createElement(DcRow, {
+      field: "s1_sank",
+      label: "\u0160ank",
+      cls: "s1"
+    }), /*#__PURE__*/React.createElement(DcRow, {
+      field: "s1_sala",
+      label: "Sala",
+      cls: "s1"
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "dc-section-lbl"
+    }, "II. smena"), /*#__PURE__*/React.createElement(DcRow, {
+      field: "s2_sank",
+      label: "\u0160ank",
+      cls: "s2"
+    }), /*#__PURE__*/React.createElement(DcRow, {
+      field: "s2_sala",
+      label: "Sala",
+      cls: "s2"
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "dc-section-lbl"
+    }, "Ostalo"), /*#__PURE__*/React.createElement(DcRow, {
+      field: "ms",
+      label: "Me\u0111usmena",
+      cls: "ms"
+    }), /*#__PURE__*/React.createElement(DcRow, {
+      field: "off",
+      label: "Off",
+      cls: "off"
+    }), /*#__PURE__*/React.createElement("input", {
+      className: "dc-note",
+      placeholder: "Napomena...",
+      value: d.napomena,
+      "data-day": ds,
+      onChange: function onChange(e) {
+        return updNote(ds, e.target.value);
+      },
+      onClick: function onClick(e) {
+        return e.stopPropagation();
+      }
+    }));
+  }(), /*#__PURE__*/React.createElement("div", {
+    className: "mobile-smene"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "mobile-smene-hdr"
+  }, "Smene \u2014 ova nedelja"), _toConsumableArray(radnici).sort(function (a, b) {
+    return (shiftCounts[b] || 0) - (shiftCounts[a] || 0);
+  }).map(function (r) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: r,
+      className: "mobile-smene-row".concat(done.includes(r) ? ' done' : ''),
+      onClick: function onClick() {
+        return toggleDone(r);
+      }
+    }, /*#__PURE__*/React.createElement("span", null, r, done.includes(r) && ' 🦚'), /*#__PURE__*/React.createElement("span", {
+      className: "mobile-smene-n"
+    }, shiftCounts[r] || 0));
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "mobile-smene-total"
+  }, /*#__PURE__*/React.createElement("span", null, "Ukupno"), /*#__PURE__*/React.createElement("span", null, totalShifts)))), editing && /*#__PURE__*/React.createElement(CellEditor, {
+    radnici: radnici,
+    selected: getDay(editing.ds)[editing.field] || [],
+    onUpdate: function onUpdate(workers) {
+      return updCell(editing.ds, editing.field, workers);
+    },
+    onClose: function onClose() {
+      return setEditing(null);
+    },
+    onNext: function onNext() {
+      return openNext(editing.ds, editing.field);
+    },
+    onDown: function onDown() {
+      return openDown(editing.ds, editing.field);
+    },
+    field: editing.field
+  }), /*#__PURE__*/React.createElement("button", {
+    className: "copy-btn ".concat(copied ? 'ok' : ''),
+    onClick: copyText
+  }, copied ? 'Kopirano ✓' : 'Pošalji grupi')), /*#__PURE__*/React.createElement("div", {
+    className: "smjene-card"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "smjene-hdr"
+  }, "Smene \u2014 ova nedelja"), _toConsumableArray(radnici).sort(function (a, b) {
+    return (shiftCounts[b] || 0) - (shiftCounts[a] || 0);
+  }).map(function (r) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: r,
+      className: "smena-row".concat(done.includes(r) ? ' done' : ''),
+      onClick: function onClick() {
+        return toggleDone(r);
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "smena-name"
+    }, r, done.includes(r) && /*#__PURE__*/React.createElement("span", {
+      className: "smena-paun"
+    }, "\uD83E\uDD9A")), /*#__PURE__*/React.createElement("span", {
+      className: "smena-n"
+    }, shiftCounts[r] || 0));
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "smjene-total"
+  }, /*#__PURE__*/React.createElement("span", null, "Ukupno"), /*#__PURE__*/React.createElement("span", null, totalShifts)))));
 }
 
 // ── RENDER ────────────────────────────────────────────────────
-ReactDOM.createRoot(document.getElementById('root')).render(/*#__PURE__*/_jsxDEV(App, {}, void 0, false));
+ReactDOM.createRoot(document.getElementById('root')).render(/*#__PURE__*/React.createElement(App, null));
 </script>
 </body>
 </html>
