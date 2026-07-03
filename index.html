@@ -545,6 +545,8 @@
     .w-pill.ms { background: #fef9c3; }
     .w-pill.s2 { background: #ccfbf1; }
     .w-pill.off { background: #f1f5f9; color: #555; }
+    .w-pill.done { box-shadow: 0 0 0 1.5px var(--green); font-weight: 700; }
+    .w-pill.done::after { content: '🦚'; font-size: 9px; margin-left: 3px; vertical-align: middle; }
 
     .cell-click {
       cursor: pointer;
@@ -569,7 +571,8 @@
       border-radius: 8px;
       padding: 12px 14px;
       z-index: 201;
-      min-width: 200px;
+      min-width: 260px;
+      width: min(400px, 92vw);
       box-shadow: 0 4px 20px rgba(0,0,0,0.08);
     }
     .ce-title { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #aaa; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; justify-content: space-between; }
@@ -593,14 +596,15 @@
       outline: none; margin-bottom: 4px;
     }
     .ce-input:focus { border-color: #bbb; }
-    .ce-suggestions { max-height: 140px; overflow-y: auto; }
+    .ce-suggestions { display: flex; flex-wrap: wrap; gap: 6px; max-height: none; }
     .ce-suggestion {
-      padding: 5px 8px; font-size: 12px; cursor: pointer;
-      border-radius: 4px; transition: background 0.1s;
+      padding: 7px 13px; font-size: 13px; cursor: pointer;
+      border: 0.5px solid var(--border); border-radius: 20px;
+      background: white; transition: all 0.1s;
     }
     .ce-suggestion:hover,
-    .ce-suggestion.active { background: var(--bg); }
-    .ce-no-match { font-size: 11px; color: #ccc; padding: 4px 8px; }
+    .ce-suggestion.active { background: var(--charcoal); color: white; border-color: var(--charcoal); }
+    .ce-no-match { font-size: 11px; color: #ccc; padding: 4px 8px; width: 100%; }
 
     .note-input {
       border: none; background: transparent;
@@ -608,6 +612,18 @@
       font-family: inherit; width: 100%; outline: none; min-width: 100px;
     }
     .note-input::placeholder { color: #ddd; }
+    .note-cell { display: flex; align-items: center; gap: 5px; }
+    .day-done-btn {
+      flex-shrink: 0; width: 22px; height: 22px; border-radius: 5px;
+      border: 0.5px solid var(--border); background: white; color: #ccc;
+      font-size: 12px; line-height: 1; cursor: pointer; transition: all 0.12s;
+    }
+    .day-done-btn:hover { border-color: var(--green); color: var(--green); }
+    .day-done-btn.active { background: var(--green); border-color: var(--green); color: white; }
+    /* Zeleni okvir oko završenog dana (desktop red) */
+    tr.day-done td { box-shadow: inset 0 2px 0 var(--green), inset 0 -2px 0 var(--green); }
+    tr.day-done td:first-child { box-shadow: inset 2px 0 0 var(--green), inset 0 2px 0 var(--green), inset 0 -2px 0 var(--green); }
+    tr.day-done td:last-child { box-shadow: inset -2px 0 0 var(--green), inset 0 2px 0 var(--green), inset 0 -2px 0 var(--green); }
 
     /* Radnici manager */
     .radnici-row {
@@ -919,6 +935,7 @@
         padding: 12px 14px;
         margin-bottom: 16px;
       }
+      .day-detail.day-done { border-color: var(--green); box-shadow: 0 0 0 1.5px var(--green); }
 
       /* Smene po radniku — mobile */
       .mobile-smene {
@@ -988,6 +1005,12 @@
         background: transparent;
       }
       .dc-note::placeholder { color: #ddd; }
+      .dc-note-row {
+        display: flex; align-items: center; gap: 8px;
+        margin-top: 8px; padding-top: 8px;
+        border-top: 0.5px solid var(--border);
+      }
+      .dc-note-row .dc-note { margin-top: 0; padding-top: 0; border-top: none; flex: 1; }
 
       /* Prostor ispod sadržaja da FAB ne prekriva zadnju karticu */
       .main-pregled { padding-bottom: 90px; }
@@ -1069,7 +1092,8 @@ var KEYS = {
   RASPORED: 'pavone-raspored',
   RADNICI: 'pavone-radnici',
   RASHODI: 'pavone-rashodi',
-  DONE: 'pavone-done'
+  DONE: 'pavone-done',
+  DONEDAYS: 'pavone-donedays'
 };
 var DEFAULT_RASHODI = [{
   id: 'maxi',
@@ -1182,6 +1206,15 @@ var db = {
   setDone: function setDone(v) {
     localStorage.setItem(KEYS.DONE, JSON.stringify(v));
     COL.doc('done').set({
+      data: v
+    }).catch(console.warn);
+  },
+  getDoneDays: function getDoneDays() {
+    return JSON.parse(localStorage.getItem(KEYS.DONEDAYS) || '{}');
+  },
+  setDoneDays: function setDoneDays(v) {
+    localStorage.setItem(KEYS.DONEDAYS, JSON.stringify(v));
+    COL.doc('donedays').set({
       data: v
     }).catch(console.warn);
   }
@@ -1315,7 +1348,7 @@ function App() {
     };
     var load = /*#__PURE__*/function () {
       var _load = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var _yield$Promise$all, _yield$Promise$all2, pazar, raspored, radnici, rashodi, done, _t;
+        var _yield$Promise$all, _yield$Promise$all2, pazar, raspored, radnici, rashodi, done, doneDays, _t;
         return _regenerator().w(function (_context) {
           while (1) switch (_context.p = _context.n) {
             case 0:
@@ -1325,20 +1358,22 @@ function App() {
                 return localStorage.removeItem(k);
               });
               _context.n = 1;
-              return Promise.all([COL.doc('pazar').get(), COL.doc('raspored').get(), COL.doc('radnici').get(), COL.doc('rashodi').get(), COL.doc('done').get()]);
+              return Promise.all([COL.doc('pazar').get(), COL.doc('raspored').get(), COL.doc('radnici').get(), COL.doc('rashodi').get(), COL.doc('done').get(), COL.doc('donedays').get()]);
             case 1:
               _yield$Promise$all = _context.v;
-              _yield$Promise$all2 = _slicedToArray(_yield$Promise$all, 5);
+              _yield$Promise$all2 = _slicedToArray(_yield$Promise$all, 6);
               pazar = _yield$Promise$all2[0];
               raspored = _yield$Promise$all2[1];
               radnici = _yield$Promise$all2[2];
               rashodi = _yield$Promise$all2[3];
               done = _yield$Promise$all2[4];
+              doneDays = _yield$Promise$all2[5];
               if (pazar.exists) localStorage.setItem(KEYS.PAZAR, JSON.stringify(pazar.data().items || []));
               if (raspored.exists) localStorage.setItem(KEYS.RASPORED, JSON.stringify(raspored.data().data || {}));
               if (radnici.exists) localStorage.setItem(KEYS.RADNICI, JSON.stringify(radnici.data().list || DEFAULT_RADNICI));
               if (rashodi.exists) localStorage.setItem(KEYS.RASHODI, JSON.stringify(rashodi.data().list || DEFAULT_RASHODI));
               if (done.exists) localStorage.setItem(KEYS.DONE, JSON.stringify(done.data().data || {}));
+              if (doneDays.exists) localStorage.setItem(KEYS.DONEDAYS, JSON.stringify(doneDays.data().data || {}));
               _context.n = 3;
               break;
             case 2:
@@ -1372,6 +1407,8 @@ function App() {
       if (s.exists && !s.metadata.hasPendingWrites) bump(KEYS.RASHODI, s.data().list || DEFAULT_RASHODI);
     }), COL.doc('done').onSnapshot(function (s) {
       if (s.exists && !s.metadata.hasPendingWrites) bump(KEYS.DONE, s.data().data || {});
+    }), COL.doc('donedays').onSnapshot(function (s) {
+      if (s.exists && !s.metadata.hasPendingWrites) bump(KEYS.DONEDAYS, s.data().data || {});
     })];
     return function () {
       readyRef.current = false;
@@ -2840,10 +2877,15 @@ function RasporedModule() {
     _useState72 = _slicedToArray(_useState71, 2),
     doneAll = _useState72[0],
     setDoneAll = _useState72[1];
+  var _useState73 = useState(db.getDoneDays()),
+    _useState74 = _slicedToArray(_useState73, 2),
+    doneDaysAll = _useState74[0],
+    setDoneDaysAll = _useState74[1];
   useEffect(function () {
     setRaspored(db.getRaspored());
     setRadnici(db.getRadnici());
     setDoneAll(db.getDone());
+    setDoneDaysAll(db.getDoneDays());
   }, [syncKey]);
   var done = doneAll[wk] || [];
   var toggleDone = function toggleDone(r) {
@@ -2855,6 +2897,16 @@ function RasporedModule() {
     setDoneAll(next);
     db.setDone(next);
   };
+  var doneDays = doneDaysAll[wk] || [];
+  var toggleDoneDay = function toggleDoneDay(ds) {
+    var cur = doneDaysAll[wk] || [];
+    var upd = cur.includes(ds) ? cur.filter(function (x) {
+      return x !== ds;
+    }) : [].concat(_toConsumableArray(cur), [ds]);
+    var next = _objectSpread(_objectSpread({}, doneDaysAll), {}, _defineProperty({}, wk, upd));
+    setDoneDaysAll(next);
+    db.setDoneDays(next);
+  };
   var days = getWeekDays(wk);
   var todayStr = toDay();
   var wkData = raspored[wk] || {};
@@ -2863,13 +2915,13 @@ function RasporedModule() {
   var hasPrevData = Object.values(prevWkData).some(function (d) {
     return (d.s1_sank || []).length || (d.s1_sala || []).length || (d.s2_sank || []).length || (d.s2_sala || []).length || (d.ms || []).length || (d.off || []).length;
   });
-  var _useState73 = useState(function () {
+  var _useState75 = useState(function () {
       var t = getWeekDays(getISOWeekKey(new Date())).indexOf(todayStr);
       return t >= 0 ? t : 0;
     }),
-    _useState74 = _slicedToArray(_useState73, 2),
-    selIdx = _useState74[0],
-    setSelIdx = _useState74[1];
+    _useState76 = _slicedToArray(_useState75, 2),
+    selIdx = _useState76[0],
+    setSelIdx = _useState76[1];
   useEffect(function () {
     var t = days.indexOf(todayStr);
     setSelIdx(t >= 0 ? t : 0);
@@ -3159,7 +3211,7 @@ function RasporedModule() {
       isToday = ds === todayStr;
     return /*#__PURE__*/React.createElement("tr", {
       key: ds,
-      className: isToday ? 'today-row' : ''
+      className: "".concat(isToday ? 'today-row' : '').concat(doneDays.includes(ds) ? ' day-done' : '')
     }, /*#__PURE__*/React.createElement("td", {
       className: "day-cell"
     }, /*#__PURE__*/React.createElement("div", {
@@ -3184,7 +3236,7 @@ function RasporedModule() {
       }, d[f.key].map(function (w, j) {
         return /*#__PURE__*/React.createElement("span", {
           key: j,
-          className: "w-pill ".concat(f.smena)
+          className: "w-pill ".concat(f.smena).concat(done.includes(w) ? ' done' : '')
         }, w);
       })) : /*#__PURE__*/React.createElement("span", {
         className: "muted-cell"
@@ -3202,7 +3254,7 @@ function RasporedModule() {
     }, (d.ms || []).map(function (w, j) {
       return /*#__PURE__*/React.createElement("span", {
         key: j,
-        className: "w-pill ms"
+        className: "w-pill ms".concat(done.includes(w) ? ' done' : '')
       }, w);
     })) : /*#__PURE__*/React.createElement("span", {
       className: "muted-cell"
@@ -3219,11 +3271,13 @@ function RasporedModule() {
     }, d.off.map(function (w, j) {
       return /*#__PURE__*/React.createElement("span", {
         key: j,
-        className: "w-pill off"
+        className: "w-pill off".concat(done.includes(w) ? ' done' : '')
       }, w);
     })) : /*#__PURE__*/React.createElement("span", {
       className: "muted-cell"
-    }, "\u2014")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+    }, "\u2014")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
+      className: "note-cell"
+    }, /*#__PURE__*/React.createElement("input", {
       className: "note-input",
       placeholder: "\u2014",
       value: d.napomena,
@@ -3237,7 +3291,13 @@ function RasporedModule() {
       onKeyDown: function onKeyDown(e) {
         return napomenaKey(e, ds);
       }
-    })));
+    }), /*#__PURE__*/React.createElement("button", {
+      className: "day-done-btn".concat(doneDays.includes(ds) ? ' active' : ''),
+      title: doneDays.includes(ds) ? 'Dan završen — klikni da poništiš' : 'Označi dan kao završen',
+      onClick: function onClick() {
+        return toggleDoneDay(ds);
+      }
+    }, "\u2713"))));
   })), /*#__PURE__*/React.createElement("tfoot", null, /*#__PURE__*/React.createElement("tr", {
     className: "tfoot-clear"
   }, /*#__PURE__*/React.createElement("td", null), [{
@@ -3315,7 +3375,7 @@ function RasporedModule() {
       }, workers.length > 0 ? workers.map(function (w, j) {
         return /*#__PURE__*/React.createElement("span", {
           key: j,
-          className: "w-pill ".concat(cls)
+          className: "w-pill ".concat(cls).concat(done.includes(w) ? ' done' : '')
         }, w);
       }) : /*#__PURE__*/React.createElement("span", {
         className: "muted-cell"
@@ -3324,7 +3384,7 @@ function RasporedModule() {
       }, "+")));
     };
     return /*#__PURE__*/React.createElement("div", {
-      className: "day-detail"
+      className: "day-detail".concat(doneDays.includes(ds) ? ' day-done' : '')
     }, dupes.length > 0 && /*#__PURE__*/React.createElement("div", {
       className: "day-dupe-warn",
       style: {
@@ -3360,7 +3420,9 @@ function RasporedModule() {
       field: "off",
       label: "Off",
       cls: "off"
-    }), /*#__PURE__*/React.createElement("input", {
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "dc-note-row"
+    }, /*#__PURE__*/React.createElement("input", {
       className: "dc-note",
       placeholder: "Napomena...",
       value: d.napomena,
@@ -3371,7 +3433,13 @@ function RasporedModule() {
       onClick: function onClick(e) {
         return e.stopPropagation();
       }
-    }));
+    }), /*#__PURE__*/React.createElement("button", {
+      className: "day-done-btn".concat(doneDays.includes(ds) ? ' active' : ''),
+      title: doneDays.includes(ds) ? 'Dan završen — klikni da poništiš' : 'Označi dan kao završen',
+      onClick: function onClick() {
+        return toggleDoneDay(ds);
+      }
+    }, "\u2713")));
   }(), /*#__PURE__*/React.createElement("div", {
     className: "mobile-smene"
   }, /*#__PURE__*/React.createElement("div", {
