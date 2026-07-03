@@ -1452,9 +1452,27 @@ function PazarStats(_ref) {
         return d >= t;
       }
       if (period === 'year') return d.getFullYear() === now.getFullYear();
-      return true;
+      if (period === 'all') return true;
+      // konkretan mesec: 'YYYY-MM'
+      return p.datum.substring(0, 7) === period;
     });
-  }, [period]);
+  }, [period, pazari]);
+  var availableMonths = useMemo(function () {
+    var set = new Set(pazari.map(function (p) {
+      return p.datum.substring(0, 7);
+    }).filter(Boolean));
+    return _toConsumableArray(set).sort(function (a, b) {
+      return b.localeCompare(a);
+    });
+  }, [pazari]);
+  var monthLabel = function monthLabel(mk) {
+    var _mk$split = mk.split('-'),
+      _mk$split2 = _slicedToArray(_mk$split, 2),
+      y = _mk$split2[0],
+      mo = _mk$split2[1];
+    return "".concat(MONTHS[parseInt(mo) - 1], " ").concat(y);
+  };
+  var isMonthPeriod = /^\d{4}-\d{2}$/.test(period);
   var totals = useMemo(function () {
     var g = 0,
       k = 0,
@@ -1559,7 +1577,20 @@ function PazarStats(_ref) {
         return setPeriod(p);
       }
     }, l);
-  })), /*#__PURE__*/React.createElement("div", {
+  }), availableMonths.length > 0 && /*#__PURE__*/React.createElement("select", {
+    className: "period-btn".concat(isMonthPeriod ? ' active' : ''),
+    value: isMonthPeriod ? period : '',
+    onChange: function onChange(e) {
+      if (e.target.value) setPeriod(e.target.value);
+    }
+  }, /*#__PURE__*/React.createElement("option", {
+    value: ""
+  }, "Izaberi mesec\u2026"), availableMonths.map(function (mk) {
+    return /*#__PURE__*/React.createElement("option", {
+      key: mk,
+      value: mk
+    }, monthLabel(mk));
+  }))), /*#__PURE__*/React.createElement("div", {
     className: "ps-summary"
   }, /*#__PURE__*/React.createElement("div", {
     className: "ps-sum-card"
@@ -2064,10 +2095,10 @@ function PazarPregled(_ref13) {
     var _ref19 = _slicedToArray(_ref18, 2),
       mk = _ref19[0],
       entries = _ref19[1];
-    var _mk$split = mk.split('-'),
-      _mk$split2 = _slicedToArray(_mk$split, 2),
-      yr = _mk$split2[0],
-      mo = _mk$split2[1];
+    var _mk$split3 = mk.split('-'),
+      _mk$split4 = _slicedToArray(_mk$split3, 2),
+      yr = _mk$split4[0],
+      mo = _mk$split4[1];
     var enriched = entries.map(function (p) {
       var pr = Number(p.gotovina || 0) + Number(p.kartica || 0) + Number(p.racun || 0) + Number(p.personal || 0) * 20 + Number(p.dz || 0) * 5;
       var rs = (p.rashodi || []).reduce(function (s, r) {
