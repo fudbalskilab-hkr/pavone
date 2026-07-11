@@ -2590,6 +2590,7 @@ function OdmoriModal(_ref26) {
   var radnici = _ref26.radnici,
     odmori = _ref26.odmori,
     onAdd = _ref26.onAdd,
+    onUpdate = _ref26.onUpdate,
     onRemove = _ref26.onRemove,
     onClose = _ref26.onClose;
   var fmtOd = function fmtOd(s) {
@@ -2612,20 +2613,51 @@ function OdmoriModal(_ref26) {
     _useState56 = _slicedToArray(_useState55, 2),
     tip = _useState56[0],
     setTip = _useState56[1];
-  var canAdd = radnik && od && doo && od <= doo;
+  var _useState57 = useState(null),
+    _useState58 = _slicedToArray(_useState57, 2),
+    editId = _useState58[0],
+    setEditId = _useState58[1];
+  var canSave = radnik && od && doo && od <= doo;
+  var resetForm = function resetForm() {
+    setEditId(null);
+    setOd('');
+    setDoo('');
+    setTip('more');
+  };
   var submit = function submit() {
-    if (!canAdd) return;
-    onAdd({
+    if (!canSave) return;
+    if (editId) onUpdate(editId, {
+      radnik: radnik,
+      od: od,
+      do: doo,
+      tip: tip
+    });else onAdd({
       radnik: radnik,
       od: od,
       do: doo,
       tip: tip
     });
-    setOd('');
-    setDoo('');
+    resetForm();
   };
-  var sorted = odmori.slice().sort(function (a, b) {
-    return a.od < b.od ? 1 : -1;
+  var startEdit = function startEdit(o) {
+    setEditId(o.id);
+    setRadnik(o.radnik);
+    setOd(o.od);
+    setDoo(o.do);
+    setTip(o.tip);
+  };
+  // Pregled grupisan po radniku
+  var byWorker = {};
+  odmori.forEach(function (o) {
+    (byWorker[o.radnik] = byWorker[o.radnik] || []).push(o);
+  });
+  var workerNames = Object.keys(byWorker).sort(function (a, b) {
+    return a.localeCompare(b, 'sr');
+  });
+  workerNames.forEach(function (n) {
+    return byWorker[n].sort(function (a, b) {
+      return a.od < b.od ? -1 : 1;
+    });
   });
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "ce-overlay",
@@ -2636,8 +2668,8 @@ function OdmoriModal(_ref26) {
       top: '50%',
       left: '50%',
       transform: 'translate(-50%,-50%)',
-      width: 'min(440px,94vw)',
-      maxHeight: '86vh',
+      width: 'min(460px,94vw)',
+      maxHeight: '88vh',
       overflowY: 'auto'
     },
     onClick: function onClick(e) {
@@ -2648,7 +2680,21 @@ function OdmoriModal(_ref26) {
   }, /*#__PURE__*/React.createElement("span", null, "Odmori / more"), /*#__PURE__*/React.createElement("button", {
     className: "ce-close-btn",
     onClick: onClose
-  }, "\xD7")), /*#__PURE__*/React.createElement("select", {
+  }, "\xD7")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: editId ? 'var(--teal-tint)' : 'transparent',
+      margin: '0 -6px',
+      padding: '6px',
+      borderRadius: '6px'
+    }
+  }, editId && /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: '11px',
+      fontWeight: 600,
+      color: 'var(--teal-dark)',
+      marginBottom: '5px'
+    }
+  }, "\u270E Izmena odmora"), /*#__PURE__*/React.createElement("select", {
     className: "ce-input",
     value: radnik,
     onChange: function onChange(e) {
@@ -2706,46 +2752,76 @@ function OdmoriModal(_ref26) {
         return setTip(t);
       }
     }, TIP_ICON[t], " ", t === 'more' ? 'More' : 'Odmor');
-  })), /*#__PURE__*/React.createElement("button", {
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: '6px'
+    }
+  }, /*#__PURE__*/React.createElement("button", {
     className: "radnik-add-btn",
-    disabled: !canAdd,
+    disabled: !canSave,
     onClick: submit,
     style: {
-      opacity: canAdd ? 1 : 0.5
+      opacity: canSave ? 1 : 0.5
     }
-  }, "Dodaj odmor"), /*#__PURE__*/React.createElement("div", {
+  }, editId ? 'Sačuvaj izmenu' : 'Dodaj odmor'), editId && /*#__PURE__*/React.createElement("button", {
+    className: "col-clear",
+    onClick: resetForm
+  }, "Otka\u017Ei"))), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: '12px',
       borderTop: '0.5px solid var(--border)',
       paddingTop: '10px'
     }
-  }, sorted.length === 0 ? /*#__PURE__*/React.createElement("div", {
+  }, workerNames.length === 0 ? /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: '12px',
       color: '#aaa'
     }
-  }, "Nema unetih odmora.") : sorted.map(function (o) {
+  }, "Nema unetih odmora.") : workerNames.map(function (n) {
     return /*#__PURE__*/React.createElement("div", {
-      key: o.id,
+      key: n,
       style: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: '8px',
-        padding: '5px 0',
-        fontSize: '13px'
+        marginBottom: '10px'
       }
-    }, /*#__PURE__*/React.createElement("span", null, TIP_ICON[o.tip] || '', " ", /*#__PURE__*/React.createElement("b", null, o.radnik)), /*#__PURE__*/React.createElement("span", {
+    }, /*#__PURE__*/React.createElement("div", {
       style: {
-        color: '#888',
-        fontSize: '11px',
-        marginLeft: 'auto'
+        fontSize: '12px',
+        fontWeight: 600,
+        marginBottom: '3px'
       }
-    }, fmtOd(o.od), " \u2013 ", fmtOd(o.do)), /*#__PURE__*/React.createElement("button", {
-      className: "ce-pill-rm",
-      onClick: function onClick() {
-        return onRemove(o.id);
-      }
-    }, "\xD7"));
+    }, n), byWorker[n].map(function (o) {
+      return /*#__PURE__*/React.createElement("div", {
+        key: o.id,
+        style: {
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          padding: '3px 0 3px 8px',
+          fontSize: '13px'
+        }
+      }, /*#__PURE__*/React.createElement("span", null, TIP_ICON[o.tip] || ''), /*#__PURE__*/React.createElement("span", {
+        style: {
+          color: '#666'
+        }
+      }, fmtOd(o.od), " \u2013 ", fmtOd(o.do)), /*#__PURE__*/React.createElement("button", {
+        className: "ce-pill-rm",
+        style: {
+          marginLeft: 'auto',
+          opacity: 0.7
+        },
+        title: "Izmeni",
+        onClick: function onClick() {
+          return startEdit(o);
+        }
+      }, "\u270E"), /*#__PURE__*/React.createElement("button", {
+        className: "ce-pill-rm",
+        title: "Obri\u0161i",
+        onClick: function onClick() {
+          return onRemove(o.id);
+        }
+      }, "\xD7"));
+    }));
   }))));
 }
 function CellEditor(_ref27) {
@@ -2757,20 +2833,20 @@ function CellEditor(_ref27) {
     onDown = _ref27.onDown,
     field = _ref27.field,
     anchor = _ref27.anchor;
-  var _useState57 = useState(''),
-    _useState58 = _slicedToArray(_useState57, 2),
-    query = _useState58[0],
-    setQuery = _useState58[1];
-  var _useState59 = useState(0),
+  var _useState59 = useState(''),
     _useState60 = _slicedToArray(_useState59, 2),
-    activeIdx = _useState60[0],
-    setActiveIdx = _useState60[1];
+    query = _useState60[0],
+    setQuery = _useState60[1];
+  var _useState61 = useState(0),
+    _useState62 = _slicedToArray(_useState61, 2),
+    activeIdx = _useState62[0],
+    setActiveIdx = _useState62[1];
   var inputRef = useRef(null);
   var boxRef = useRef(null);
-  var _useState61 = useState(null),
-    _useState62 = _slicedToArray(_useState61, 2),
-    pos = _useState62[0],
-    setPos = _useState62[1];
+  var _useState63 = useState(null),
+    _useState64 = _slicedToArray(_useState63, 2),
+    pos = _useState64[0],
+    setPos = _useState64[1];
   useEffect(function () {
     var _inputRef$current;
     (_inputRef$current = inputRef.current) === null || _inputRef$current === void 0 || _inputRef$current.focus();
@@ -2914,10 +2990,10 @@ function StatsView(_ref28) {
   var raspored = _ref28.raspored,
     radnici = _ref28.radnici,
     wk = _ref28.wk;
-  var _useState63 = useState('month'),
-    _useState64 = _slicedToArray(_useState63, 2),
-    period = _useState64[0],
-    setPeriod = _useState64[1];
+  var _useState65 = useState('month'),
+    _useState66 = _slicedToArray(_useState65, 2),
+    period = _useState66[0],
+    setPeriod = _useState66[1];
   var getWeeks = useCallback(function () {
     var all = Object.keys(raspored).sort();
     if (period === 'week') return [wk];
@@ -3071,54 +3147,54 @@ var CELL_NAV = ['s1_sank', 's1_sala', 's2_sank', 's2_sala', 'ms', 'off'];
 // ── RASPORED MODULE ───────────────────────────────────────────
 function RasporedModule() {
   var syncKey = useContext(SyncCtx);
-  var _useState65 = useState(getISOWeekKey(new Date())),
-    _useState66 = _slicedToArray(_useState65, 2),
-    wk = _useState66[0],
-    setWk = _useState66[1];
-  var _useState67 = useState(db.getRaspored()),
+  var _useState67 = useState(getISOWeekKey(new Date())),
     _useState68 = _slicedToArray(_useState67, 2),
-    raspored = _useState68[0],
-    setRaspored = _useState68[1];
-  var _useState69 = useState(db.getRadnici()),
+    wk = _useState68[0],
+    setWk = _useState68[1];
+  var _useState69 = useState(db.getRaspored()),
     _useState70 = _slicedToArray(_useState69, 2),
-    radnici = _useState70[0],
-    setRadnici = _useState70[1];
-  var _useState71 = useState(''),
+    raspored = _useState70[0],
+    setRaspored = _useState70[1];
+  var _useState71 = useState(db.getRadnici()),
     _useState72 = _slicedToArray(_useState71, 2),
-    newR = _useState72[0],
-    setNewR = _useState72[1];
-  var _useState73 = useState(false),
+    radnici = _useState72[0],
+    setRadnici = _useState72[1];
+  var _useState73 = useState(''),
     _useState74 = _slicedToArray(_useState73, 2),
-    copied = _useState74[0],
-    setCopied = _useState74[1];
+    newR = _useState74[0],
+    setNewR = _useState74[1];
   var _useState75 = useState(false),
     _useState76 = _slicedToArray(_useState75, 2),
-    pasteFlash = _useState76[0],
-    setPasteFlash = _useState76[1];
-  var _useState77 = useState(null),
+    copied = _useState76[0],
+    setCopied = _useState76[1];
+  var _useState77 = useState(false),
     _useState78 = _slicedToArray(_useState77, 2),
-    editing = _useState78[0],
-    setEditing = _useState78[1]; // {ds, field}
-  var _useState79 = useState(false),
+    pasteFlash = _useState78[0],
+    setPasteFlash = _useState78[1];
+  var _useState79 = useState(null),
     _useState80 = _slicedToArray(_useState79, 2),
-    showStats = _useState80[0],
-    setShowStats = _useState80[1];
-  var _useState81 = useState(db.getDone()),
+    editing = _useState80[0],
+    setEditing = _useState80[1]; // {ds, field}
+  var _useState81 = useState(false),
     _useState82 = _slicedToArray(_useState81, 2),
-    doneAll = _useState82[0],
-    setDoneAll = _useState82[1];
-  var _useState83 = useState(db.getDoneDays()),
+    showStats = _useState82[0],
+    setShowStats = _useState82[1];
+  var _useState83 = useState(db.getDone()),
     _useState84 = _slicedToArray(_useState83, 2),
-    doneDaysAll = _useState84[0],
-    setDoneDaysAll = _useState84[1];
-  var _useState85 = useState(db.getOdmori()),
+    doneAll = _useState84[0],
+    setDoneAll = _useState84[1];
+  var _useState85 = useState(db.getDoneDays()),
     _useState86 = _slicedToArray(_useState85, 2),
-    odmori = _useState86[0],
-    setOdmori = _useState86[1];
-  var _useState87 = useState(false),
+    doneDaysAll = _useState86[0],
+    setDoneDaysAll = _useState86[1];
+  var _useState87 = useState(db.getOdmori()),
     _useState88 = _slicedToArray(_useState87, 2),
-    showOdmori = _useState88[0],
-    setShowOdmori = _useState88[1];
+    odmori = _useState88[0],
+    setOdmori = _useState88[1];
+  var _useState89 = useState(false),
+    _useState90 = _slicedToArray(_useState89, 2),
+    showOdmori = _useState90[0],
+    setShowOdmori = _useState90[1];
   useEffect(function () {
     setRaspored(db.getRaspored());
     setRadnici(db.getRadnici());
@@ -3154,13 +3230,13 @@ function RasporedModule() {
   var hasPrevData = Object.values(prevWkData).some(function (d) {
     return (d.s1_sank || []).length || (d.s1_sala || []).length || (d.s2_sank || []).length || (d.s2_sala || []).length || (d.ms || []).length || (d.off || []).length;
   });
-  var _useState89 = useState(function () {
+  var _useState91 = useState(function () {
       var t = getWeekDays(getISOWeekKey(new Date())).indexOf(todayStr);
       return t >= 0 ? t : 0;
     }),
-    _useState90 = _slicedToArray(_useState89, 2),
-    selIdx = _useState90[0],
-    setSelIdx = _useState90[1];
+    _useState92 = _slicedToArray(_useState91, 2),
+    selIdx = _useState92[0],
+    setSelIdx = _useState92[1];
   useEffect(function () {
     var t = days.indexOf(todayStr);
     setSelIdx(t >= 0 ? t : 0);
@@ -3305,6 +3381,13 @@ function RasporedModule() {
     var next = [].concat(_toConsumableArray(odmori), [_objectSpread({
       id: 'od' + Date.now() + Math.floor(Math.random() * 1000)
     }, o)]);
+    setOdmori(next);
+    db.setOdmori(next);
+  };
+  var updOdmor = function updOdmor(id, o) {
+    var next = odmori.map(function (x) {
+      return x.id === id ? _objectSpread(_objectSpread({}, x), o) : x;
+    });
     setOdmori(next);
     db.setOdmori(next);
   };
@@ -3812,6 +3895,7 @@ function RasporedModule() {
     radnici: radnici,
     odmori: odmori,
     onAdd: addOdmor,
+    onUpdate: updOdmor,
     onRemove: rmOdmor,
     onClose: function onClose() {
       return setShowOdmori(false);
