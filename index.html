@@ -2596,11 +2596,11 @@ function OdmorRow(_ref26) {
     onAdd = _ref26.onAdd,
     onUpdate = _ref26.onUpdate,
     onRemove = _ref26.onRemove;
-  var _useState49 = useState(''),
+  var _useState49 = useState(toDay()),
     _useState50 = _slicedToArray(_useState49, 2),
     od = _useState50[0],
     setOd = _useState50[1];
-  var _useState51 = useState(''),
+  var _useState51 = useState(toDay()),
     _useState52 = _slicedToArray(_useState51, 2),
     doo = _useState52[0],
     setDoo = _useState52[1];
@@ -2615,8 +2615,8 @@ function OdmorRow(_ref26) {
   var canSave = od && doo && od <= doo;
   var reset = function reset() {
     setEditId(null);
-    setOd('');
-    setDoo('');
+    setOd(toDay());
+    setDoo(toDay());
     setTip('more');
   };
   var submit = function submit() {
@@ -2751,21 +2751,24 @@ function OdmorRow(_ref26) {
   }, TIP_ICON[tip]), /*#__PURE__*/React.createElement("button", {
     onClick: submit,
     disabled: !canSave,
-    title: editId ? 'Sačuvaj' : 'Dodaj',
+    title: editId ? 'Sačuvaj izmenu' : 'Dodaj odmor',
     style: {
       border: 'none',
       borderRadius: '6px',
       background: 'var(--charcoal)',
       color: 'white',
       cursor: canSave ? 'pointer' : 'default',
-      opacity: canSave ? 1 : 0.35,
-      fontSize: '14px',
-      padding: '3px 9px',
-      lineHeight: 1
+      opacity: canSave ? 1 : 0.4,
+      fontSize: '12px',
+      fontWeight: 600,
+      fontFamily: 'inherit',
+      padding: '5px 12px',
+      lineHeight: 1,
+      whiteSpace: 'nowrap'
     }
-  }, editId ? '✓' : '+'), editId && /*#__PURE__*/React.createElement("button", {
+  }, editId ? 'Sačuvaj' : 'Dodaj'), editId && /*#__PURE__*/React.createElement("button", {
     onClick: reset,
-    title: "Otka\u017Ei",
+    title: "Otka\u017Ei izmenu",
     style: {
       border: 'none',
       background: 'none',
