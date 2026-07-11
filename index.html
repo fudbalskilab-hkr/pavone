@@ -2590,33 +2590,80 @@ var fmtOd = function fmtOd(s) {
   var p = (s || '').split('-');
   return p.length === 3 ? "".concat(p[2], ".").concat(p[1], ".").concat(p[0]) : s;
 };
-function OdmorRow(_ref26) {
-  var radnik = _ref26.radnik,
-    entries = _ref26.entries,
-    onAdd = _ref26.onAdd,
-    onUpdate = _ref26.onUpdate,
-    onRemove = _ref26.onRemove;
-  var _useState49 = useState(''),
+
+// Polje za unos datuma u dd.mm.gggg formatu; interno drži YYYY-MM-DD
+function DateDMY(_ref26) {
+  var value = _ref26.value,
+    _onChange = _ref26.onChange,
+    style = _ref26.style;
+  var toDMY = function toDMY(v) {
+    var p = (v || '').split('-');
+    return p.length === 3 ? "".concat(p[2], ".").concat(p[1], ".").concat(p[0]) : '';
+  };
+  var parse = function parse(t) {
+    var m = (t || '').trim().replace(/[\/\-\s]+/g, '.').match(/^(\d{1,2})\.(\d{1,2})\.(\d{2,4})$/);
+    if (!m) return null;
+    var d = +m[1],
+      mo = +m[2],
+      y = +m[3];
+    if (y < 100) y += 2000;
+    if (mo < 1 || mo > 12 || d < 1 || d > 31) return null;
+    return "".concat(y, "-").concat(String(mo).padStart(2, '0'), "-").concat(String(d).padStart(2, '0'));
+  };
+  var _useState49 = useState(toDMY(value)),
     _useState50 = _slicedToArray(_useState49, 2),
-    od = _useState50[0],
-    setOd = _useState50[1];
-  var _useState51 = useState(''),
+    text = _useState50[0],
+    setText = _useState50[1];
+  React.useEffect(function () {
+    if (parse(text) !== value) setText(toDMY(value));
+  }, [value]);
+  return /*#__PURE__*/React.createElement("input", {
+    type: "text",
+    inputMode: "numeric",
+    placeholder: "dd.mm.gggg",
+    value: text,
+    onChange: function onChange(e) {
+      setText(e.target.value);
+      var iso = parse(e.target.value);
+      if (iso) _onChange(iso);
+    },
+    onBlur: function onBlur(e) {
+      var iso = parse(e.target.value);
+      if (iso) {
+        _onChange(iso);
+        setText(toDMY(iso));
+      }
+    },
+    style: style
+  });
+}
+function OdmorRow(_ref27) {
+  var radnik = _ref27.radnik,
+    entries = _ref27.entries,
+    onAdd = _ref27.onAdd,
+    onUpdate = _ref27.onUpdate,
+    onRemove = _ref27.onRemove;
+  var _useState51 = useState(toDay()),
     _useState52 = _slicedToArray(_useState51, 2),
-    doo = _useState52[0],
-    setDoo = _useState52[1];
-  var _useState53 = useState('more'),
+    od = _useState52[0],
+    setOd = _useState52[1];
+  var _useState53 = useState(toDay()),
     _useState54 = _slicedToArray(_useState53, 2),
-    tip = _useState54[0],
-    setTip = _useState54[1];
-  var _useState55 = useState(null),
+    doo = _useState54[0],
+    setDoo = _useState54[1];
+  var _useState55 = useState('more'),
     _useState56 = _slicedToArray(_useState55, 2),
-    editId = _useState56[0],
-    setEditId = _useState56[1];
+    tip = _useState56[0],
+    setTip = _useState56[1];
+  var _useState57 = useState(null),
+    _useState58 = _slicedToArray(_useState57, 2),
+    editId = _useState58[0],
+    setEditId = _useState58[1];
   var canSave = od && doo && od <= doo;
   var reset = function reset() {
     setEditId(null);
-    setOd('');
-    setDoo('');
+    setOd(toDay());
+    setDoo(toDay());
     setTip('more');
   };
   var submit = function submit() {
@@ -2718,19 +2765,13 @@ function OdmorRow(_ref26) {
       gap: '4px',
       flexShrink: 0
     }
-  }, /*#__PURE__*/React.createElement("input", {
-    type: "date",
+  }, /*#__PURE__*/React.createElement(DateDMY, {
     value: od,
-    onChange: function onChange(e) {
-      return setOd(e.target.value);
-    },
+    onChange: setOd,
     style: dateStyle
-  }), /*#__PURE__*/React.createElement("input", {
-    type: "date",
+  }), /*#__PURE__*/React.createElement(DateDMY, {
     value: doo,
-    onChange: function onChange(e) {
-      return setDoo(e.target.value);
-    },
+    onChange: setDoo,
     style: dateStyle
   }), /*#__PURE__*/React.createElement("button", {
     onClick: function onClick() {
@@ -2775,13 +2816,13 @@ function OdmorRow(_ref26) {
     }
   }, "\u2715")));
 }
-function OdmoriModal(_ref27) {
-  var radnici = _ref27.radnici,
-    odmori = _ref27.odmori,
-    onAdd = _ref27.onAdd,
-    onUpdate = _ref27.onUpdate,
-    onRemove = _ref27.onRemove,
-    onClose = _ref27.onClose;
+function OdmoriModal(_ref28) {
+  var radnici = _ref28.radnici,
+    odmori = _ref28.odmori,
+    onAdd = _ref28.onAdd,
+    onUpdate = _ref28.onUpdate,
+    onRemove = _ref28.onRemove,
+    onClose = _ref28.onClose;
   var byWorker = {};
   odmori.forEach(function (o) {
     (byWorker[o.radnik] = byWorker[o.radnik] || []).push(o);
@@ -2829,29 +2870,29 @@ function OdmoriModal(_ref27) {
     });
   })));
 }
-function CellEditor(_ref28) {
-  var radnici = _ref28.radnici,
-    selected = _ref28.selected,
-    onUpdate = _ref28.onUpdate,
-    onClose = _ref28.onClose,
-    onNext = _ref28.onNext,
-    onDown = _ref28.onDown,
-    field = _ref28.field,
-    anchor = _ref28.anchor;
-  var _useState57 = useState(''),
-    _useState58 = _slicedToArray(_useState57, 2),
-    query = _useState58[0],
-    setQuery = _useState58[1];
-  var _useState59 = useState(0),
+function CellEditor(_ref29) {
+  var radnici = _ref29.radnici,
+    selected = _ref29.selected,
+    onUpdate = _ref29.onUpdate,
+    onClose = _ref29.onClose,
+    onNext = _ref29.onNext,
+    onDown = _ref29.onDown,
+    field = _ref29.field,
+    anchor = _ref29.anchor;
+  var _useState59 = useState(''),
     _useState60 = _slicedToArray(_useState59, 2),
-    activeIdx = _useState60[0],
-    setActiveIdx = _useState60[1];
+    query = _useState60[0],
+    setQuery = _useState60[1];
+  var _useState61 = useState(0),
+    _useState62 = _slicedToArray(_useState61, 2),
+    activeIdx = _useState62[0],
+    setActiveIdx = _useState62[1];
   var inputRef = useRef(null);
   var boxRef = useRef(null);
-  var _useState61 = useState(null),
-    _useState62 = _slicedToArray(_useState61, 2),
-    pos = _useState62[0],
-    setPos = _useState62[1];
+  var _useState63 = useState(null),
+    _useState64 = _slicedToArray(_useState63, 2),
+    pos = _useState64[0],
+    setPos = _useState64[1];
   useEffect(function () {
     var _inputRef$current;
     (_inputRef$current = inputRef.current) === null || _inputRef$current === void 0 || _inputRef$current.focus();
@@ -2991,14 +3032,14 @@ function CellEditor(_ref28) {
 }
 
 // ── STATS VIEW ────────────────────────────────────────────────
-function StatsView(_ref29) {
-  var raspored = _ref29.raspored,
-    radnici = _ref29.radnici,
-    wk = _ref29.wk;
-  var _useState63 = useState('month'),
-    _useState64 = _slicedToArray(_useState63, 2),
-    period = _useState64[0],
-    setPeriod = _useState64[1];
+function StatsView(_ref30) {
+  var raspored = _ref30.raspored,
+    radnici = _ref30.radnici,
+    wk = _ref30.wk;
+  var _useState65 = useState('month'),
+    _useState66 = _slicedToArray(_useState65, 2),
+    period = _useState66[0],
+    setPeriod = _useState66[1];
   var getWeeks = useCallback(function () {
     var all = Object.keys(raspored).sort();
     if (period === 'week') return [wk];
@@ -3068,10 +3109,10 @@ function StatsView(_ref29) {
     className: "stats-wrap"
   }, /*#__PURE__*/React.createElement("div", {
     className: "stats-controls"
-  }, [['week', 'Nedelja'], ['month', 'Mesec'], ['all', 'Sve']].map(function (_ref30) {
-    var _ref31 = _slicedToArray(_ref30, 2),
-      p = _ref31[0],
-      l = _ref31[1];
+  }, [['week', 'Nedelja'], ['month', 'Mesec'], ['all', 'Sve']].map(function (_ref31) {
+    var _ref32 = _slicedToArray(_ref31, 2),
+      p = _ref32[0],
+      l = _ref32[1];
     return /*#__PURE__*/React.createElement("button", {
       key: p,
       className: "period-btn".concat(period === p ? ' active' : ''),
@@ -3152,54 +3193,54 @@ var CELL_NAV = ['s1_sank', 's1_sala', 's2_sank', 's2_sala', 'ms', 'off'];
 // ── RASPORED MODULE ───────────────────────────────────────────
 function RasporedModule() {
   var syncKey = useContext(SyncCtx);
-  var _useState65 = useState(getISOWeekKey(new Date())),
-    _useState66 = _slicedToArray(_useState65, 2),
-    wk = _useState66[0],
-    setWk = _useState66[1];
-  var _useState67 = useState(db.getRaspored()),
+  var _useState67 = useState(getISOWeekKey(new Date())),
     _useState68 = _slicedToArray(_useState67, 2),
-    raspored = _useState68[0],
-    setRaspored = _useState68[1];
-  var _useState69 = useState(db.getRadnici()),
+    wk = _useState68[0],
+    setWk = _useState68[1];
+  var _useState69 = useState(db.getRaspored()),
     _useState70 = _slicedToArray(_useState69, 2),
-    radnici = _useState70[0],
-    setRadnici = _useState70[1];
-  var _useState71 = useState(''),
+    raspored = _useState70[0],
+    setRaspored = _useState70[1];
+  var _useState71 = useState(db.getRadnici()),
     _useState72 = _slicedToArray(_useState71, 2),
-    newR = _useState72[0],
-    setNewR = _useState72[1];
-  var _useState73 = useState(false),
+    radnici = _useState72[0],
+    setRadnici = _useState72[1];
+  var _useState73 = useState(''),
     _useState74 = _slicedToArray(_useState73, 2),
-    copied = _useState74[0],
-    setCopied = _useState74[1];
+    newR = _useState74[0],
+    setNewR = _useState74[1];
   var _useState75 = useState(false),
     _useState76 = _slicedToArray(_useState75, 2),
-    pasteFlash = _useState76[0],
-    setPasteFlash = _useState76[1];
-  var _useState77 = useState(null),
+    copied = _useState76[0],
+    setCopied = _useState76[1];
+  var _useState77 = useState(false),
     _useState78 = _slicedToArray(_useState77, 2),
-    editing = _useState78[0],
-    setEditing = _useState78[1]; // {ds, field}
-  var _useState79 = useState(false),
+    pasteFlash = _useState78[0],
+    setPasteFlash = _useState78[1];
+  var _useState79 = useState(null),
     _useState80 = _slicedToArray(_useState79, 2),
-    showStats = _useState80[0],
-    setShowStats = _useState80[1];
-  var _useState81 = useState(db.getDone()),
+    editing = _useState80[0],
+    setEditing = _useState80[1]; // {ds, field}
+  var _useState81 = useState(false),
     _useState82 = _slicedToArray(_useState81, 2),
-    doneAll = _useState82[0],
-    setDoneAll = _useState82[1];
-  var _useState83 = useState(db.getDoneDays()),
+    showStats = _useState82[0],
+    setShowStats = _useState82[1];
+  var _useState83 = useState(db.getDone()),
     _useState84 = _slicedToArray(_useState83, 2),
-    doneDaysAll = _useState84[0],
-    setDoneDaysAll = _useState84[1];
-  var _useState85 = useState(db.getOdmori()),
+    doneAll = _useState84[0],
+    setDoneAll = _useState84[1];
+  var _useState85 = useState(db.getDoneDays()),
     _useState86 = _slicedToArray(_useState85, 2),
-    odmori = _useState86[0],
-    setOdmori = _useState86[1];
-  var _useState87 = useState(false),
+    doneDaysAll = _useState86[0],
+    setDoneDaysAll = _useState86[1];
+  var _useState87 = useState(db.getOdmori()),
     _useState88 = _slicedToArray(_useState87, 2),
-    showOdmori = _useState88[0],
-    setShowOdmori = _useState88[1];
+    odmori = _useState88[0],
+    setOdmori = _useState88[1];
+  var _useState89 = useState(false),
+    _useState90 = _slicedToArray(_useState89, 2),
+    showOdmori = _useState90[0],
+    setShowOdmori = _useState90[1];
   useEffect(function () {
     setRaspored(db.getRaspored());
     setRadnici(db.getRadnici());
@@ -3235,13 +3276,13 @@ function RasporedModule() {
   var hasPrevData = Object.values(prevWkData).some(function (d) {
     return (d.s1_sank || []).length || (d.s1_sala || []).length || (d.s2_sank || []).length || (d.s2_sala || []).length || (d.ms || []).length || (d.off || []).length;
   });
-  var _useState89 = useState(function () {
+  var _useState91 = useState(function () {
       var t = getWeekDays(getISOWeekKey(new Date())).indexOf(todayStr);
       return t >= 0 ? t : 0;
     }),
-    _useState90 = _slicedToArray(_useState89, 2),
-    selIdx = _useState90[0],
-    setSelIdx = _useState90[1];
+    _useState92 = _slicedToArray(_useState91, 2),
+    selIdx = _useState92[0],
+    setSelIdx = _useState92[1];
   useEffect(function () {
     var t = days.indexOf(todayStr);
     setSelIdx(t >= 0 ? t : 0);
@@ -3721,9 +3762,9 @@ function RasporedModule() {
   }, {
     field: 'off',
     label: 'Off'
-  }].map(function (_ref32) {
-    var field = _ref32.field,
-      label = _ref32.label;
+  }].map(function (_ref33) {
+    var field = _ref33.field,
+      label = _ref33.label;
     var hasData = days.some(function (ds) {
       return (getDay(ds)[field] || []).length > 0;
     });
@@ -3765,10 +3806,10 @@ function RasporedModule() {
     var ds = days[selIdx],
       d = getDay(ds),
       dupes = getDayDupes(ds);
-    var DcRow = function DcRow(_ref33) {
-      var field = _ref33.field,
-        label = _ref33.label,
-        cls = _ref33.cls;
+    var DcRow = function DcRow(_ref34) {
+      var field = _ref34.field,
+        label = _ref34.label,
+        cls = _ref34.cls;
       var workers = field === 'off' ? offDisplay(ds) : (d[field] || []).map(function (w) {
         return {
           name: w,
