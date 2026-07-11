@@ -1093,7 +1093,8 @@ var KEYS = {
   RADNICI: 'pavone-radnici',
   RASHODI: 'pavone-rashodi',
   DONE: 'pavone-done',
-  DONEDAYS: 'pavone-donedays'
+  DONEDAYS: 'pavone-donedays',
+  ODMORI: 'pavone-odmori'
 };
 var DEFAULT_RASHODI = [{
   id: 'maxi',
@@ -1216,6 +1217,15 @@ var db = {
     localStorage.setItem(KEYS.DONEDAYS, JSON.stringify(v));
     COL.doc('donedays').set({
       data: v
+    }).catch(console.warn);
+  },
+  getOdmori: function getOdmori() {
+    return JSON.parse(localStorage.getItem(KEYS.ODMORI) || '[]');
+  },
+  setOdmori: function setOdmori(v) {
+    localStorage.setItem(KEYS.ODMORI, JSON.stringify(v));
+    COL.doc('odmori').set({
+      list: v
     }).catch(console.warn);
   }
 };
@@ -1348,7 +1358,7 @@ function App() {
     };
     var load = /*#__PURE__*/function () {
       var _load = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var _yield$Promise$all, _yield$Promise$all2, pazar, raspored, radnici, rashodi, done, doneDays, _t;
+        var _yield$Promise$all, _yield$Promise$all2, pazar, raspored, radnici, rashodi, done, doneDays, odmori, _t;
         return _regenerator().w(function (_context) {
           while (1) switch (_context.p = _context.n) {
             case 0:
@@ -1358,22 +1368,24 @@ function App() {
                 return localStorage.removeItem(k);
               });
               _context.n = 1;
-              return Promise.all([COL.doc('pazar').get(), COL.doc('raspored').get(), COL.doc('radnici').get(), COL.doc('rashodi').get(), COL.doc('done').get(), COL.doc('donedays').get()]);
+              return Promise.all([COL.doc('pazar').get(), COL.doc('raspored').get(), COL.doc('radnici').get(), COL.doc('rashodi').get(), COL.doc('done').get(), COL.doc('donedays').get(), COL.doc('odmori').get()]);
             case 1:
               _yield$Promise$all = _context.v;
-              _yield$Promise$all2 = _slicedToArray(_yield$Promise$all, 6);
+              _yield$Promise$all2 = _slicedToArray(_yield$Promise$all, 7);
               pazar = _yield$Promise$all2[0];
               raspored = _yield$Promise$all2[1];
               radnici = _yield$Promise$all2[2];
               rashodi = _yield$Promise$all2[3];
               done = _yield$Promise$all2[4];
               doneDays = _yield$Promise$all2[5];
+              odmori = _yield$Promise$all2[6];
               if (pazar.exists) localStorage.setItem(KEYS.PAZAR, JSON.stringify(pazar.data().items || []));
               if (raspored.exists) localStorage.setItem(KEYS.RASPORED, JSON.stringify(raspored.data().data || {}));
               if (radnici.exists) localStorage.setItem(KEYS.RADNICI, JSON.stringify(radnici.data().list || DEFAULT_RADNICI));
               if (rashodi.exists) localStorage.setItem(KEYS.RASHODI, JSON.stringify(rashodi.data().list || DEFAULT_RASHODI));
               if (done.exists) localStorage.setItem(KEYS.DONE, JSON.stringify(done.data().data || {}));
               if (doneDays.exists) localStorage.setItem(KEYS.DONEDAYS, JSON.stringify(doneDays.data().data || {}));
+              if (odmori.exists) localStorage.setItem(KEYS.ODMORI, JSON.stringify(odmori.data().list || []));
               _context.n = 3;
               break;
             case 2:
@@ -1409,6 +1421,8 @@ function App() {
       if (s.exists && !s.metadata.hasPendingWrites) bump(KEYS.DONE, s.data().data || {});
     }), COL.doc('donedays').onSnapshot(function (s) {
       if (s.exists && !s.metadata.hasPendingWrites) bump(KEYS.DONEDAYS, s.data().data || {});
+    }), COL.doc('odmori').onSnapshot(function (s) {
+      if (s.exists && !s.metadata.hasPendingWrites) bump(KEYS.ODMORI, s.data().list || []);
     })];
     return function () {
       readyRef.current = false;
@@ -2554,27 +2568,239 @@ var FIELD_LABEL = {
   ms: 'Međusmena',
   off: 'Off'
 };
-function CellEditor(_ref26) {
+function ceAnchor(e) {
+  try {
+    var r = e.currentTarget.getBoundingClientRect();
+    return {
+      left: r.left,
+      top: r.top,
+      bottom: r.bottom,
+      right: r.right,
+      width: r.width
+    };
+  } catch (_) {
+    return null;
+  }
+}
+var TIP_ICON = {
+  more: '🌴',
+  odmor: '🧳'
+};
+function OdmoriModal(_ref26) {
   var radnici = _ref26.radnici,
-    selected = _ref26.selected,
-    onUpdate = _ref26.onUpdate,
-    onClose = _ref26.onClose,
-    onNext = _ref26.onNext,
-    onDown = _ref26.onDown,
-    field = _ref26.field;
-  var _useState49 = useState(''),
+    odmori = _ref26.odmori,
+    onAdd = _ref26.onAdd,
+    onRemove = _ref26.onRemove,
+    onClose = _ref26.onClose;
+  var fmtOd = function fmtOd(s) {
+    var p = (s || '').split('-');
+    return p.length === 3 ? "".concat(p[2], ".").concat(p[1], ".") : s;
+  };
+  var _useState49 = useState(radnici[0] || ''),
     _useState50 = _slicedToArray(_useState49, 2),
-    query = _useState50[0],
-    setQuery = _useState50[1];
-  var _useState51 = useState(0),
+    radnik = _useState50[0],
+    setRadnik = _useState50[1];
+  var _useState51 = useState(''),
     _useState52 = _slicedToArray(_useState51, 2),
-    activeIdx = _useState52[0],
-    setActiveIdx = _useState52[1];
+    od = _useState52[0],
+    setOd = _useState52[1];
+  var _useState53 = useState(''),
+    _useState54 = _slicedToArray(_useState53, 2),
+    doo = _useState54[0],
+    setDoo = _useState54[1];
+  var _useState55 = useState('more'),
+    _useState56 = _slicedToArray(_useState55, 2),
+    tip = _useState56[0],
+    setTip = _useState56[1];
+  var canAdd = radnik && od && doo && od <= doo;
+  var submit = function submit() {
+    if (!canAdd) return;
+    onAdd({
+      radnik: radnik,
+      od: od,
+      do: doo,
+      tip: tip
+    });
+    setOd('');
+    setDoo('');
+  };
+  var sorted = odmori.slice().sort(function (a, b) {
+    return a.od < b.od ? 1 : -1;
+  });
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    className: "ce-overlay",
+    onClick: onClose
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "ce-box",
+    style: {
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%,-50%)',
+      width: 'min(440px,94vw)',
+      maxHeight: '86vh',
+      overflowY: 'auto'
+    },
+    onClick: function onClick(e) {
+      return e.stopPropagation();
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "ce-title"
+  }, /*#__PURE__*/React.createElement("span", null, "Odmori / more"), /*#__PURE__*/React.createElement("button", {
+    className: "ce-close-btn",
+    onClick: onClose
+  }, "\xD7")), /*#__PURE__*/React.createElement("select", {
+    className: "ce-input",
+    value: radnik,
+    onChange: function onChange(e) {
+      return setRadnik(e.target.value);
+    }
+  }, radnici.map(function (r) {
+    return /*#__PURE__*/React.createElement("option", {
+      key: r,
+      value: r
+    }, r);
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: '6px'
+    }
+  }, /*#__PURE__*/React.createElement("label", {
+    style: {
+      flex: 1,
+      fontSize: '11px',
+      color: '#888',
+      display: 'block'
+    }
+  }, "Od", /*#__PURE__*/React.createElement("input", {
+    type: "date",
+    className: "ce-input",
+    value: od,
+    onChange: function onChange(e) {
+      return setOd(e.target.value);
+    }
+  })), /*#__PURE__*/React.createElement("label", {
+    style: {
+      flex: 1,
+      fontSize: '11px',
+      color: '#888',
+      display: 'block'
+    }
+  }, "Do", /*#__PURE__*/React.createElement("input", {
+    type: "date",
+    className: "ce-input",
+    value: doo,
+    onChange: function onChange(e) {
+      return setDoo(e.target.value);
+    }
+  }))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: '6px',
+      marginBottom: '10px'
+    }
+  }, ['more', 'odmor'].map(function (t) {
+    return /*#__PURE__*/React.createElement("button", {
+      key: t,
+      className: "ce-suggestion".concat(tip === t ? ' active' : ''),
+      onClick: function onClick() {
+        return setTip(t);
+      }
+    }, TIP_ICON[t], " ", t === 'more' ? 'More' : 'Odmor');
+  })), /*#__PURE__*/React.createElement("button", {
+    className: "radnik-add-btn",
+    disabled: !canAdd,
+    onClick: submit,
+    style: {
+      opacity: canAdd ? 1 : 0.5
+    }
+  }, "Dodaj odmor"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: '12px',
+      borderTop: '0.5px solid var(--border)',
+      paddingTop: '10px'
+    }
+  }, sorted.length === 0 ? /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: '12px',
+      color: '#aaa'
+    }
+  }, "Nema unetih odmora.") : sorted.map(function (o) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: o.id,
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px',
+        padding: '5px 0',
+        fontSize: '13px'
+      }
+    }, /*#__PURE__*/React.createElement("span", null, TIP_ICON[o.tip] || '', " ", /*#__PURE__*/React.createElement("b", null, o.radnik)), /*#__PURE__*/React.createElement("span", {
+      style: {
+        color: '#888',
+        fontSize: '11px',
+        marginLeft: 'auto'
+      }
+    }, fmtOd(o.od), " \u2013 ", fmtOd(o.do)), /*#__PURE__*/React.createElement("button", {
+      className: "ce-pill-rm",
+      onClick: function onClick() {
+        return onRemove(o.id);
+      }
+    }, "\xD7"));
+  }))));
+}
+function CellEditor(_ref27) {
+  var radnici = _ref27.radnici,
+    selected = _ref27.selected,
+    onUpdate = _ref27.onUpdate,
+    onClose = _ref27.onClose,
+    onNext = _ref27.onNext,
+    onDown = _ref27.onDown,
+    field = _ref27.field,
+    anchor = _ref27.anchor;
+  var _useState57 = useState(''),
+    _useState58 = _slicedToArray(_useState57, 2),
+    query = _useState58[0],
+    setQuery = _useState58[1];
+  var _useState59 = useState(0),
+    _useState60 = _slicedToArray(_useState59, 2),
+    activeIdx = _useState60[0],
+    setActiveIdx = _useState60[1];
   var inputRef = useRef(null);
+  var boxRef = useRef(null);
+  var _useState61 = useState(null),
+    _useState62 = _slicedToArray(_useState61, 2),
+    pos = _useState62[0],
+    setPos = _useState62[1];
   useEffect(function () {
     var _inputRef$current;
     (_inputRef$current = inputRef.current) === null || _inputRef$current === void 0 || _inputRef$current.focus();
   }, []);
+
+  // Pozicioniraj popup uz kliknutu ćeliju (fallback: centar), uvek unutar ekrana
+  React.useLayoutEffect(function () {
+    var box = boxRef.current;
+    if (!box) return;
+    var pad = 8,
+      gap = 6;
+    var bw = box.offsetWidth,
+      bh = box.offsetHeight;
+    var vw = window.innerWidth,
+      vh = window.innerHeight;
+    var left, top;
+    if (anchor) {
+      left = anchor.left;
+      if (anchor.bottom + gap + bh <= vh - pad) top = anchor.bottom + gap;else if (anchor.top - gap - bh >= pad) top = anchor.top - gap - bh;else top = vh - bh - pad;
+    } else {
+      left = (vw - bw) / 2;
+      top = (vh - bh) / 2;
+    }
+    left = Math.min(Math.max(left, pad), Math.max(pad, vw - bw - pad));
+    top = Math.min(Math.max(top, pad), Math.max(pad, vh - bh - pad));
+    setPos({
+      left: left,
+      top: top
+    });
+  }, [anchor, query, selected.length]);
   var suggestions = radnici.filter(function (r) {
     return !selected.includes(r) && r.toLowerCase().startsWith(query.toLowerCase());
   });
@@ -2625,10 +2851,14 @@ function CellEditor(_ref26) {
     onClick: onClose
   }), /*#__PURE__*/React.createElement("div", {
     className: "ce-box",
-    style: {
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%,-50%)'
+    ref: boxRef,
+    style: pos ? {
+      left: pos.left + 'px',
+      top: pos.top + 'px'
+    } : {
+      left: '-9999px',
+      top: '0',
+      visibility: 'hidden'
     },
     onClick: function onClick(e) {
       return e.stopPropagation();
@@ -2680,14 +2910,14 @@ function CellEditor(_ref26) {
 }
 
 // ── STATS VIEW ────────────────────────────────────────────────
-function StatsView(_ref27) {
-  var raspored = _ref27.raspored,
-    radnici = _ref27.radnici,
-    wk = _ref27.wk;
-  var _useState53 = useState('month'),
-    _useState54 = _slicedToArray(_useState53, 2),
-    period = _useState54[0],
-    setPeriod = _useState54[1];
+function StatsView(_ref28) {
+  var raspored = _ref28.raspored,
+    radnici = _ref28.radnici,
+    wk = _ref28.wk;
+  var _useState63 = useState('month'),
+    _useState64 = _slicedToArray(_useState63, 2),
+    period = _useState64[0],
+    setPeriod = _useState64[1];
   var getWeeks = useCallback(function () {
     var all = Object.keys(raspored).sort();
     if (period === 'week') return [wk];
@@ -2757,10 +2987,10 @@ function StatsView(_ref27) {
     className: "stats-wrap"
   }, /*#__PURE__*/React.createElement("div", {
     className: "stats-controls"
-  }, [['week', 'Nedelja'], ['month', 'Mesec'], ['all', 'Sve']].map(function (_ref28) {
-    var _ref29 = _slicedToArray(_ref28, 2),
-      p = _ref29[0],
-      l = _ref29[1];
+  }, [['week', 'Nedelja'], ['month', 'Mesec'], ['all', 'Sve']].map(function (_ref29) {
+    var _ref30 = _slicedToArray(_ref29, 2),
+      p = _ref30[0],
+      l = _ref30[1];
     return /*#__PURE__*/React.createElement("button", {
       key: p,
       className: "period-btn".concat(period === p ? ' active' : ''),
@@ -2841,51 +3071,60 @@ var CELL_NAV = ['s1_sank', 's1_sala', 's2_sank', 's2_sala', 'ms', 'off'];
 // ── RASPORED MODULE ───────────────────────────────────────────
 function RasporedModule() {
   var syncKey = useContext(SyncCtx);
-  var _useState55 = useState(getISOWeekKey(new Date())),
-    _useState56 = _slicedToArray(_useState55, 2),
-    wk = _useState56[0],
-    setWk = _useState56[1];
-  var _useState57 = useState(db.getRaspored()),
-    _useState58 = _slicedToArray(_useState57, 2),
-    raspored = _useState58[0],
-    setRaspored = _useState58[1];
-  var _useState59 = useState(db.getRadnici()),
-    _useState60 = _slicedToArray(_useState59, 2),
-    radnici = _useState60[0],
-    setRadnici = _useState60[1];
-  var _useState61 = useState(''),
-    _useState62 = _slicedToArray(_useState61, 2),
-    newR = _useState62[0],
-    setNewR = _useState62[1];
-  var _useState63 = useState(false),
-    _useState64 = _slicedToArray(_useState63, 2),
-    copied = _useState64[0],
-    setCopied = _useState64[1];
-  var _useState65 = useState(false),
+  var _useState65 = useState(getISOWeekKey(new Date())),
     _useState66 = _slicedToArray(_useState65, 2),
-    pasteFlash = _useState66[0],
-    setPasteFlash = _useState66[1];
-  var _useState67 = useState(null),
+    wk = _useState66[0],
+    setWk = _useState66[1];
+  var _useState67 = useState(db.getRaspored()),
     _useState68 = _slicedToArray(_useState67, 2),
-    editing = _useState68[0],
-    setEditing = _useState68[1]; // {ds, field}
-  var _useState69 = useState(false),
+    raspored = _useState68[0],
+    setRaspored = _useState68[1];
+  var _useState69 = useState(db.getRadnici()),
     _useState70 = _slicedToArray(_useState69, 2),
-    showStats = _useState70[0],
-    setShowStats = _useState70[1];
-  var _useState71 = useState(db.getDone()),
+    radnici = _useState70[0],
+    setRadnici = _useState70[1];
+  var _useState71 = useState(''),
     _useState72 = _slicedToArray(_useState71, 2),
-    doneAll = _useState72[0],
-    setDoneAll = _useState72[1];
-  var _useState73 = useState(db.getDoneDays()),
+    newR = _useState72[0],
+    setNewR = _useState72[1];
+  var _useState73 = useState(false),
     _useState74 = _slicedToArray(_useState73, 2),
-    doneDaysAll = _useState74[0],
-    setDoneDaysAll = _useState74[1];
+    copied = _useState74[0],
+    setCopied = _useState74[1];
+  var _useState75 = useState(false),
+    _useState76 = _slicedToArray(_useState75, 2),
+    pasteFlash = _useState76[0],
+    setPasteFlash = _useState76[1];
+  var _useState77 = useState(null),
+    _useState78 = _slicedToArray(_useState77, 2),
+    editing = _useState78[0],
+    setEditing = _useState78[1]; // {ds, field}
+  var _useState79 = useState(false),
+    _useState80 = _slicedToArray(_useState79, 2),
+    showStats = _useState80[0],
+    setShowStats = _useState80[1];
+  var _useState81 = useState(db.getDone()),
+    _useState82 = _slicedToArray(_useState81, 2),
+    doneAll = _useState82[0],
+    setDoneAll = _useState82[1];
+  var _useState83 = useState(db.getDoneDays()),
+    _useState84 = _slicedToArray(_useState83, 2),
+    doneDaysAll = _useState84[0],
+    setDoneDaysAll = _useState84[1];
+  var _useState85 = useState(db.getOdmori()),
+    _useState86 = _slicedToArray(_useState85, 2),
+    odmori = _useState86[0],
+    setOdmori = _useState86[1];
+  var _useState87 = useState(false),
+    _useState88 = _slicedToArray(_useState87, 2),
+    showOdmori = _useState88[0],
+    setShowOdmori = _useState88[1];
   useEffect(function () {
     setRaspored(db.getRaspored());
     setRadnici(db.getRadnici());
     setDoneAll(db.getDone());
     setDoneDaysAll(db.getDoneDays());
+    setOdmori(db.getOdmori());
   }, [syncKey]);
   var done = doneAll[wk] || [];
   var toggleDone = function toggleDone(r) {
@@ -2915,13 +3154,13 @@ function RasporedModule() {
   var hasPrevData = Object.values(prevWkData).some(function (d) {
     return (d.s1_sank || []).length || (d.s1_sala || []).length || (d.s2_sank || []).length || (d.s2_sala || []).length || (d.ms || []).length || (d.off || []).length;
   });
-  var _useState75 = useState(function () {
+  var _useState89 = useState(function () {
       var t = getWeekDays(getISOWeekKey(new Date())).indexOf(todayStr);
       return t >= 0 ? t : 0;
     }),
-    _useState76 = _slicedToArray(_useState75, 2),
-    selIdx = _useState76[0],
-    setSelIdx = _useState76[1];
+    _useState90 = _slicedToArray(_useState89, 2),
+    selIdx = _useState90[0],
+    setSelIdx = _useState90[1];
   useEffect(function () {
     var t = days.indexOf(todayStr);
     setSelIdx(t >= 0 ? t : 0);
@@ -3026,6 +3265,56 @@ function RasporedModule() {
     });
     return _toConsumableArray(dupes);
   };
+
+  // ── ODMORI ──
+  var getOdmoriForDay = function getOdmoriForDay(ds) {
+    return odmori.filter(function (o) {
+      return o.od <= ds && ds <= o.do;
+    });
+  };
+  var offDisplay = function offDisplay(ds) {
+    var manual = getDay(ds).off || [];
+    var vac = getOdmoriForDay(ds);
+    var res = manual.map(function (w) {
+      var v = vac.find(function (o) {
+        return o.radnik === w;
+      });
+      return {
+        name: w,
+        tip: v ? v.tip : null
+      };
+    });
+    vac.forEach(function (o) {
+      if (!manual.includes(o.radnik)) res.push({
+        name: o.radnik,
+        tip: o.tip
+      });
+    });
+    return res;
+  };
+  var getVacConflicts = function getVacConflicts(ds) {
+    var d = getDay(ds);
+    var inShift = [].concat(_toConsumableArray(d.s1_sank), _toConsumableArray(d.s1_sala), _toConsumableArray(d.s2_sank), _toConsumableArray(d.s2_sala), _toConsumableArray(d.ms || []));
+    return getOdmoriForDay(ds).filter(function (o) {
+      return inShift.includes(o.radnik);
+    }).map(function (o) {
+      return o.radnik;
+    });
+  };
+  var addOdmor = function addOdmor(o) {
+    var next = [].concat(_toConsumableArray(odmori), [_objectSpread({
+      id: 'od' + Date.now() + Math.floor(Math.random() * 1000)
+    }, o)]);
+    setOdmori(next);
+    db.setOdmori(next);
+  };
+  var rmOdmor = function rmOdmor(id) {
+    var next = odmori.filter(function (o) {
+      return o.id !== id;
+    });
+    setOdmori(next);
+    db.setOdmori(next);
+  };
   var FIELDS = [{
     key: 's1_sank',
     smena: 's1'
@@ -3070,6 +3359,17 @@ function RasporedModule() {
     var newWkData = {};
     days.forEach(function (ds) {
       newWkData[ds] = _objectSpread(_objectSpread({}, getDay(ds)), {}, _defineProperty({}, field, []));
+    });
+    var upd = _objectSpread(_objectSpread({}, raspored), {}, _defineProperty({}, wk, _objectSpread(_objectSpread({}, wkData), newWkData)));
+    setRaspored(upd);
+    db.setRaspored(upd);
+  };
+  var clearNotes = function clearNotes() {
+    var newWkData = {};
+    days.forEach(function (ds) {
+      newWkData[ds] = _objectSpread(_objectSpread({}, getDay(ds)), {}, {
+        napomena: ''
+      });
     });
     var upd = _objectSpread(_objectSpread({}, raspored), {}, _defineProperty({}, wk, _objectSpread(_objectSpread({}, wkData), newWkData)));
     setRaspored(upd);
@@ -3120,7 +3420,15 @@ function RasporedModule() {
         return !s;
       });
     }
-  }, showStats ? 'Raspored' : 'Statistika')), /*#__PURE__*/React.createElement("div", {
+  }, showStats ? 'Raspored' : 'Statistika'), /*#__PURE__*/React.createElement("button", {
+    className: "stats-toggle",
+    style: {
+      marginLeft: 'auto'
+    },
+    onClick: function onClick() {
+      return setShowOdmori(true);
+    }
+  }, "\uD83C\uDF34 Odmori")), /*#__PURE__*/React.createElement("div", {
     className: "radnici-row"
   }, /*#__PURE__*/React.createElement("span", {
     className: "sec-label",
@@ -3221,14 +3529,18 @@ function RasporedModule() {
     }, date.getDate(), ".", date.getMonth() + 1, "."), getDayDupes(ds).length > 0 && /*#__PURE__*/React.createElement("div", {
       className: "day-dupe-warn",
       title: "Duplikat: ".concat(getDayDupes(ds).join(', '))
-    }, "! ", getDayDupes(ds).join(', '))), FIELDS.map(function (f) {
+    }, "! ", getDayDupes(ds).join(', ')), getVacConflicts(ds).length > 0 && /*#__PURE__*/React.createElement("div", {
+      className: "day-dupe-warn",
+      title: "Na odmoru a u smeni: ".concat(getVacConflicts(ds).join(', '))
+    }, "\uD83C\uDF34! ", getVacConflicts(ds).join(', '))), FIELDS.map(function (f) {
       return /*#__PURE__*/React.createElement("td", {
         key: f.key,
         className: "cell-click".concat(d[f.key].length > 0 ? ' filled-' + f.smena : ''),
-        onClick: function onClick() {
+        onClick: function onClick(e) {
           return setEditing({
             ds: ds,
-            field: f.key
+            field: f.key,
+            anchor: ceAnchor(e)
           });
         }
       }, d[f.key].length > 0 ? /*#__PURE__*/React.createElement("div", {
@@ -3243,10 +3555,11 @@ function RasporedModule() {
       }, "\u2014"));
     }), /*#__PURE__*/React.createElement("td", {
       className: "cell-click".concat((d.ms || []).length > 0 ? ' filled-ms' : ''),
-      onClick: function onClick() {
+      onClick: function onClick(e) {
         return setEditing({
           ds: ds,
-          field: 'ms'
+          field: 'ms',
+          anchor: ceAnchor(e)
         });
       }
     }, (d.ms || []).length > 0 ? /*#__PURE__*/React.createElement("div", {
@@ -3259,20 +3572,22 @@ function RasporedModule() {
     })) : /*#__PURE__*/React.createElement("span", {
       className: "muted-cell"
     }, "\u2014")), /*#__PURE__*/React.createElement("td", {
-      className: "cell-click".concat(d.off.length > 0 ? ' filled-off' : ''),
-      onClick: function onClick() {
+      className: "cell-click".concat(offDisplay(ds).length > 0 ? ' filled-off' : ''),
+      onClick: function onClick(e) {
         return setEditing({
           ds: ds,
-          field: 'off'
+          field: 'off',
+          anchor: ceAnchor(e)
         });
       }
-    }, d.off.length > 0 ? /*#__PURE__*/React.createElement("div", {
+    }, offDisplay(ds).length > 0 ? /*#__PURE__*/React.createElement("div", {
       className: "w-pills"
-    }, d.off.map(function (w, j) {
+    }, offDisplay(ds).map(function (o, j) {
       return /*#__PURE__*/React.createElement("span", {
         key: j,
-        className: "w-pill off".concat(done.includes(w) ? ' done' : '')
-      }, w);
+        className: "w-pill off".concat(done.includes(o.name) ? ' done' : ''),
+        title: o.tip === 'more' ? 'More' : o.tip === 'odmor' ? 'Odmor' : ''
+      }, o.name, o.tip ? ' ' + (o.tip === 'more' ? '🌴' : '🧳') : '');
     })) : /*#__PURE__*/React.createElement("span", {
       className: "muted-cell"
     }, "\u2014")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
@@ -3318,9 +3633,9 @@ function RasporedModule() {
   }, {
     field: 'off',
     label: 'Off'
-  }].map(function (_ref30) {
-    var field = _ref30.field,
-      label = _ref30.label;
+  }].map(function (_ref31) {
+    var field = _ref31.field,
+      label = _ref31.label;
     var hasData = days.some(function (ds) {
       return (getDay(ds)[field] || []).length > 0;
     });
@@ -3334,7 +3649,14 @@ function RasporedModule() {
       },
       title: "Obri\u0161i celu kolonu \u2014 ".concat(label)
     }, "\xD7 o\u010Disti"));
-  }), /*#__PURE__*/React.createElement("td", null)))), /*#__PURE__*/React.createElement("div", {
+  }), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
+    className: "col-clear",
+    disabled: !days.some(function (ds) {
+      return (getDay(ds).napomena || '').length > 0;
+    }),
+    onClick: clearNotes,
+    title: "Obri\u0161i sve napomene"
+  }, "\xD7 o\u010Disti"))))), /*#__PURE__*/React.createElement("div", {
     className: "mobile-only"
   }, /*#__PURE__*/React.createElement("div", {
     className: "day-strip"
@@ -3355,28 +3677,34 @@ function RasporedModule() {
     var ds = days[selIdx],
       d = getDay(ds),
       dupes = getDayDupes(ds);
-    var DcRow = function DcRow(_ref31) {
-      var field = _ref31.field,
-        label = _ref31.label,
-        cls = _ref31.cls;
-      var workers = d[field] || [];
+    var DcRow = function DcRow(_ref32) {
+      var field = _ref32.field,
+        label = _ref32.label,
+        cls = _ref32.cls;
+      var workers = field === 'off' ? offDisplay(ds) : (d[field] || []).map(function (w) {
+        return {
+          name: w,
+          tip: null
+        };
+      });
       return /*#__PURE__*/React.createElement("div", {
         className: "dc-row",
-        onClick: function onClick() {
+        onClick: function onClick(e) {
           return setEditing({
             ds: ds,
-            field: field
+            field: field,
+            anchor: ceAnchor(e)
           });
         }
       }, /*#__PURE__*/React.createElement("span", {
         className: "dc-lbl"
       }, label), /*#__PURE__*/React.createElement("div", {
         className: "dc-workers"
-      }, workers.length > 0 ? workers.map(function (w, j) {
+      }, workers.length > 0 ? workers.map(function (o, j) {
         return /*#__PURE__*/React.createElement("span", {
           key: j,
-          className: "w-pill ".concat(cls).concat(done.includes(w) ? ' done' : '')
-        }, w);
+          className: "w-pill ".concat(cls).concat(done.includes(o.name) ? ' done' : '')
+        }, o.name, o.tip ? ' ' + (o.tip === 'more' ? '🌴' : '🧳') : '');
       }) : /*#__PURE__*/React.createElement("span", {
         className: "muted-cell"
       }, "\u2014"), /*#__PURE__*/React.createElement("span", {
@@ -3390,7 +3718,12 @@ function RasporedModule() {
       style: {
         marginBottom: '8px'
       }
-    }, "! Duplikat: ", dupes.join(', ')), /*#__PURE__*/React.createElement("div", {
+    }, "! Duplikat: ", dupes.join(', ')), getVacConflicts(ds).length > 0 && /*#__PURE__*/React.createElement("div", {
+      className: "day-dupe-warn",
+      style: {
+        marginBottom: '8px'
+      }
+    }, "\uD83C\uDF34! ", getVacConflicts(ds).join(', ')), /*#__PURE__*/React.createElement("div", {
       className: "dc-section-lbl"
     }, "I. smena"), /*#__PURE__*/React.createElement(DcRow, {
       field: "s1_sank",
@@ -3473,7 +3806,16 @@ function RasporedModule() {
     onDown: function onDown() {
       return openDown(editing.ds, editing.field);
     },
-    field: editing.field
+    field: editing.field,
+    anchor: editing.anchor
+  }), showOdmori && /*#__PURE__*/React.createElement(OdmoriModal, {
+    radnici: radnici,
+    odmori: odmori,
+    onAdd: addOdmor,
+    onRemove: rmOdmor,
+    onClose: function onClose() {
+      return setShowOdmori(false);
+    }
   }), /*#__PURE__*/React.createElement("button", {
     className: "copy-btn ".concat(copied ? 'ok' : ''),
     onClick: copyText
