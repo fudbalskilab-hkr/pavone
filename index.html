@@ -3061,26 +3061,37 @@ function StatsView(_ref30) {
     _useState66 = _slicedToArray(_useState65, 2),
     period = _useState66[0],
     setPeriod = _useState66[1];
-  var getWeeks = useCallback(function () {
-    var all = Object.keys(raspored).sort();
-    if (period === 'week') return [wk];
-    if (period === 'month') {
-      var _mon = getMondayOfWeek(wk);
-      var m = _mon.getMonth(),
-        y = _mon.getFullYear();
-      return all.filter(function (k) {
-        try {
-          return getWeekDays(k).some(function (d) {
-            var dt = new Date(d);
-            return dt.getMonth() === m && dt.getFullYear() === y;
-          });
-        } catch (_unused) {
-          return false;
-        }
-      });
+  var now0 = getMondayOfWeek(wk);
+  var _useState67 = useState("".concat(now0.getFullYear(), "-").concat(String(now0.getMonth() + 1).padStart(2, '0'))),
+    _useState68 = _slicedToArray(_useState67, 2),
+    selMonth = _useState68[0],
+    setSelMonth = _useState68[1];
+  var _useState69 = useState("".concat(now0.getFullYear(), "-").concat(String(now0.getMonth() + 1).padStart(2, '0'), "-01")),
+    _useState70 = _slicedToArray(_useState69, 2),
+    cOd = _useState70[0],
+    setCOd = _useState70[1];
+  var _useState71 = useState(toDay()),
+    _useState72 = _slicedToArray(_useState71, 2),
+    cDo = _useState72[0],
+    setCDo = _useState72[1];
+
+  // opseg [od, do] u YYYY-MM-DD (dani se filtriraju direktno po ključu)
+  var range = useMemo(function () {
+    if (period === 'week') {
+      var ds = getWeekDays(wk);
+      return [ds[0], ds[6]];
     }
-    return all;
-  }, [raspored, period, wk]);
+    if (period === 'month') {
+      var _selMonth$split$map = selMonth.split('-').map(Number),
+        _selMonth$split$map2 = _slicedToArray(_selMonth$split$map, 2),
+        y = _selMonth$split$map2[0],
+        m = _selMonth$split$map2[1];
+      var last = new Date(y, m, 0).getDate();
+      return ["".concat(selMonth, "-01"), "".concat(selMonth, "-").concat(String(last).padStart(2, '0'))];
+    }
+    if (period === 'custom') return cOd && cDo && cOd <= cDo ? [cOd, cDo] : ['9999-99-99', '9999-99-99'];
+    return null; // sve
+  }, [period, wk, selMonth, cOd, cDo]);
   var stats = useMemo(function () {
     var res = {};
     radnici.forEach(function (r) {
@@ -3091,9 +3102,11 @@ function StatsView(_ref30) {
         total: 0
       };
     });
-    getWeeks().forEach(function (wkKey) {
+    Object.keys(raspored).forEach(function (wkKey) {
       var wd = raspored[wkKey] || {};
-      Object.values(wd).forEach(function (day) {
+      Object.keys(wd).forEach(function (ds) {
+        if (range && (ds < range[0] || ds > range[1])) return;
+        var day = wd[ds];
         if (!day || _typeof(day) !== 'object') return;
         radnici.forEach(function (r) {
           var inS1 = (day.s1_sank || []).includes(r) || (day.s1_sala || []).includes(r);
@@ -3115,7 +3128,7 @@ function StatsView(_ref30) {
       });
     });
     return res;
-  }, [radnici, getWeeks]);
+  }, [radnici, raspored, range]);
   var sorted = _toConsumableArray(radnici).sort(function (a, b) {
     var _stats$b, _stats$a;
     return (((_stats$b = stats[b]) === null || _stats$b === void 0 ? void 0 : _stats$b.total) || 0) - (((_stats$a = stats[a]) === null || _stats$a === void 0 ? void 0 : _stats$a.total) || 0);
@@ -3124,13 +3137,22 @@ function StatsView(_ref30) {
     var _stats$r;
     return ((_stats$r = stats[r]) === null || _stats$r === void 0 ? void 0 : _stats$r.total) || 0;
   })).concat([1]));
-  var mon = getMondayOfWeek(wk);
-  var periodLbl = period === 'week' ? fmtWeekLabel(wk) : period === 'month' ? "".concat(MONTHS[mon.getMonth()].toLowerCase(), " ").concat(mon.getFullYear()) : 'sve vreme';
+  var periodLbl = period === 'week' ? fmtWeekLabel(wk) : period === 'month' ? "".concat(MONTHS[+selMonth.split('-')[1] - 1].toLowerCase(), " ").concat(selMonth.split('-')[0]) : period === 'custom' ? cOd && cDo && cOd <= cDo ? "".concat(fmtOd(cOd), " \u2013 ").concat(fmtOd(cDo)) : 'izaberi period' : 'sve vreme';
+  var ctrlInput = {
+    border: '0.5px solid var(--border)',
+    borderRadius: '6px',
+    padding: '3px 6px',
+    fontSize: '12px',
+    fontFamily: 'inherit'
+  };
   return /*#__PURE__*/React.createElement("div", {
     className: "stats-wrap"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "stats-controls"
-  }, [['week', 'Nedelja'], ['month', 'Mesec'], ['all', 'Sve']].map(function (_ref31) {
+    className: "stats-controls",
+    style: {
+      flexWrap: 'wrap'
+    }
+  }, [['week', 'Nedelja'], ['month', 'Mesec'], ['custom', 'Period'], ['all', 'Sve']].map(function (_ref31) {
     var _ref32 = _slicedToArray(_ref31, 2),
       p = _ref32[0],
       l = _ref32[1];
@@ -3141,7 +3163,36 @@ function StatsView(_ref30) {
         return setPeriod(p);
       }
     }, l);
+  }), period === 'month' && /*#__PURE__*/React.createElement("input", {
+    type: "month",
+    value: selMonth,
+    onChange: function onChange(e) {
+      return e.target.value && setSelMonth(e.target.value);
+    },
+    style: ctrlInput
+  }), period === 'custom' && /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: 'inline-flex',
+      gap: '4px',
+      alignItems: 'center'
+    }
+  }, /*#__PURE__*/React.createElement(DateDMY, {
+    value: cOd,
+    onChange: setCOd,
+    style: _objectSpread(_objectSpread({}, ctrlInput), {}, {
+      width: '104px'
+    })
   }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: '#999'
+    }
+  }, "\u2013"), /*#__PURE__*/React.createElement(DateDMY, {
+    value: cDo,
+    onChange: setCDo,
+    style: _objectSpread(_objectSpread({}, ctrlInput), {}, {
+      width: '104px'
+    })
+  })), /*#__PURE__*/React.createElement("span", {
     className: "stats-period-lbl"
   }, periodLbl)), /*#__PURE__*/React.createElement("div", {
     className: "stats-list"
@@ -3214,54 +3265,54 @@ var CELL_NAV = ['s1_sank', 's1_sala', 's2_sank', 's2_sala', 'ms', 'off'];
 // ── RASPORED MODULE ───────────────────────────────────────────
 function RasporedModule() {
   var syncKey = useContext(SyncCtx);
-  var _useState67 = useState(getISOWeekKey(new Date())),
-    _useState68 = _slicedToArray(_useState67, 2),
-    wk = _useState68[0],
-    setWk = _useState68[1];
-  var _useState69 = useState(db.getRaspored()),
-    _useState70 = _slicedToArray(_useState69, 2),
-    raspored = _useState70[0],
-    setRaspored = _useState70[1];
-  var _useState71 = useState(db.getRadnici()),
-    _useState72 = _slicedToArray(_useState71, 2),
-    radnici = _useState72[0],
-    setRadnici = _useState72[1];
-  var _useState73 = useState(''),
+  var _useState73 = useState(getISOWeekKey(new Date())),
     _useState74 = _slicedToArray(_useState73, 2),
-    newR = _useState74[0],
-    setNewR = _useState74[1];
-  var _useState75 = useState(false),
+    wk = _useState74[0],
+    setWk = _useState74[1];
+  var _useState75 = useState(db.getRaspored()),
     _useState76 = _slicedToArray(_useState75, 2),
-    copied = _useState76[0],
-    setCopied = _useState76[1];
-  var _useState77 = useState(false),
+    raspored = _useState76[0],
+    setRaspored = _useState76[1];
+  var _useState77 = useState(db.getRadnici()),
     _useState78 = _slicedToArray(_useState77, 2),
-    pasteFlash = _useState78[0],
-    setPasteFlash = _useState78[1];
-  var _useState79 = useState(null),
+    radnici = _useState78[0],
+    setRadnici = _useState78[1];
+  var _useState79 = useState(''),
     _useState80 = _slicedToArray(_useState79, 2),
-    editing = _useState80[0],
-    setEditing = _useState80[1]; // {ds, field}
+    newR = _useState80[0],
+    setNewR = _useState80[1];
   var _useState81 = useState(false),
     _useState82 = _slicedToArray(_useState81, 2),
-    showStats = _useState82[0],
-    setShowStats = _useState82[1];
-  var _useState83 = useState(db.getDone()),
+    copied = _useState82[0],
+    setCopied = _useState82[1];
+  var _useState83 = useState(false),
     _useState84 = _slicedToArray(_useState83, 2),
-    doneAll = _useState84[0],
-    setDoneAll = _useState84[1];
-  var _useState85 = useState(db.getDoneDays()),
+    pasteFlash = _useState84[0],
+    setPasteFlash = _useState84[1];
+  var _useState85 = useState(null),
     _useState86 = _slicedToArray(_useState85, 2),
-    doneDaysAll = _useState86[0],
-    setDoneDaysAll = _useState86[1];
-  var _useState87 = useState(db.getOdmori()),
+    editing = _useState86[0],
+    setEditing = _useState86[1]; // {ds, field}
+  var _useState87 = useState(false),
     _useState88 = _slicedToArray(_useState87, 2),
-    odmori = _useState88[0],
-    setOdmori = _useState88[1];
-  var _useState89 = useState(false),
+    showStats = _useState88[0],
+    setShowStats = _useState88[1];
+  var _useState89 = useState(db.getDone()),
     _useState90 = _slicedToArray(_useState89, 2),
-    showOdmori = _useState90[0],
-    setShowOdmori = _useState90[1];
+    doneAll = _useState90[0],
+    setDoneAll = _useState90[1];
+  var _useState91 = useState(db.getDoneDays()),
+    _useState92 = _slicedToArray(_useState91, 2),
+    doneDaysAll = _useState92[0],
+    setDoneDaysAll = _useState92[1];
+  var _useState93 = useState(db.getOdmori()),
+    _useState94 = _slicedToArray(_useState93, 2),
+    odmori = _useState94[0],
+    setOdmori = _useState94[1];
+  var _useState95 = useState(false),
+    _useState96 = _slicedToArray(_useState95, 2),
+    showOdmori = _useState96[0],
+    setShowOdmori = _useState96[1];
   useEffect(function () {
     setRaspored(db.getRaspored());
     setRadnici(db.getRadnici());
@@ -3297,13 +3348,13 @@ function RasporedModule() {
   var hasPrevData = Object.values(prevWkData).some(function (d) {
     return (d.s1_sank || []).length || (d.s1_sala || []).length || (d.s2_sank || []).length || (d.s2_sala || []).length || (d.ms || []).length || (d.off || []).length;
   });
-  var _useState91 = useState(function () {
+  var _useState97 = useState(function () {
       var t = getWeekDays(getISOWeekKey(new Date())).indexOf(todayStr);
       return t >= 0 ? t : 0;
     }),
-    _useState92 = _slicedToArray(_useState91, 2),
-    selIdx = _useState92[0],
-    setSelIdx = _useState92[1];
+    _useState98 = _slicedToArray(_useState97, 2),
+    selIdx = _useState98[0],
+    setSelIdx = _useState98[1];
   useEffect(function () {
     var t = days.indexOf(todayStr);
     setSelIdx(t >= 0 ? t : 0);
