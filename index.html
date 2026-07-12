@@ -3535,7 +3535,7 @@ function RasporedModule() {
   // Nacrtaj raspored kao sliku (bez OFF i NAPOMENA) i kopiraj u clipboard (fallback: download)
   var slikaRasporeda = /*#__PURE__*/function () {
     var _slikaRasporeda = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-      var scale, FONT, COLS, padX, padY, titleH, h1, h2, rowH, tableW, W, H, cv, ctx, xs, cx, xEnd, colX, colC, yTop, yH2, yBody, gridBottom, i, y, item, _t2;
+      var scale, FONT, COLS, padX, padY, titleH, h1, h2, rowH, tableW, W, H, cv, ctx, xs, cx, xEnd, colX, colC, yTop, yH2, yBody, gridBottom, cellTint, pillCol, smenaOf, rr, i, y, item, _t2;
       return _regenerator().w(function (_context2) {
         while (1) switch (_context2.p = _context2.n) {
           case 0:
@@ -3619,34 +3619,81 @@ function RasporedModule() {
             });
             ctx.stroke();
 
-            // redovi
+            // boje po smeni (kao u rasporedu)
+            cellTint = {
+              s1: '#f6f2ff',
+              s2: '#eefdfa',
+              ms: '#fffdf0'
+            };
+            pillCol = {
+              s1: '#e9d5ff',
+              s2: '#ccfbf1',
+              ms: '#fef9c3'
+            };
+            smenaOf = function smenaOf(idx) {
+              return idx <= 2 ? 's1' : idx <= 4 ? 's2' : 'ms';
+            };
+            rr = function rr(x, y, w, h, r) {
+              ctx.beginPath();
+              ctx.moveTo(x + r, y);
+              ctx.arcTo(x + w, y, x + w, y + h, r);
+              ctx.arcTo(x + w, y + h, x, y + h, r);
+              ctx.arcTo(x, y + h, x, y, r);
+              ctx.arcTo(x, y, x + w, y, r);
+              ctx.closePath();
+            }; // redovi
             days.forEach(function (ds, i) {
               var d = getDay(ds),
                 date = new Date(ds),
-                y = yBody + i * rowH;
-              if (i % 2 === 1) {
-                ctx.fillStyle = '#f7f7f8';
-                ctx.fillRect(padX, y, tableW, rowH);
-              }
+                y = yBody + i * rowH,
+                yc = y + rowH / 2;
+              [1, 2, 3, 4, 5].forEach(function (idx) {
+                ctx.fillStyle = cellTint[smenaOf(idx)];
+                ctx.fillRect(colX(idx), y, COLS[idx].w, rowH);
+              });
               ctx.textAlign = 'left';
               ctx.fillStyle = '#0f0f0f';
               ctx.font = '700 12px ' + FONT;
-              ctx.fillText(DANI[i], colX(0) + 10, y + rowH / 2 - 7);
+              ctx.fillText(DANI[i], colX(0) + 10, yc - 7);
               ctx.fillStyle = '#999';
               ctx.font = '400 11px ' + FONT;
-              ctx.fillText("".concat(date.getDate(), ".").concat(date.getMonth() + 1, "."), colX(0) + 10, y + rowH / 2 + 8);
-              ctx.textAlign = 'center';
-              ctx.font = '500 12px ' + FONT;
-              var draw = function draw(idx, arr) {
-                var has = arr && arr.length;
-                ctx.fillStyle = has ? '#111' : '#cccccc';
-                ctx.fillText(has ? arr.join(' / ') : '—', colC(idx), y + rowH / 2);
+              ctx.fillText("".concat(date.getDate(), ".").concat(date.getMonth() + 1, "."), colX(0) + 10, yc + 8);
+              var drawCell = function drawCell(idx, arr) {
+                if (!arr || !arr.length) {
+                  ctx.textAlign = 'center';
+                  ctx.fillStyle = '#c9c9cf';
+                  ctx.font = '500 12px ' + FONT;
+                  ctx.fillText('—', colC(idx), yc);
+                  return;
+                }
+                var col = pillCol[smenaOf(idx)];
+                ctx.font = '600 12px ' + FONT;
+                ctx.textAlign = 'center';
+                var gap = 4,
+                  pad = 8,
+                  ph = 20;
+                var ws = arr.map(function (w) {
+                  return Math.ceil(ctx.measureText(w).width) + pad * 2;
+                });
+                var total = ws.reduce(function (a, b) {
+                  return a + b;
+                }, 0) + gap * (arr.length - 1);
+                var px = colC(idx) - total / 2;
+                arr.forEach(function (w, k) {
+                  var pw = ws[k];
+                  rr(px, yc - ph / 2, pw, ph, 9);
+                  ctx.fillStyle = col;
+                  ctx.fill();
+                  ctx.fillStyle = '#333';
+                  ctx.fillText(w, px + pw / 2, yc);
+                  px += pw + gap;
+                });
               };
-              draw(1, d.s1_sank);
-              draw(2, d.s1_sala);
-              draw(3, d.s2_sank);
-              draw(4, d.s2_sala);
-              draw(5, d.ms);
+              drawCell(1, d.s1_sank);
+              drawCell(2, d.s1_sala);
+              drawCell(3, d.s2_sank);
+              drawCell(4, d.s2_sala);
+              drawCell(5, d.ms);
             });
 
             // linije
