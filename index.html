@@ -1094,7 +1094,8 @@ var KEYS = {
   RASHODI: 'pavone-rashodi',
   DONE: 'pavone-done',
   DONEDAYS: 'pavone-donedays',
-  ODMORI: 'pavone-odmori'
+  ODMORI: 'pavone-odmori',
+  DNEVNICE: 'pavone-dnevnice'
 };
 var DEFAULT_RASHODI = [{
   id: 'maxi',
@@ -1227,6 +1228,15 @@ var db = {
     COL.doc('odmori').set({
       list: v
     }).catch(console.warn);
+  },
+  getDnevnice: function getDnevnice() {
+    return JSON.parse(localStorage.getItem(KEYS.DNEVNICE) || '{}');
+  },
+  setDnevnice: function setDnevnice(v) {
+    localStorage.setItem(KEYS.DNEVNICE, JSON.stringify(v));
+    COL.doc('dnevnice').set({
+      data: v
+    }).catch(console.warn);
   }
 };
 var SyncCtx = createContext(0);
@@ -1358,7 +1368,7 @@ function App() {
     };
     var load = /*#__PURE__*/function () {
       var _load = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var _yield$Promise$all, _yield$Promise$all2, pazar, raspored, radnici, rashodi, done, doneDays, odmori, _t;
+        var _yield$Promise$all, _yield$Promise$all2, pazar, raspored, radnici, rashodi, done, doneDays, odmori, dnevnice, _t;
         return _regenerator().w(function (_context) {
           while (1) switch (_context.p = _context.n) {
             case 0:
@@ -1368,10 +1378,10 @@ function App() {
                 return localStorage.removeItem(k);
               });
               _context.n = 1;
-              return Promise.all([COL.doc('pazar').get(), COL.doc('raspored').get(), COL.doc('radnici').get(), COL.doc('rashodi').get(), COL.doc('done').get(), COL.doc('donedays').get(), COL.doc('odmori').get()]);
+              return Promise.all([COL.doc('pazar').get(), COL.doc('raspored').get(), COL.doc('radnici').get(), COL.doc('rashodi').get(), COL.doc('done').get(), COL.doc('donedays').get(), COL.doc('odmori').get(), COL.doc('dnevnice').get()]);
             case 1:
               _yield$Promise$all = _context.v;
-              _yield$Promise$all2 = _slicedToArray(_yield$Promise$all, 7);
+              _yield$Promise$all2 = _slicedToArray(_yield$Promise$all, 8);
               pazar = _yield$Promise$all2[0];
               raspored = _yield$Promise$all2[1];
               radnici = _yield$Promise$all2[2];
@@ -1379,6 +1389,7 @@ function App() {
               done = _yield$Promise$all2[4];
               doneDays = _yield$Promise$all2[5];
               odmori = _yield$Promise$all2[6];
+              dnevnice = _yield$Promise$all2[7];
               if (pazar.exists) localStorage.setItem(KEYS.PAZAR, JSON.stringify(pazar.data().items || []));
               if (raspored.exists) localStorage.setItem(KEYS.RASPORED, JSON.stringify(raspored.data().data || {}));
               if (radnici.exists) localStorage.setItem(KEYS.RADNICI, JSON.stringify(radnici.data().list || DEFAULT_RADNICI));
@@ -1386,6 +1397,7 @@ function App() {
               if (done.exists) localStorage.setItem(KEYS.DONE, JSON.stringify(done.data().data || {}));
               if (doneDays.exists) localStorage.setItem(KEYS.DONEDAYS, JSON.stringify(doneDays.data().data || {}));
               if (odmori.exists) localStorage.setItem(KEYS.ODMORI, JSON.stringify(odmori.data().list || []));
+              if (dnevnice.exists) localStorage.setItem(KEYS.DNEVNICE, JSON.stringify(dnevnice.data().data || {}));
               _context.n = 3;
               break;
             case 2:
@@ -1423,6 +1435,8 @@ function App() {
       if (s.exists && !s.metadata.hasPendingWrites) bump(KEYS.DONEDAYS, s.data().data || {});
     }), COL.doc('odmori').onSnapshot(function (s) {
       if (s.exists && !s.metadata.hasPendingWrites) bump(KEYS.ODMORI, s.data().list || []);
+    }), COL.doc('dnevnice').onSnapshot(function (s) {
+      if (s.exists && !s.metadata.hasPendingWrites) bump(KEYS.DNEVNICE, s.data().data || {});
     })];
     return function () {
       readyRef.current = false;
@@ -3056,7 +3070,10 @@ function CellEditor(_ref29) {
 function StatsView(_ref30) {
   var raspored = _ref30.raspored,
     radnici = _ref30.radnici,
-    wk = _ref30.wk;
+    wk = _ref30.wk,
+    _ref30$dnevnice = _ref30.dnevnice,
+    dnevnice = _ref30$dnevnice === void 0 ? {} : _ref30$dnevnice,
+    onDnevnica = _ref30.onDnevnica;
   var _useState65 = useState('month'),
     _useState66 = _slicedToArray(_useState65, 2),
     period = _useState66[0],
@@ -3258,7 +3275,128 @@ function StatsView(_ref30) {
     className: "leg-item"
   }, /*#__PURE__*/React.createElement("span", {
     className: "leg-dot ms"
-  }), "Me\u0111usmena")));
+  }), "Me\u0111usmena")), onDnevnica && /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: '26px'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontWeight: 700,
+      fontSize: '15px',
+      marginBottom: '2px'
+    }
+  }, "Obra\u010Dun plata"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: '11px',
+      color: '#999',
+      marginBottom: '10px'
+    }
+  }, "Plata = dnevnica \xD7 broj smena za izabrani period (", periodLbl, "). Za obra\u010Dun na 15 dana izaberi \u201EPeriod\" gore i unesi od\u2013do."), /*#__PURE__*/React.createElement("div", {
+    style: {
+      overflowX: 'auto'
+    }
+  }, /*#__PURE__*/React.createElement("table", {
+    style: {
+      width: '100%',
+      borderCollapse: 'collapse',
+      fontSize: '13px'
+    }
+  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", {
+    style: {
+      textAlign: 'left',
+      color: '#888',
+      fontSize: '11px'
+    }
+  }, /*#__PURE__*/React.createElement("th", {
+    style: {
+      padding: '6px 8px'
+    }
+  }, "RADNIK"), /*#__PURE__*/React.createElement("th", {
+    style: {
+      padding: '6px 8px',
+      textAlign: 'right'
+    }
+  }, "DNEVNICA"), /*#__PURE__*/React.createElement("th", {
+    style: {
+      padding: '6px 8px',
+      textAlign: 'center'
+    }
+  }, "SMENE"), /*#__PURE__*/React.createElement("th", {
+    style: {
+      padding: '6px 8px',
+      textAlign: 'right'
+    }
+  }, "PLATA"))), /*#__PURE__*/React.createElement("tbody", null, _toConsumableArray(radnici).sort(function (a, b) {
+    return a.localeCompare(b, 'sr');
+  }).map(function (r) {
+    var _stats$r2, _dnevnice$r;
+    var dn = dnevnice[r] || 0,
+      sm = ((_stats$r2 = stats[r]) === null || _stats$r2 === void 0 ? void 0 : _stats$r2.total) || 0;
+    return /*#__PURE__*/React.createElement("tr", {
+      key: r,
+      style: {
+        borderTop: '0.5px solid var(--border)'
+      }
+    }, /*#__PURE__*/React.createElement("td", {
+      style: {
+        padding: '6px 8px',
+        fontWeight: 600
+      }
+    }, r), /*#__PURE__*/React.createElement("td", {
+      style: {
+        padding: '6px 8px',
+        textAlign: 'right'
+      }
+    }, /*#__PURE__*/React.createElement("input", {
+      type: "number",
+      inputMode: "numeric",
+      value: (_dnevnice$r = dnevnice[r]) !== null && _dnevnice$r !== void 0 ? _dnevnice$r : '',
+      placeholder: "0",
+      onChange: function onChange(e) {
+        return onDnevnica(r, e.target.value === '' ? 0 : Number(e.target.value));
+      },
+      style: {
+        width: '92px',
+        textAlign: 'right',
+        border: '0.5px solid var(--border)',
+        borderRadius: '5px',
+        padding: '3px 6px',
+        fontSize: '13px',
+        fontFamily: 'inherit'
+      }
+    })), /*#__PURE__*/React.createElement("td", {
+      style: {
+        padding: '6px 8px',
+        textAlign: 'center',
+        color: '#666'
+      }
+    }, sm), /*#__PURE__*/React.createElement("td", {
+      style: {
+        padding: '6px 8px',
+        textAlign: 'right',
+        fontWeight: 700
+      }
+    }, (dn * sm).toLocaleString('sr-RS')));
+  })), /*#__PURE__*/React.createElement("tfoot", null, /*#__PURE__*/React.createElement("tr", {
+    style: {
+      borderTop: '1.5px solid var(--charcoal)'
+    }
+  }, /*#__PURE__*/React.createElement("td", {
+    style: {
+      padding: '8px',
+      fontWeight: 700
+    },
+    colSpan: 3
+  }, "Ukupno"), /*#__PURE__*/React.createElement("td", {
+    style: {
+      padding: '8px',
+      textAlign: 'right',
+      fontWeight: 800
+    }
+  }, _toConsumableArray(radnici).reduce(function (a, r) {
+    var _stats$r3;
+    return a + (dnevnice[r] || 0) * (((_stats$r3 = stats[r]) === null || _stats$r3 === void 0 ? void 0 : _stats$r3.total) || 0);
+  }, 0).toLocaleString('sr-RS'))))))));
 }
 var CELL_NAV = ['s1_sank', 's1_sala', 's2_sank', 's2_sala', 'ms', 'off'];
 
@@ -3313,13 +3451,23 @@ function RasporedModule() {
     _useState96 = _slicedToArray(_useState95, 2),
     showOdmori = _useState96[0],
     setShowOdmori = _useState96[1];
+  var _useState97 = useState(db.getDnevnice()),
+    _useState98 = _slicedToArray(_useState97, 2),
+    dnevnice = _useState98[0],
+    setDnevnice = _useState98[1];
   useEffect(function () {
     setRaspored(db.getRaspored());
     setRadnici(db.getRadnici());
     setDoneAll(db.getDone());
     setDoneDaysAll(db.getDoneDays());
     setOdmori(db.getOdmori());
+    setDnevnice(db.getDnevnice());
   }, [syncKey]);
+  var updDnevnica = function updDnevnica(radnik, val) {
+    var next = _objectSpread(_objectSpread({}, dnevnice), {}, _defineProperty({}, radnik, val));
+    setDnevnice(next);
+    db.setDnevnice(next);
+  };
   var done = doneAll[wk] || [];
   var toggleDone = function toggleDone(r) {
     var cur = doneAll[wk] || [];
@@ -3348,13 +3496,13 @@ function RasporedModule() {
   var hasPrevData = Object.values(prevWkData).some(function (d) {
     return (d.s1_sank || []).length || (d.s1_sala || []).length || (d.s2_sank || []).length || (d.s2_sala || []).length || (d.ms || []).length || (d.off || []).length;
   });
-  var _useState97 = useState(function () {
+  var _useState99 = useState(function () {
       var t = getWeekDays(getISOWeekKey(new Date())).indexOf(todayStr);
       return t >= 0 ? t : 0;
     }),
-    _useState98 = _slicedToArray(_useState97, 2),
-    selIdx = _useState98[0],
-    setSelIdx = _useState98[1];
+    _useState100 = _slicedToArray(_useState99, 2),
+    selIdx = _useState100[0],
+    setSelIdx = _useState100[1];
   useEffect(function () {
     var t = days.indexOf(todayStr);
     setSelIdx(t >= 0 ? t : 0);
@@ -3907,7 +4055,9 @@ function RasporedModule() {
   }, pasteFlash ? 'Kopirano ✓' : '↑ Kopiraj prošlu')), showStats ? /*#__PURE__*/React.createElement(StatsView, {
     raspored: raspored,
     radnici: radnici,
-    wk: wk
+    wk: wk,
+    dnevnice: dnevnice,
+    onDnevnica: updDnevnica
   }) : /*#__PURE__*/React.createElement("div", {
     className: "raspored-layout"
   }, /*#__PURE__*/React.createElement("div", {
