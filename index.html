@@ -2878,7 +2878,9 @@ function CellEditor(_ref29) {
     onNext = _ref29.onNext,
     onDown = _ref29.onDown,
     field = _ref29.field,
-    anchor = _ref29.anchor;
+    anchor = _ref29.anchor,
+    _ref29$naOdmoru = _ref29.naOdmoru,
+    naOdmoru = _ref29$naOdmoru === void 0 ? [] : _ref29$naOdmoru;
   var _useState59 = useState(''),
     _useState60 = _slicedToArray(_useState59, 2),
     query = _useState60[0],
@@ -2923,8 +2925,12 @@ function CellEditor(_ref29) {
       top: top
     });
   }, [anchor, query, selected.length]);
+  var onVac = new Set(naOdmoru);
   var suggestions = radnici.filter(function (r) {
-    return !selected.includes(r) && r.toLowerCase().startsWith(query.toLowerCase());
+    return !selected.includes(r) && !onVac.has(r) && r.toLowerCase().startsWith(query.toLowerCase());
+  });
+  var naOdmoruList = radnici.filter(function (r) {
+    return onVac.has(r) && !selected.includes(r) && r.toLowerCase().startsWith(query.toLowerCase());
   });
   useEffect(function () {
     setActiveIdx(0);
@@ -3015,7 +3021,7 @@ function CellEditor(_ref29) {
     onKeyDown: handleKey
   }), /*#__PURE__*/React.createElement("div", {
     className: "ce-suggestions"
-  }, query.length > 0 && suggestions.length === 0 && /*#__PURE__*/React.createElement("div", {
+  }, query.length > 0 && suggestions.length === 0 && naOdmoruList.length === 0 && /*#__PURE__*/React.createElement("div", {
     className: "ce-no-match"
   }, "Nema podudaranja"), suggestions.map(function (r, i) {
     return /*#__PURE__*/React.createElement("div", {
@@ -3028,6 +3034,21 @@ function CellEditor(_ref29) {
         return setActiveIdx(i);
       }
     }, r);
+  }), naOdmoruList.map(function (r) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: r,
+      title: "Na odmoru/moru \u2014 nije dostupan tog dana",
+      style: {
+        padding: '7px 13px',
+        fontSize: '13px',
+        border: '0.5px solid var(--border)',
+        borderRadius: '20px',
+        background: '#fafafa',
+        color: '#bbb',
+        cursor: 'not-allowed',
+        textDecoration: 'line-through'
+      }
+    }, r, " \uD83C\uDF34");
   }))));
 }
 
@@ -4162,7 +4183,10 @@ function RasporedModule() {
       return openDown(editing.ds, editing.field);
     },
     field: editing.field,
-    anchor: editing.anchor
+    anchor: editing.anchor,
+    naOdmoru: getOdmoriForDay(editing.ds).map(function (o) {
+      return o.radnik;
+    })
   }), showOdmori && /*#__PURE__*/React.createElement(OdmoriModal, {
     radnici: radnici,
     odmori: odmori,
